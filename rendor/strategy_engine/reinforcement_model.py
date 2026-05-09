@@ -5,6 +5,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from . import MODELS_DIR
+
 
 POLICY_CONFIGS = {
     "marketing_strength": {
@@ -96,9 +98,7 @@ POLICY_CONFIGS = {
     },
 }
 
-DEFAULT_CHECKPOINT_PATH = (
-    Path(__file__).resolve().parent / "models" / "heuristic_checkpoint.json"
-)
+DEFAULT_CHECKPOINT_PATH = MODELS_DIR / "heuristic_checkpoint.json"
 
 
 def _softmax(values):

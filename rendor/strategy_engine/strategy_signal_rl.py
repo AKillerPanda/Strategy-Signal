@@ -5,6 +5,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from . import MODELS_DIR
+
 
 ACTIONS = [
     "increase ad spend",
@@ -72,9 +74,7 @@ ACTION_EFFECTS = {
     },
 }
 
-DEFAULT_RL_CHECKPOINT_PATH = (
-    Path(__file__).resolve().parent / "models" / "strategysignal_rl_policy.json"
-)
+DEFAULT_RL_CHECKPOINT_PATH = MODELS_DIR / "strategysignal_rl_policy.json"
 
 
 def _normalize_frame(feature_frame):

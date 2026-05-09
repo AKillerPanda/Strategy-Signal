@@ -2,10 +2,10 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
+from . import DATA_DIR
 
-DEFAULT_COMPETITOR_FILE = (
-    Path(__file__).resolve().parent / "data" / "competitors_by_category.json"
-)
+
+DEFAULT_COMPETITOR_FILE = DATA_DIR / "competitors_by_category.json"
 
 
 @lru_cache(maxsize=2)

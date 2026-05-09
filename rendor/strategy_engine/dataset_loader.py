@@ -6,15 +6,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from market_data import lookup_market_competitors
-from predictive_models import train_predictive_models
-from reinforcement_model import POLICY_CONFIGS, learn_heuristic_scores, save_heuristic_checkpoint
-from strategy_signal_rl import build_strategy_timeseries, train_rl_policy
+from . import MODELS_DIR
+from .market_data import lookup_market_competitors
+from .predictive_models import train_predictive_models
+from .reinforcement_model import POLICY_CONFIGS, learn_heuristic_scores, save_heuristic_checkpoint
+from .strategy_signal_rl import build_strategy_timeseries, train_rl_policy
 
 
-SCENARIO_SNAPSHOT_PATH = (
-    Path(__file__).resolve().parent / "models" / "scenario_snapshot.json"
-)
+SCENARIO_SNAPSHOT_PATH = MODELS_DIR / "scenario_snapshot.json"
 
 
 def _json_default(value):

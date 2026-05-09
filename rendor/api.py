@@ -5,8 +5,8 @@ from fastapi import Depends, FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from dataset_loader import has_scenario_snapshot, load_scenario_from_checkpoints
-from evaluator import evaluate_strategy
+from strategy_engine.dataset_loader import has_scenario_snapshot, load_scenario_from_checkpoints
+from strategy_engine.evaluator import evaluate_strategy
 
 
 def _load_cors_origins() -> List[str]:

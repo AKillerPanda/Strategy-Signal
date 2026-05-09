@@ -13,6 +13,8 @@ The mobile app captures startup inputs and surfaces scorecards, charts, watchlis
 
 - Newly / Expo mobile app in the root project
 - Python FastAPI backend in `rendor/`
+- backend source package in `rendor/strategy_engine/`
+- hackathon docs in `docs/`
 - graph-based structural analysis for startup plans
 - game-theory payoff scoring for launch posture selection
 - saved heuristic, predictive, RL, and scenario checkpoints for demo flows
@@ -36,17 +38,17 @@ flowchart TD
     Client -->|GET /saved-scenario| API
     Client -->|GET /health| API
 
-    API --> Eval[rendor/evaluator.py<br/>Strategy Evaluation Pipeline]
+    API --> Eval[rendor/strategy_engine/evaluator.py<br/>Strategy Evaluation Pipeline]
 
-    Eval --> Graph[rendor/graph_model.py<br/>Graph Analysis]
-    Eval --> Game[rendor/game_theory.py<br/>Launch Payoff Model]
-    Eval --> Recs[rendor/rlagent.py<br/>Recommendation Layer]
+    Eval --> Graph[rendor/strategy_engine/graph_model.py<br/>Graph Analysis]
+    Eval --> Game[rendor/strategy_engine/game_theory.py<br/>Launch Payoff Model]
+    Eval --> Recs[rendor/strategy_engine/rlagent.py<br/>Recommendation Layer]
 
     Graph --> Spectral[Normalized Laplacian<br/>Fiedler Value<br/>Fragmentation Score]
     Game --> Payoff[Aggressive Launch<br/>Delayed Launch<br/>Niche Positioning]
     Recs --> Advice[Next-Step Recommendations<br/>Risk Warnings]
 
-    API --> Loader[rendor/dataset_loader.py<br/>Saved Scenario Loader]
+    API --> Loader[rendor/strategy_engine/dataset_loader.py<br/>Saved Scenario Loader]
     Loader --> Models[rendor/models<br/>Saved Checkpoints]
 
     Models --> H[heuristic_checkpoint.json<br/>Learned Heuristics]
@@ -54,7 +56,7 @@ flowchart TD
     Models --> R[strategysignal_rl_policy.json<br/>Experimental RL Policy]
     Models --> SS[scenario_snapshot.json<br/>Demo Scenario Snapshot]
 
-    API --> Market[rendor/market_data.py<br/>Competitor / Brand Proxy Lookup]
+    API --> Market[rendor/strategy_engine/market_data.py<br/>Competitor / Brand Proxy Lookup]
     Market --> Data[rendor/data<br/>competitors_by_category.json]
 
     Spectral --> Response[JSON Strategy Response]
@@ -105,24 +107,24 @@ sequenceDiagram
 | Mobile UI | Newly / Expo / React Native | Collects founder inputs and displays the strategy dashboard |
 | API Client | `utils/api.ts` | Sends requests from the mobile app to the backend |
 | Backend API | FastAPI in `rendor/api.py` | Exposes `/evaluate`, `/saved-scenario`, and health endpoints |
-| Strategy Engine | Python modules in `rendor/` | Runs graph analysis, payoff scoring, recommendations, and checkpoint loading |
+| Strategy Engine | Python modules in `rendor/strategy_engine/` | Runs graph analysis, payoff scoring, recommendations, and checkpoint loading |
 | Saved Artifacts | JSON + Joblib files in `rendor/models/` | Support fast demo scenarios without retraining |
-| Data Helpers | `market_data.py` + JSON data | Support competitor / brand proxy lookup |
+| Data Helpers | `strategy_engine/market_data.py` + JSON data | Support competitor / brand proxy lookup |
 
 ## Evaluation Pipeline
 
 ```mermaid
 flowchart LR
     A[Startup Inputs] --> B[FastAPI /evaluate]
-    B --> C[evaluator.py]
+    B --> C[strategy_engine/evaluator.py]
 
-    C --> D[graph_model.py]
+    C --> D[strategy_engine/graph_model.py]
     D --> E[Fragmentation Score]
 
-    C --> F[game_theory.py]
+    C --> F[strategy_engine/game_theory.py]
     F --> G[Best Launch Strategy]
 
-    C --> H[rlagent.py]
+    C --> H[strategy_engine/rlagent.py]
     H --> I[Recommendations]
 
     E --> J[Final Strategy Score]
@@ -137,6 +139,11 @@ flowchart LR
 
 ```text
 ml hackathon/
+|-- .gitignore
+|-- README.md
+|-- package.json
+|-- app.json
+|-- tsconfig.json
 |-- app/
 |-- components/
 |-- assets/
@@ -144,23 +151,22 @@ ml hackathon/
 |-- contexts/
 |-- styles/
 |-- utils/
-|-- package.json
-|-- app.json
-|-- README.md
 |-- rendor/
-|   |-- api.py
-|   |-- dataset_loader.py
-|   |-- evaluator.py
-|   |-- game_theory.py
-|   |-- gametheory.py
-|   |-- graph_model.py
-|   |-- market_data.py
-|   |-- predictive_models.py
-|   |-- reinforcement_model.py
-|   |-- rlagent.py
-|   |-- strategy_signal_rl.py
-|   |-- requirements.txt
 |   |-- README.md
+|   |-- requirements.txt
+|   |-- api.py
+|   |-- strategy_engine/
+|   |   |-- __init__.py
+|   |   |-- dataset_loader.py
+|   |   |-- evaluator.py
+|   |   |-- game_theory.py
+|   |   |-- gametheory.py
+|   |   |-- graph_model.py
+|   |   |-- market_data.py
+|   |   |-- predictive_models.py
+|   |   |-- reinforcement_model.py
+|   |   |-- rlagent.py
+|   |   |-- strategy_signal_rl.py
 |   |-- data/
 |   |   |-- competitors_by_category.json
 |   |-- models/
@@ -168,13 +174,29 @@ ml hackathon/
 |   |   |-- strategysignal_predictive.joblib
 |   |   |-- strategysignal_rl_policy.json
 |   |   |-- scenario_snapshot.json
+|-- docs/
+|   |-- architecture.md
+|   |-- demo-script.md
+|   |-- newly_prompt.md
 ```
+
+## Project Structure
+
+This repo is separated into three areas:
+
+| Area | Folder | Purpose |
+| --- | --- | --- |
+| Mobile app | `app/`, `components/`, `constants/`, `contexts/`, `styles/`, `utils/`, `assets/` | Newly / Expo React Native frontend |
+| Python backend | `rendor/` | FastAPI backend and packaged strategy engine |
+| Docs | `docs/` | Architecture notes, demo script, and mobile generation prompt |
+
+The mobile app calls the Python backend through `utils/api.ts`. The backend exposes `/evaluate` and `/saved-scenario` from `rendor/api.py`.
 
 ## How It Works
 
 1. The mobile app collects product, channel, milestone, and competitive inputs.
 2. The app posts those inputs to the FastAPI backend in `rendor/api.py`.
-3. The backend evaluates the strategy using graph structure, launch payoff scoring, and recommendation logic.
+3. The backend evaluates the strategy using the packaged modules in `rendor/strategy_engine/`.
 4. Saved checkpoint artifacts in `rendor/models/` support fast demo playback without retraining.
 5. The mobile UI turns the response into scorecards, trends, and next-step recommendations.
 
@@ -205,7 +227,7 @@ Useful scripts:
 
 ## Python Backend
 
-The backend bundle lives in `rendor/` and exposes the evaluation endpoints consumed by the mobile app.
+The backend bundle lives in `rendor/` and exposes the evaluation endpoints consumed by the mobile app. The FastAPI entrypoint stays at `rendor/api.py`, while the strategy engine source now lives under `rendor/strategy_engine/`.
 
 Main endpoints:
 
@@ -257,13 +279,13 @@ The Python backend evaluates startup strategies with four layers:
 
 Core backend modules:
 
-- `rendor/evaluator.py`
-- `rendor/graph_model.py`
-- `rendor/game_theory.py`
-- `rendor/predictive_models.py`
-- `rendor/reinforcement_model.py`
-- `rendor/strategy_signal_rl.py`
-- `rendor/rlagent.py`
+- `rendor/strategy_engine/evaluator.py`
+- `rendor/strategy_engine/graph_model.py`
+- `rendor/strategy_engine/game_theory.py`
+- `rendor/strategy_engine/predictive_models.py`
+- `rendor/strategy_engine/reinforcement_model.py`
+- `rendor/strategy_engine/strategy_signal_rl.py`
+- `rendor/strategy_engine/rlagent.py`
 
 ## Demo Data
 

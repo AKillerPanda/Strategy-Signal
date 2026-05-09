@@ -4,19 +4,20 @@ This folder is a portable backend bundle copied from the main project for mobile
 
 It now also includes a small FastAPI wrapper in `api.py` so a Newly mobile app can call this bundle as an external backend.
 
-It includes the core Python strategy engine files:
+It includes the FastAPI entrypoint plus a dedicated `strategy_engine/` package for the core Python evaluation logic:
 
 - `api.py`
-- `dataset_loader.py`
-- `evaluator.py`
-- `game_theory.py`
-- `gametheory.py`
-- `graph_model.py`
-- `market_data.py`
-- `predictive_models.py`
-- `reinforcement_model.py`
-- `rlagent.py`
-- `strategy_signal_rl.py`
+- `strategy_engine/__init__.py`
+- `strategy_engine/dataset_loader.py`
+- `strategy_engine/evaluator.py`
+- `strategy_engine/game_theory.py`
+- `strategy_engine/gametheory.py`
+- `strategy_engine/graph_model.py`
+- `strategy_engine/market_data.py`
+- `strategy_engine/predictive_models.py`
+- `strategy_engine/reinforcement_model.py`
+- `strategy_engine/rlagent.py`
+- `strategy_engine/strategy_signal_rl.py`
 
 It also includes the copied data and checkpoint artifacts needed for a mobile demo flow:
 
@@ -38,8 +39,8 @@ Use this bundle when you want a mobile app backend without the Streamlit UI. The
 Typical mobile-backend entry points:
 
 - `api.py` for HTTP endpoints that a React Native / Newly app can call
-- `load_scenario_from_checkpoints()` from `dataset_loader.py` for fast saved-checkpoint demos
-- `evaluate_strategy()` from `evaluator.py` for manual strategy input flows
+- `load_scenario_from_checkpoints()` from `strategy_engine/dataset_loader.py` for fast saved-checkpoint demos
+- `evaluate_strategy()` from `strategy_engine/evaluator.py` for manual strategy input flows
 
 Install dependencies from this folder with:
 
@@ -93,12 +94,12 @@ If you deploy from the full repository, set the service root directory to `rendo
 Then load the saved scenario with:
 
 ```python
-from dataset_loader import load_scenario_from_checkpoints
+from strategy_engine.dataset_loader import load_scenario_from_checkpoints
 
 scenario = load_scenario_from_checkpoints()
 ```
 
-For mobile-app generation, see `newly_prompt.md` in this folder.
+In the full repository, mobile-app generation notes live in `docs/newly_prompt.md`.
 
 Deployment files included in this bundle:
 

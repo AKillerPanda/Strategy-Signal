@@ -9,10 +9,9 @@ from sklearn.dummy import DummyClassifier, DummyRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, mean_absolute_error, roc_auc_score, silhouette_score
 
+from . import MODELS_DIR
 
-DEFAULT_PREDICTIVE_CHECKPOINT_PATH = (
-    Path(__file__).resolve().parent / "models" / "strategysignal_predictive.joblib"
-)
+DEFAULT_PREDICTIVE_CHECKPOINT_PATH = MODELS_DIR / "strategysignal_predictive.joblib"
 
 LOYALTY_SCORES = {
     "Bronze": 0.25,
