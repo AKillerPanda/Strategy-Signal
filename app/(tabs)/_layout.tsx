@@ -9,7 +9,7 @@ const tabs: TabBarItem[] = [
   { name: '(home)', route: '/(tabs)/(home)', icon: 'dashboard', label: 'Dashboard' },
   { name: '(input)', route: '/(tabs)/(input)', icon: 'tune', label: 'Evaluate' },
   { name: '(feed)', route: '/(tabs)/(feed)', icon: 'lightbulb', label: 'Feed' },
-  { name: '(charts)', route: '/(tabs)/(charts)', icon: 'show-chart', label: 'Charts' },
+  { name: '(charts)', route: '/(tabs)/(charts)', icon: 'show_chart', label: 'Charts' },
   { name: '(watchlist)', route: '/(tabs)/(watchlist)', icon: 'visibility', label: 'Watchlist' },
 ];
 

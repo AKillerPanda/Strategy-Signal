@@ -19,7 +19,13 @@ export default function AnimatedPressable({
   children,
   scaleDown = 0.96,
   onPress,
-  ...rest
+  onPressIn,
+  onPressOut,
+  disabled,
+  accessibilityLabel,
+  accessibilityRole,
+  hitSlop,
+  testID,
 }: AnimatedPressableProps) {
   const scale = useSharedValue(1);
 
@@ -31,13 +37,23 @@ export default function AnimatedPressable({
     <AnimatedPressableInner
       style={[animatedStyle, style]}
       onPressIn={() => {
+        console.log('[AnimatedPressable] onPressIn');
         scale.value = withSpring(scaleDown, { damping: 15, stiffness: 300 });
+        onPressIn?.();
       }}
       onPressOut={() => {
         scale.value = withSpring(1, { damping: 15, stiffness: 300 });
+        onPressOut?.();
       }}
-      onPress={onPress}
-      {...rest}
+      onPress={(e) => {
+        console.log('[AnimatedPressable] onPress');
+        onPress?.(e);
+      }}
+      disabled={disabled}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole={accessibilityRole}
+      hitSlop={hitSlop}
+      testID={testID}
     >
       {children}
     </AnimatedPressableInner>
