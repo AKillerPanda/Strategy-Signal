@@ -6,7 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { SystemBars } from "react-native-edge-to-edge";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useColorScheme, Alert } from "react-native";
+import { useColorScheme, Alert, Platform, View, useWindowDimensions } from "react-native";
 import { useNetworkState } from "expo-network";
 import {
   DarkTheme,
@@ -18,6 +18,7 @@ import { StatusBar } from "expo-status-bar";
 import { WidgetProvider } from "@/contexts/WidgetContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { StrategyProvider } from "@/utils/strategyStore";
+import { COLORS } from "@/styles/colors";
 // Note: Error logging is auto-initialized via index.ts import
 
 // Only wrap with ErrorBoundary in dev — production apps should not include it
@@ -35,9 +36,11 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const networkState = useNetworkState();
+  const { width } = useWindowDimensions();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+  const useWebShell = Platform.OS === 'web' && width > 560;
 
   useEffect(() => {
     if (loaded) {
@@ -89,12 +92,22 @@ export default function RootLayout() {
         >
           <SafeAreaProvider>
             <WidgetProvider>
-              <GestureHandlerRootView>
+              <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.background }}>
               <StrategyProvider>
-              <Stack>
-                {/* Main app with tabs */}
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              </Stack>
+              <View
+                style={{
+                  flex: 1,
+                  width: '100%',
+                  alignSelf: 'center',
+                  maxWidth: useWebShell ? 520 : undefined,
+                  backgroundColor: COLORS.background,
+                }}
+              >
+                <Stack>
+                  {/* Main app with tabs */}
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                </Stack>
+              </View>
               <SystemBars style={"auto"} />
               </StrategyProvider>
               </GestureHandlerRootView>

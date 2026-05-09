@@ -7,13 +7,28 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { ChevronLeft } from 'lucide-react-native';
 import Slider from '@react-native-community/slider';
 import { COLORS } from '@/styles/colors';
 import { StrategyContext } from '@/utils/strategyStore';
 import { evaluateStrategy, EvaluateInput } from '@/utils/api';
+import { DEMO_PRESETS, DemoPreset, DemoPresetId, evaluateDemoPreset, getDemoPreset } from '@/utils/demoPresets';
 import AnimatedPressable from '@/components/AnimatedPressable';
 import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
+
+const RETURN_ROUTES = {
+  home: '/(tabs)/(home)',
+  feed: '/(tabs)/(feed)',
+  charts: '/(tabs)/(charts)',
+  watchlist: '/(tabs)/(watchlist)',
+} as const;
+
+type ReturnRouteKey = keyof typeof RETURN_ROUTES;
+
+function isReturnRouteKey(value: string | undefined): value is ReturnRouteKey {
+  return Boolean(value && value in RETURN_ROUTES);
+}
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -300,11 +315,122 @@ function ReadinessPreview({ marketingStrength, productReadiness, competitionInte
   );
 }
 
+function DemoPresetCard({
+  preset,
+  selected,
+  onPress,
+}: {
+  preset: DemoPreset;
+  selected: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <AnimatedPressable
+      onPress={onPress}
+      style={{
+        backgroundColor: selected ? COLORS.surfaceHighlight : COLORS.surfaceSecondary,
+        borderRadius: 14,
+        padding: 14,
+        borderWidth: 1,
+        borderColor: selected ? `${COLORS.primary}70` : COLORS.border,
+        gap: 8,
+      }}
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <View style={{ flex: 1, gap: 2 }}>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: COLORS.text }}>{preset.title}</Text>
+          <Text style={{ fontSize: 12, color: COLORS.primary, fontWeight: '600' }}>{preset.subtitle}</Text>
+        </View>
+        <View
+          style={{
+            backgroundColor: selected ? COLORS.primaryMuted : COLORS.surface,
+            borderRadius: 999,
+            paddingHorizontal: 10,
+            paddingVertical: 4,
+          }}
+        >
+          <Text style={{ fontSize: 10, fontWeight: '700', color: selected ? COLORS.primary : COLORS.textSecondary, letterSpacing: 0.8 }}>
+            {selected ? 'ACTIVE' : 'PRESET'}
+          </Text>
+        </View>
+      </View>
+      <Text style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 18 }}>{preset.description}</Text>
+      <TagRow items={preset.input.features} />
+    </AnimatedPressable>
+  );
+}
+
+function DemoGuide({ preset, onSelectPreset }: { preset: DemoPreset; onSelectPreset: (presetId: DemoPresetId) => void }) {
+  return (
+    <Animated.View
+      entering={FadeInDown.delay(80).springify()}
+      style={{
+        backgroundColor: COLORS.surface,
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        gap: 16,
+      }}
+    >
+      <View style={{ gap: 4 }}>
+        <Text style={{ fontSize: 11, fontWeight: '700', color: COLORS.warning, textTransform: 'uppercase', letterSpacing: 1.4 }}>
+          Guided Demo
+        </Text>
+        <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.text }}>
+          Pick a preset, then run the demo to fill every tab.
+        </Text>
+        <Text style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 19 }}>
+          The demo stays inside the app, so Dashboard, Feed, Charts, and Watchlist all load with stable preset data.
+        </Text>
+      </View>
+
+      <View style={{ gap: 10 }}>
+        {DEMO_PRESETS.map((candidate) => (
+          <DemoPresetCard
+            key={candidate.id}
+            preset={candidate}
+            selected={candidate.id === preset.id}
+            onPress={() => onPressPreset(candidate.id)}
+          />
+        ))}
+      </View>
+
+      <View style={{ gap: 10 }}>
+        <Text style={{ fontSize: 12, fontWeight: '700', color: COLORS.textSecondary, textTransform: 'uppercase', letterSpacing: 1.2 }}>
+          What this demo covers
+        </Text>
+        {preset.featureTour.map((item) => (
+          <View key={item.title} style={{ flexDirection: 'row', gap: 10, alignItems: 'flex-start' }}>
+            <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: COLORS.primary, marginTop: 6 }} />
+            <View style={{ flex: 1, gap: 2 }}>
+              <Text style={{ fontSize: 14, fontWeight: '600', color: COLORS.text }}>{item.title}</Text>
+              <Text style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 18 }}>{item.description}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    </Animated.View>
+  );
+
+  function onPressPreset(presetId: DemoPresetId) {
+    onSelectPreset(presetId);
+  }
+}
+
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
 export default function InputScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams<{ mode?: string | string[]; from?: string | string[]; preset?: string | string[] }>();
   const { setResult, setIsLoading, isLoading, setLastInput } = React.use(StrategyContext);
+
+  const modeParam = Array.isArray(params.mode) ? params.mode[0] : params.mode;
+  const fromParam = Array.isArray(params.from) ? params.from[0] : params.from;
+  const presetParam = Array.isArray(params.preset) ? params.preset[0] : params.preset;
+  const demoMode = modeParam === 'demo';
+  const fromRoute = isReturnRouteKey(fromParam) ? RETURN_ROUTES[fromParam] : null;
+  const initialPresetId = (getDemoPreset(presetParam)?.id ?? DEMO_PRESETS[0].id) as DemoPresetId;
 
   const [features, setFeatures] = React.useState('');
   const [channels, setChannels] = React.useState('');
@@ -314,6 +440,58 @@ export default function InputScreen() {
   const [productReadiness, setProductReadiness] = React.useState(65);
   const [competitionIntensity, setCompetitionIntensity] = React.useState(60);
   const [error, setError] = React.useState<string | null>(null);
+  const [selectedPresetId, setSelectedPresetId] = React.useState<DemoPresetId>(initialPresetId);
+
+  const selectedPreset = getDemoPreset(selectedPresetId) ?? DEMO_PRESETS[0];
+
+  React.useEffect(() => {
+    if (!demoMode) return;
+    setSelectedPresetId(initialPresetId);
+  }, [demoMode, initialPresetId]);
+
+  const applyPreset = React.useCallback((preset: DemoPreset) => {
+    setFeatures(preset.input.features.join(', '));
+    setChannels(preset.input.channels.join(', '));
+    setCompetitors(preset.input.competitors.join(', '));
+    setMilestones(preset.input.milestones.join(', '));
+    setMarketingStrength(preset.input.marketing_strength);
+    setProductReadiness(preset.input.product_readiness);
+    setCompetitionIntensity(preset.input.competition_intensity);
+    setError(null);
+  }, []);
+
+  React.useEffect(() => {
+    if (!demoMode) return;
+    applyPreset(selectedPreset);
+  }, [applyPreset, demoMode, selectedPreset]);
+
+  const handleBack = () => {
+    if (fromRoute) {
+      router.push(fromRoute);
+      return;
+    }
+
+    router.push('/(tabs)/(home)');
+  };
+
+  const handleRunDemo = async () => {
+    console.log('[Input] Guided demo button pressed', selectedPresetId);
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const { input, result } = evaluateDemoPreset(selectedPresetId);
+      setLastInput(input);
+      setResult(result);
+      router.push('/(tabs)/(home)');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unable to run the guided demo.';
+      console.error('[Input] Guided demo failed', message);
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleEvaluate = async () => {
     console.log('[Input] Evaluate Strategy button pressed');
@@ -356,12 +534,32 @@ export default function InputScreen() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 180, paddingTop: 16, gap: 16 }}
         keyboardShouldPersistTaps="handled"
       >
+        {fromRoute ? (
+          <AnimatedPressable
+            onPress={handleBack}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 8,
+              alignSelf: 'flex-start',
+              paddingVertical: 6,
+            }}
+          >
+            <ChevronLeft size={16} color={COLORS.textSecondary} />
+            <Text style={{ fontSize: 14, fontWeight: '600', color: COLORS.textSecondary }}>Back</Text>
+          </AnimatedPressable>
+        ) : null}
+
+        {demoMode ? (
+          <DemoGuide preset={selectedPreset} onSelectPreset={setSelectedPresetId} />
+        ) : null}
+
         <Animated.View entering={FadeInDown.delay(100).springify()} style={{ gap: 14 }}>
           <SectionHeader
-            title="Strategy Inputs"
+            title="Evaluate Strategy"
             description="Describe your startup to get a tailored analysis"
           />
 
@@ -457,7 +655,7 @@ export default function InputScreen() {
         />
 
         <AnimatedPressable
-          onPress={handleEvaluate}
+          onPress={demoMode ? handleRunDemo : handleEvaluate}
           disabled={isLoading}
           style={{
             backgroundColor: isLoading ? COLORS.surfaceTertiary : COLORS.primary,
@@ -470,9 +668,11 @@ export default function InputScreen() {
           }}
         >
           {isLoading ? (
-            <PulsingText text="Evaluating strategy..." />
+            <PulsingText text={demoMode ? 'Loading guided demo...' : 'Evaluating strategy...'} />
           ) : (
-            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Run evaluation</Text>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>
+              {demoMode ? 'Run guided demo' : 'Run evaluation'}
+            </Text>
           )}
         </AnimatedPressable>
       </ScrollView>

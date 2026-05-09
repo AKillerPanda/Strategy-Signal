@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "dev": "EXPO_NO_TELEMETRY=1 expo start",
-    "android": "EXPO_NO_TELEMETRY=1 expo start --android",
-    "ios": "EXPO_NO_TELEMETRY=1 expo start --ios",
-    "web": "EXPO_NO_TELEMETRY=1 expo start --web",
+    "dev": "cross-env EXPO_NO_TELEMETRY=1 expo start",
+    "android": "cross-env EXPO_NO_TELEMETRY=1 expo start --android",
+    "ios": "cross-env EXPO_NO_TELEMETRY=1 expo start --ios",
+    "web": "cross-env EXPO_NO_TELEMETRY=1 expo start --web",
     "build:web": "expo export -p web && npx workbox generateSW workbox-config.js",
     "build:android": "expo prebuild -p android",
     "lint": "eslint ."
@@ -76,6 +76,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-expo": "~10.0.0",
     "eslint-plugin-import": "^2.31.0",

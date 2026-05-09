@@ -197,7 +197,7 @@ export default function WatchlistScreen() {
 
   const navigateToInput = () => {
     console.log('[Watchlist] Navigate to Evaluate tab');
-    router.push('/(tabs)/(input)');
+    router.push('/(tabs)/(input)?from=watchlist');
   };
 
   if (isLoading) {
@@ -221,7 +221,7 @@ export default function WatchlistScreen() {
     <FlatList
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 12 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 180, paddingTop: 16, gap: 12 }}
       data={result.competitors}
       keyExtractor={(_, i) => String(i)}
       renderItem={({ item, index }) => (

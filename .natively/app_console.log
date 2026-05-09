@@ -1,0 +1,239 @@
+[2026-05-09T13:30:25.430Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:30:25.797Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:30:25.826Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:30:25.419Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:30:26.005Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:30:26.550Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:30:28.826Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:30:33.574Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:30:33.745Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:30:33.746Z] [Web] [LOG] [Charts] Empty state navigate to Evaluate pressed
+[2026-05-09T13:30:33.839Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:30:33.747Z] [Web] [LOG] [Charts] Navigate to Evaluate tab
+[2026-05-09T13:31:25.813Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:27.207Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:28.300Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:29.134Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:31:29.302Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:31:29.303Z] [Web] [LOG] [Feed] Empty state navigate to Evaluate pressed
+[2026-05-09T13:31:29.304Z] [Web] [LOG] [Feed] Navigate to Evaluate tab
+[2026-05-09T13:31:29.393Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:32.352Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:33.545Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:34.496Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:35.724Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:36.821Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:31:36.976Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:31:36.977Z] [Web] [LOG] [Watchlist] Empty state navigate to Evaluate pressed
+[2026-05-09T13:31:36.979Z] [Web] [LOG] [Watchlist] Navigate to Evaluate tab
+[2026-05-09T13:31:37.108Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:31:45.914Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:31:46.077Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:31:46.078Z] [Web] [LOG] [Input] Evaluate Strategy button pressed
+[2026-05-09T13:31:46.080Z] [Web] [LOG] [Input] Parsed input {"features":[],"channels":[],"competitors":[],"milestones":[],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
+[2026-05-09T13:31:46.082Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":[],"channels":[],"competitors":[],"milestones":[],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}}
+[2026-05-09T13:31:46.535Z] [Web] [ERROR] [API] evaluateStrategy error {"status":404,"text":"{\"message\":\"Route POST:/evaluate not found\",\"error\":\"Not Found\",\"statusCode\":404}"}
+[2026-05-09T13:31:46.536Z] [Web] [ERROR] [Input] Evaluation failed API error: 404 — {"message":"Route POST:/evaluate not found","error":"Not Found","statusCode":404}
+[2026-05-09T13:31:49.718Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:31:50.114Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:31:50.148Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:04.786Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:05.524Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:25.917Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:33:26.069Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:33:26.070Z] [Web] [LOG] [Home] Empty state Evaluate button pressed
+[2026-05-09T13:33:26.071Z] [Web] [LOG] [Home] Navigate to Evaluate tab
+[2026-05-09T13:33:26.139Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:28.888Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:47.864Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:33:48.020Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:33:48.020Z] [Web] [LOG] [Home] Empty state Evaluate button pressed
+[2026-05-09T13:33:48.063Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:33:48.021Z] [Web] [LOG] [Home] Navigate to Evaluate tab
+[2026-05-09T13:35:47.609Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:35:54.085Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:35:54.549Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:35:54.590Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:35:54.738Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:35:56.229Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:35:56.401Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:35:56.402Z] [Web] [LOG] [Charts] Empty state navigate to Evaluate pressed
+[2026-05-09T13:35:56.404Z] [Web] [LOG] [Charts] Navigate to Evaluate tab
+[2026-05-09T13:35:56.504Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:35:51.523Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:36:00.273Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:36:00.408Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:36:00.430Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:36:00.983Z] [Web] [WARN] Cannot record touch end without a touch start.
+ Touch End: {"identifier":0,"pageX":531,"pageY":163,"timestamp":946.1000000238419}
+ Touch Bank: []
+[2026-05-09T13:36:01.070Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:36:43.026Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:36:43.180Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:36:43.181Z] [Web] [LOG] [Input] Evaluate Strategy button pressed
+[2026-05-09T13:36:43.182Z] [Web] [LOG] [Input] Parsed input {"features":["AI dashboard"],"channels":["Tiktok"],"competitors":["Compeitor A"],"milestones":["MVP"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
+[2026-05-09T13:36:43.183Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":["AI dashboard"],"channels":["Tiktok"],"competitors":["Compeitor A"],"milestones":["MVP"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}}
+[2026-05-09T13:36:43.331Z] [Web] [ERROR] [API] evaluateStrategy error {"status":404,"text":"{\"message\":\"Route POST:/evaluate not found\",\"error\":\"Not Found\",\"statusCode\":404}"}
+[2026-05-09T13:36:43.331Z] [Web] [ERROR] [Input] Evaluation failed API error: 404 — {"message":"Route POST:/evaluate not found","error":"Not Found","statusCode":404}
+[2026-05-09T13:37:03.113Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:37:03.467Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:37:03.506Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:37:03.651Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:37:22.512Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:37:53.631Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:38:01.462Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:38:01.769Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:38:01.798Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:38:02.069Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:38:10.022Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:38:10.194Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:38:10.194Z] [Web] [LOG] [Charts] Empty state navigate to Evaluate pressed
+[2026-05-09T13:38:10.195Z] [Web] [LOG] [Charts] Navigate to Evaluate tab
+[2026-05-09T13:38:10.249Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:38:20.104Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:38:26.441Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:38:26.760Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:38:26.795Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:39:26.487Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:06.403Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:43:06.554Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:43:06.556Z] [Web] [LOG] [Charts] Empty state navigate to Evaluate pressed
+[2026-05-09T13:43:06.557Z] [Web] [LOG] [Charts] Navigate to Evaluate tab
+[2026-05-09T13:43:06.761Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:14.454Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:16.452Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:18.901Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:20.419Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:21.713Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:22.889Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:25.116Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:26.111Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:29.723Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:30.883Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:31.297Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:31.094Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:36.750Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:43:36.926Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:43:36.927Z] [Web] [LOG] [Input] Evaluate Strategy button pressed
+[2026-05-09T13:43:36.931Z] [Web] [LOG] [Input] Parsed input {"features":[],"channels":[],"competitors":[],"milestones":[],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
+[2026-05-09T13:43:36.934Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":[],"channels":[],"competitors":[],"milestones":[],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}}
+[2026-05-09T13:43:37.098Z] [Web] [ERROR] [API] evaluateStrategy error {"status":404,"text":"{\"message\":\"Route POST:/evaluate not found\",\"error\":\"Not Found\",\"statusCode\":404}"}
+[2026-05-09T13:43:37.099Z] [Web] [ERROR] [Input] Evaluation failed API error: 404 — {"message":"Route POST:/evaluate not found","error":"Not Found","statusCode":404}
+[2026-05-09T13:43:39.982Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:42.813Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:43:42.979Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:43:42.980Z] [Web] [LOG] [Home] Empty state Evaluate button pressed
+[2026-05-09T13:43:42.981Z] [Web] [LOG] [Home] Navigate to Evaluate tab
+[2026-05-09T13:43:43.032Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:45.887Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:43:46.835Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:43.316Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:44:43.702Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:44:43.738Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:43.925Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:49.312Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:50.696Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:51.117Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:55.455Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:44:55.628Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:44:55.741Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:44:55.628Z] [Web] [LOG] [Home] Empty state Demo button pressed
+[2026-05-09T13:44:55.630Z] [Web] [LOG] [Home] Navigate to Guided Demo
+[2026-05-09T13:45:00.971Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:00.975Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:01.097Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:02.442Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:02.623Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:02.624Z] [Web] [LOG] [Home] Empty state Demo button pressed
+[2026-05-09T13:45:02.625Z] [Web] [LOG] [Home] Navigate to Guided Demo
+[2026-05-09T13:45:02.783Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:03.597Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:03.757Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:05.871Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:06.027Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:09.385Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:09.542Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:13.979Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:14.155Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:14.156Z] [Web] [LOG] [Input] Guided demo button pressed ops-marketplace
+[2026-05-09T13:45:14.447Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:21.666Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:45:21.839Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:45:21.840Z] [Web] [LOG] [Home] View all recommendations pressed
+[2026-05-09T13:45:21.950Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:30.333Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:31.593Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:32.820Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:33.166Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:33.544Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:39.391Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:41.459Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:42.654Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:45.859Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:51.041Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:45:51.329Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:45:51.361Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:45:51.512Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:07.792Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:46:08.087Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:46:08.240Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:08.117Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:14.388Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:14.679Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:20.752Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:46:31.584Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:46:31.589Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:46:31.590Z] [Web] [LOG] [Home] Empty state Demo button pressed
+[2026-05-09T13:46:31.591Z] [Web] [LOG] [Home] Navigate to Guided Demo
+[2026-05-09T13:46:31.746Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:47:56.718Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:47:56.899Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:48:02.113Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:48:02.255Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:48:02.256Z] [Web] [LOG] [Input] Guided demo button pressed creator-growth
+[2026-05-09T13:48:02.534Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:48:09.730Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:48:09.884Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:48:09.972Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:48:09.885Z] [Web] [LOG] [Home] Quick action: View Charts pressed
+[2026-05-09T13:48:09.886Z] [Web] [LOG] [Home] Navigate to Charts tab
+[2026-05-09T13:48:17.398Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:48:19.223Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:48:19.382Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:48:19.382Z] [Web] [LOG] [Home] Quick action: Evaluate Strategy pressed
+[2026-05-09T13:48:19.383Z] [Web] [LOG] [Home] Navigate to Evaluate tab
+[2026-05-09T13:48:19.438Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:48:27.404Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"

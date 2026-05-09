@@ -199,7 +199,7 @@ export default function ChartsScreen() {
 
   const navigateToInput = () => {
     console.log('[Charts] Navigate to Evaluate tab');
-    router.push('/(tabs)/(input)');
+    router.push('/(tabs)/(input)?from=charts');
   };
 
   if (isLoading) {
@@ -207,7 +207,7 @@ export default function ChartsScreen() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{ flex: 1, backgroundColor: COLORS.background }}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 180 }}
       >
         <View style={{ height: 20 }} />
         <SkeletonCharts chartWidth={chartWidth} />
@@ -254,7 +254,7 @@ export default function ChartsScreen() {
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 180, paddingTop: 16, gap: 16 }}
     >
       {charts.map((chart, i) => (
         <ChartCard

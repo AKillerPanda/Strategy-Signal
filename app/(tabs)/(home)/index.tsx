@@ -11,6 +11,7 @@ import {
   Zap,
   AlertTriangle,
   BarChart2,
+  Lightbulb,
   Sliders,
   ChevronRight,
 } from 'lucide-react-native';
@@ -147,7 +148,7 @@ function HeroBannerCard({
 
 // ─── Empty State ──────────────────────────────────────────────────────────────
 
-function EmptyState({ onEvaluate }: { onEvaluate: () => void }) {
+function EmptyState({ onEvaluate, onDemo }: { onEvaluate: () => void; onDemo: () => void }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingTop: 80, gap: 16 }}>
       <View style={{
@@ -168,21 +169,45 @@ function EmptyState({ onEvaluate }: { onEvaluate: () => void }) {
       <Text style={{ fontSize: 15, color: COLORS.textSecondary, textAlign: 'center', lineHeight: 22, paddingHorizontal: 32 }}>
         Tap Evaluate to analyze your startup strategy
       </Text>
-      <AnimatedPressable
-        onPress={() => {
-          console.log('[Home] Empty state Evaluate button pressed');
-          onEvaluate();
-        }}
-        style={{
-          backgroundColor: COLORS.primary,
-          borderRadius: 14,
-          paddingHorizontal: 32,
-          paddingVertical: 16,
-          marginTop: 8,
-        }}
-      >
-        <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Evaluate Strategy</Text>
-      </AnimatedPressable>
+      <View style={{ width: '100%', paddingHorizontal: 32, gap: 12, marginTop: 8 }}>
+        <AnimatedPressable
+          onPress={() => {
+            console.log('[Home] Empty state Demo button pressed');
+            onDemo();
+          }}
+          style={{
+            backgroundColor: COLORS.primary,
+            borderRadius: 14,
+            paddingHorizontal: 20,
+            paddingVertical: 16,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 10,
+          }}
+        >
+          <Lightbulb size={18} color="#fff" />
+          <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Try Guided Demo</Text>
+        </AnimatedPressable>
+        <AnimatedPressable
+          onPress={() => {
+            console.log('[Home] Empty state Evaluate button pressed');
+            onEvaluate();
+          }}
+          style={{
+            backgroundColor: COLORS.surfaceSecondary,
+            borderRadius: 14,
+            paddingHorizontal: 20,
+            paddingVertical: 16,
+            borderWidth: 1,
+            borderColor: COLORS.border,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.text }}>Evaluate Strategy</Text>
+        </AnimatedPressable>
+      </View>
     </View>
   );
 }
@@ -214,7 +239,12 @@ export default function HomeScreen() {
 
   const navigateToInput = () => {
     console.log('[Home] Navigate to Evaluate tab');
-    router.push('/(tabs)/(input)');
+    router.push('/(tabs)/(input)?from=home');
+  };
+
+  const navigateToDemo = () => {
+    console.log('[Home] Navigate to Guided Demo');
+    router.push('/(tabs)/(input)?mode=demo&from=home');
   };
 
   const navigateToCharts = () => {
@@ -227,7 +257,7 @@ export default function HomeScreen() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{ flex: 1, backgroundColor: COLORS.background }}
-        contentContainerStyle={{ paddingBottom: 120, paddingTop: 16 }}
+        contentContainerStyle={{ paddingBottom: 180, paddingTop: 16 }}
       >
         <SkeletonDashboard />
       </ScrollView>
@@ -239,9 +269,9 @@ export default function HomeScreen() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{ flex: 1, backgroundColor: COLORS.background }}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 180 }}
       >
-        <EmptyState onEvaluate={navigateToInput} />
+        <EmptyState onEvaluate={navigateToInput} onDemo={navigateToDemo} />
       </ScrollView>
     );
   }
@@ -260,7 +290,7 @@ export default function HomeScreen() {
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 180, paddingTop: 16, gap: 16 }}
     >
       <HeroBannerCard
         score={result.strategy_score}

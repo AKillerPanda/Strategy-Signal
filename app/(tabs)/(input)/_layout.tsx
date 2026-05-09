@@ -4,16 +4,7 @@ export default function InputLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
-        headerTransparent: true,
-        headerShadowVisible: false,
-        headerLargeTitle: true,
-        headerLargeTitleShadowVisible: false,
-        headerLargeStyle: { backgroundColor: 'transparent' },
-        headerStyle: { backgroundColor: 'transparent' },
-        headerTintColor: '#F0F4FF',
-        headerLargeTitleStyle: { color: '#F0F4FF', fontWeight: '700' },
-        headerBackButtonDisplayMode: 'minimal',
+        headerShown: false,
       }}
     >
       <Stack.Screen name="index" options={{ title: 'Evaluate Strategy' }} />

@@ -23,10 +23,26 @@ import { Href } from 'expo-router';
 
 const { width: screenWidth } = Dimensions.get('window');
 
+const IOS_ICON_MAP = {
+  dashboard: 'square.grid.2x2.fill',
+  tune: 'slider.horizontal.3',
+  lightbulb: 'lightbulb.fill',
+  show_chart: 'chart.xyaxis.line',
+  visibility: 'eye.fill',
+} as const;
+
+const MATERIAL_ICON_MAP = {
+  dashboard: 'dashboard',
+  tune: 'tune',
+  lightbulb: 'lightbulb',
+  show_chart: 'show-chart',
+  visibility: 'visibility',
+} as const;
+
 export interface TabBarItem {
   name: string;
   route: Href;
-  icon: keyof typeof MaterialIcons.glyphMap;
+  icon: keyof typeof MATERIAL_ICON_MAP;
   label: string;
 }
 
@@ -183,8 +199,8 @@ export default function FloatingTabBar({
                 >
                   <View key={index} style={styles.tabContent}>
                     <IconSymbol
-                      android_material_icon_name={tab.icon}
-                      ios_icon_name={tab.icon}
+                      android_material_icon_name={MATERIAL_ICON_MAP[tab.icon]}
+                      ios_icon_name={IOS_ICON_MAP[tab.icon]}
                       size={24}
                       color={isActive ? theme.colors.primary : (theme.dark ? '#98989D' : '#000000')}
                     />
