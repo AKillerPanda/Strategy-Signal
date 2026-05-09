@@ -280,3 +280,17 @@ Performance optimizations: OFF.
 [2026-05-09T13:51:46.155Z] [Web] [LOG] [AnimatedPressable] onPressIn
 [2026-05-09T13:51:46.331Z] [Web] [LOG] [AnimatedPressable] onPress
 [2026-05-09T13:51:46.332Z] [Web] [LOG] [Input] Guided demo button pressed creator-growth
+[2026-05-09T13:59:40.603Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:59:40.743Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:59:51.625Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:59:51.931Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T14:00:26.409Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T14:00:26.414Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T14:00:26.526Z] [Web] [LOG] [API] evaluateStrategy response {"baseUrl":"http://127.0.0.1:8000","raw":{"strategy_score":57.73,"fragmentation_score":0.4270458224708571,"best_launch_strategy":"Delayed launch","top_recommendation":"Improve product readiness before scaling marketing spend.","marketing_strength":70,"product_readiness":65,"competition_intensity":60,"fragmentation_risk":0.4270458224708571,"recommendations":[{"title":"Top Recommendation","description":"Improve product readiness before scaling marketing spend.","priority":"high","category":"Strategy"}],"payload":{"features":["AI onboarding assistant","workflow analytics"],"channels":["SEO","LinkedIn"],"competitors":["Notion AI","ClickUp AI"],"milestones":["Beta launch","team pilot"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60},"evaluation":{"score":57.73,"spectral":{"fiedler_value":0.5729541775291429,"bottleneck_score":0.4270458224708571,"fiedler_vector":[-0.03106767802983404,-0.08096982090129029,0.31243204714309286,0.3124320471430922,0.3269298471826862,0.326929847182686,-0.5401318678633995,-0.5401318678633996]},"game_theory":{"payoffs":{"Aggressive launch":42.25,"Delayed launch":47.25,"Niche positioning":41},"best_strategy":"Delayed launch"},"recommendations":["Improve product readiness before scaling marketing spend."]},"summary":{"strategy_score":57.73,"fragmentation_score":0.4270458224708571,"best_launch_strategy":"Delayed launch","top_recommendation":"Improve product readiness before scaling marketing spend.","marketing_strength":70,"product_readiness":65,"competition_intensity":60}}}
+[2026-05-09T14:00:26.415Z] [Web] [LOG] [Input] Evaluate Strategy button pressed
+[2026-05-09T14:00:26.417Z] [Web] [LOG] [Input] Parsed input {"features":["AI onboarding assistant","workflow analytics"],"channels":["SEO","LinkedIn"],"competitors":["Notion AI","ClickUp AI"],"milestones":["Beta launch","team pilot"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
+[2026-05-09T14:00:26.418Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":["AI onboarding assistant","workflow analytics"],"channels":["SEO","LinkedIn"],"competitors":["Notion AI","ClickUp AI"],"milestones":["Beta launch","team pilot"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60},"apiBaseCandidates":["http://127.0.0.1:8000","https://3j5en5ecxpd3gktxj6twjfq94nqwj5n8.app.specular.dev"]}
+[2026-05-09T14:00:26.527Z] [Web] [LOG] [Input] Evaluation success, navigating to Dashboard
