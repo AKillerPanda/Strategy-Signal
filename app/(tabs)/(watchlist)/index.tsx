@@ -39,6 +39,7 @@ function CompetitorRow({ item, index }: { item: Competitor; index: number }) {
   const tColor = threatColor(item.threat_score);
   const displayScore = Math.round(item.threat_score);
   const initial = getInitial(item.name);
+  const barWidth = `${Math.min(100, Math.max(0, item.threat_score))}%` as `${number}%`;
 
   const handleLongPress = () => {
     console.log('[Watchlist] Long press on competitor', item.name);
@@ -70,40 +71,42 @@ function CompetitorRow({ item, index }: { item: Competitor; index: number }) {
           padding: 16,
           borderWidth: 1,
           borderColor: COLORS.border,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
-          borderCurve: 'continuous',
           flexDirection: 'row',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           gap: 14,
         }}
       >
         <View style={{
-          width: 48,
-          height: 48,
-          borderRadius: 24,
+          width: 44,
+          height: 44,
+          borderRadius: 22,
           backgroundColor: avatarColor,
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0,
+          marginTop: 2,
         }}>
-          <Text style={{ fontSize: 20, fontWeight: '700', color: '#fff' }}>{initial}</Text>
+          <Text style={{ fontSize: 18, fontWeight: '700', color: '#fff' }}>{initial}</Text>
         </View>
 
         <View style={{ flex: 1, gap: 4 }}>
-          <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.text }}>{item.name}</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: COLORS.text }}>{item.name}</Text>
           <Text
             style={{ fontSize: 13, color: COLORS.textSecondary, lineHeight: 18 }}
             numberOfLines={2}
           >
             {item.suggested_response}
           </Text>
+          <View style={{ marginTop: 6, height: 4, backgroundColor: COLORS.surfaceTertiary, borderRadius: 2, overflow: 'hidden' }}>
+            <View style={{ height: 4, width: barWidth, backgroundColor: tColor, borderRadius: 2 }} />
+          </View>
         </View>
 
         <View style={{ alignItems: 'flex-end', gap: 2, flexShrink: 0 }}>
-          <Text style={{ fontSize: 24, fontWeight: '700', color: tColor, fontVariant: ['tabular-nums'] }}>
+          <Text style={{ fontSize: 26, fontFamily: 'SpaceMono', color: tColor, lineHeight: 30 }}>
             {displayScore}
           </Text>
-          <Text style={{ fontSize: 10, fontWeight: '600', color: COLORS.textTertiary, letterSpacing: 1 }}>
+          <Text style={{ fontSize: 9, fontWeight: '600', color: COLORS.textTertiary, letterSpacing: 1, textTransform: 'uppercase' }}>
             THREAT
           </Text>
         </View>
@@ -129,11 +132,12 @@ function SkeletonWatchlist() {
             gap: 14,
           }}
         >
-          <SkeletonLoader width={48} height={48} borderRadius={24} />
+          <SkeletonLoader width={44} height={44} borderRadius={22} />
           <View style={{ flex: 1, gap: 8 }}>
             <SkeletonLoader width="50%" height={16} />
             <SkeletonLoader width="90%" height={12} />
             <SkeletonLoader width="70%" height={12} />
+            <SkeletonLoader width="100%" height={4} borderRadius={2} />
           </View>
           <View style={{ alignItems: 'flex-end', gap: 4 }}>
             <SkeletonLoader width={40} height={28} borderRadius={6} />
@@ -180,8 +184,8 @@ function EmptyState({ onNavigate }: { onNavigate: () => void }) {
           alignItems: 'center',
         }}
       >
-        <Sliders size={16} color="#0A0E1A" />
-        <Text style={{ fontSize: 16, fontWeight: '700', color: '#0A0E1A' }}>Evaluate Strategy</Text>
+        <Sliders size={16} color="#fff" />
+        <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Evaluate Strategy</Text>
       </AnimatedPressable>
     </View>
   );
@@ -217,7 +221,7 @@ export default function WatchlistScreen() {
     <FlatList
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, gap: 12 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 12 }}
       data={result.competitors}
       keyExtractor={(_, i) => String(i)}
       renderItem={({ item, index }) => (

@@ -14,6 +14,7 @@ interface MetricCardProps {
 export default function MetricCard({ label, value, icon, color = COLORS.primary, onPress }: MetricCardProps) {
   const displayValue = Math.round(value);
   const barWidth = `${Math.min(100, Math.max(0, value))}%` as `${number}%`;
+  const labelUpper = label.toUpperCase();
 
   return (
     <AnimatedPressable
@@ -21,31 +22,39 @@ export default function MetricCard({ label, value, icon, color = COLORS.primary,
       style={{
         flex: 1,
         backgroundColor: COLORS.surface,
-        borderRadius: 16,
-        padding: 16,
+        borderRadius: 14,
+        padding: 14,
         borderWidth: 1,
         borderColor: COLORS.border,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
-        borderCurve: 'continuous',
-        gap: 10,
+        gap: 8,
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <View
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+        {icon}
+        <Text
           style={{
-            width: 36,
-            height: 36,
-            borderRadius: 10,
-            backgroundColor: `${color}20`,
-            alignItems: 'center',
-            justifyContent: 'center',
+            fontSize: 11,
+            color: COLORS.textSecondary,
+            fontWeight: '600',
+            textTransform: 'uppercase',
+            letterSpacing: 1.2,
+            flex: 1,
           }}
+          numberOfLines={1}
         >
-          {icon}
-        </View>
-        <Text style={{ fontSize: 24, fontWeight: '700', color }}>{displayValue}</Text>
+          {labelUpper}
+        </Text>
       </View>
-      <Text style={{ fontSize: 12, color: COLORS.textSecondary, fontWeight: '500' }}>{label}</Text>
+      <Text
+        style={{
+          fontSize: 28,
+          fontFamily: 'SpaceMono',
+          color,
+          lineHeight: 34,
+        }}
+      >
+        {displayValue}
+      </Text>
       <View style={{ height: 4, backgroundColor: COLORS.surfaceTertiary, borderRadius: 2, overflow: 'hidden' }}>
         <View style={{ height: 4, width: barWidth, backgroundColor: color, borderRadius: 2 }} />
       </View>

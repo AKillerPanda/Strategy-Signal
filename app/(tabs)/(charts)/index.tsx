@@ -37,6 +37,13 @@ function ChartCard({ title, currentValue, data, color, index, chartWidth }: Char
   const filteredData = filterByPeriod(data, period);
   const displayValue = Math.round(currentValue);
 
+  const first = filteredData.length > 1 ? filteredData[0] : null;
+  const last = filteredData.length > 1 ? filteredData[filteredData.length - 1] : null;
+  const trendDiff = first !== null && last !== null ? Math.round(last - first) : 0;
+  const trendArrow = trendDiff > 0 ? '↑' : trendDiff < 0 ? '↓' : '—';
+  const trendColor = trendDiff > 0 ? COLORS.positive : trendDiff < 0 ? COLORS.negative : COLORS.textSecondary;
+  const trendText = trendDiff > 0 ? `+${trendDiff}` : String(trendDiff);
+
   const periods: Period[] = ['1W', '1M', '3M'];
 
   return (
@@ -47,19 +54,55 @@ function ChartCard({ title, currentValue, data, color, index, chartWidth }: Char
         padding: 16,
         borderWidth: 1,
         borderColor: COLORS.border,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
-        borderCurve: 'continuous',
         gap: 12,
       }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={{ fontSize: 15, fontWeight: '600', color: COLORS.text }}>{title}</Text>
-          <View style={{
-            backgroundColor: `${color}20`,
-            borderRadius: 8,
-            paddingHorizontal: 10,
-            paddingVertical: 4,
-          }}>
-            <Text style={{ fontSize: 16, fontWeight: '700', color, fontVariant: ['tabular-nums'] }}>{displayValue}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <View style={{ gap: 4, flex: 1 }}>
+            <Text style={{ fontSize: 15, fontWeight: '600', color: COLORS.text }}>{title}</Text>
+            {trendDiff !== 0 ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Text style={{ fontSize: 12, color: trendColor, fontFamily: 'SpaceMono' }}>
+                  {trendArrow}
+                </Text>
+                <Text style={{ fontSize: 12, color: trendColor, fontFamily: 'SpaceMono' }}>
+                  {trendText}
+                </Text>
+                <Text style={{ fontSize: 12, color: COLORS.textTertiary }}>pts this period</Text>
+              </View>
+            ) : null}
+          </View>
+
+          <View style={{ alignItems: 'flex-end', gap: 6 }}>
+            <Text style={{ fontSize: 20, fontFamily: 'SpaceMono', color, lineHeight: 24 }}>
+              {displayValue}
+            </Text>
+            <View style={{ flexDirection: 'row', gap: 4 }}>
+              {periods.map((p) => (
+                <AnimatedPressable
+                  key={p}
+                  onPress={() => {
+                    console.log(`[Charts] Period selector "${p}" pressed for chart "${title}"`);
+                    setPeriod(p);
+                  }}
+                  style={{
+                    paddingHorizontal: 8,
+                    paddingVertical: 4,
+                    borderRadius: 6,
+                    backgroundColor: period === p ? `${color}20` : COLORS.surfaceSecondary,
+                    borderWidth: 1,
+                    borderColor: period === p ? `${color}40` : COLORS.border,
+                  }}
+                >
+                  <Text style={{
+                    fontSize: 11,
+                    fontWeight: '600',
+                    color: period === p ? color : COLORS.textSecondary,
+                  }}>
+                    {p}
+                  </Text>
+                </AnimatedPressable>
+              ))}
+            </View>
           </View>
         </View>
 
@@ -70,34 +113,6 @@ function ChartCard({ title, currentValue, data, color, index, chartWidth }: Char
           height={120}
           showGradient
         />
-
-        <View style={{ flexDirection: 'row', gap: 6, justifyContent: 'flex-end' }}>
-          {periods.map((p) => (
-            <AnimatedPressable
-              key={p}
-              onPress={() => {
-                console.log(`[Charts] Period selector "${p}" pressed for chart "${title}"`);
-                setPeriod(p);
-              }}
-              style={{
-                paddingHorizontal: 10,
-                paddingVertical: 5,
-                borderRadius: 8,
-                backgroundColor: period === p ? `${color}20` : COLORS.surfaceSecondary,
-                borderWidth: 1,
-                borderColor: period === p ? `${color}40` : COLORS.border,
-              }}
-            >
-              <Text style={{
-                fontSize: 12,
-                fontWeight: '600',
-                color: period === p ? color : COLORS.textSecondary,
-              }}>
-                {p}
-              </Text>
-            </AnimatedPressable>
-          ))}
-        </View>
       </View>
     </Animated.View>
   );
@@ -169,8 +184,8 @@ function EmptyState({ onNavigate }: { onNavigate: () => void }) {
           alignItems: 'center',
         }}
       >
-        <Sliders size={16} color="#0A0E1A" />
-        <Text style={{ fontSize: 16, fontWeight: '700', color: '#0A0E1A' }}>Evaluate Strategy</Text>
+        <Sliders size={16} color="#fff" />
+        <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Evaluate Strategy</Text>
       </AnimatedPressable>
     </View>
   );
@@ -239,7 +254,7 @@ export default function ChartsScreen() {
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, gap: 16 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
     >
       {charts.map((chart, i) => (
         <ChartCard

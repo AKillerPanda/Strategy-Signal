@@ -6,7 +6,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import Slider from '@react-native-community/slider';
@@ -14,12 +13,12 @@ import { COLORS } from '@/styles/colors';
 import { StrategyContext } from '@/utils/strategyStore';
 import { evaluateStrategy, EvaluateInput } from '@/utils/api';
 import AnimatedPressable from '@/components/AnimatedPressable';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 
 function SectionHeader({ title }: { title: string }) {
   return (
     <Text style={{
-      fontSize: 13,
+      fontSize: 11,
       fontWeight: '700',
       color: COLORS.textSecondary,
       textTransform: 'uppercase',
@@ -42,9 +41,22 @@ interface InputFieldProps {
 }
 
 function InputField({ label, value, onChangeText, placeholder, hint, autoCapitalize = 'none' }: InputFieldProps) {
+  const [focused, setFocused] = React.useState(false);
+  const labelUpper = label.toUpperCase();
+
   return (
     <View style={{ gap: 6 }}>
-      <Text style={{ fontSize: 14, fontWeight: '600', color: COLORS.text }}>{label}</Text>
+      <Text
+        style={{
+          fontSize: 13,
+          fontWeight: '600',
+          color: COLORS.textSecondary,
+          textTransform: 'uppercase',
+          letterSpacing: 0.8,
+        }}
+      >
+        {labelUpper}
+      </Text>
       <TextInput
         value={value}
         onChangeText={onChangeText}
@@ -54,11 +66,13 @@ function InputField({ label, value, onChangeText, placeholder, hint, autoCapital
         returnKeyType="next"
         multiline
         numberOfLines={2}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         style={{
           backgroundColor: COLORS.surfaceSecondary,
-          borderRadius: 12,
+          borderRadius: 10,
           borderWidth: 1,
-          borderColor: COLORS.border,
+          borderColor: focused ? COLORS.primary : COLORS.border,
           paddingHorizontal: 14,
           paddingVertical: 12,
           color: COLORS.text,
@@ -68,7 +82,7 @@ function InputField({ label, value, onChangeText, placeholder, hint, autoCapital
         }}
       />
       {hint ? (
-        <Text style={{ fontSize: 12, color: COLORS.textTertiary }}>{hint}</Text>
+        <Text style={{ fontSize: 11, color: COLORS.textTertiary, fontStyle: 'italic' }}>{hint}</Text>
       ) : null}
     </View>
   );
@@ -83,17 +97,21 @@ interface SliderFieldProps {
 
 function SliderField({ label, value, onValueChange, color }: SliderFieldProps) {
   const displayValue = Math.round(value);
+
   return (
     <View style={{ gap: 8 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ fontSize: 14, fontWeight: '600', color: COLORS.text }}>{label}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: color }} />
+          <Text style={{ fontSize: 14, fontWeight: '500', color: COLORS.text }}>{label}</Text>
+        </View>
         <View style={{
           backgroundColor: `${color}20`,
           borderRadius: 8,
           paddingHorizontal: 10,
           paddingVertical: 4,
         }}>
-          <Text style={{ fontSize: 15, fontWeight: '700', color, fontVariant: ['tabular-nums'] }}>{displayValue}</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700', color, fontFamily: 'SpaceMono' }}>{displayValue}</Text>
         </View>
       </View>
       <Slider
@@ -118,6 +136,26 @@ function parseCSV(text: string): string[] {
     .split(',')
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
+}
+
+function PulsingText({ text }: { text: string }) {
+  const opacity = useSharedValue(1);
+
+  React.useEffect(() => {
+    opacity.value = withRepeat(
+      withTiming(0.4, { duration: 700, easing: Easing.inOut(Easing.ease) }),
+      -1,
+      true
+    );
+  }, [opacity]);
+
+  const animStyle = useAnimatedStyle(() => ({ opacity: opacity.value }));
+
+  return (
+    <Animated.Text style={[{ fontSize: 16, fontWeight: '700', color: COLORS.textSecondary }, animStyle]}>
+      {text}
+    </Animated.Text>
+  );
 }
 
 export default function InputScreen() {
@@ -174,10 +212,10 @@ export default function InputScreen() {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, gap: 16 }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
         keyboardShouldPersistTaps="handled"
       >
-        <Animated.View entering={FadeInDown.delay(100).springify()} style={{ gap: 12 }}>
+        <Animated.View entering={FadeInDown.delay(100).springify()} style={{ gap: 14 }}>
           <SectionHeader title="Strategy Inputs" />
 
           <InputField
@@ -220,7 +258,6 @@ export default function InputScreen() {
             borderWidth: 1,
             borderColor: COLORS.border,
             gap: 20,
-            borderCurve: 'continuous',
           }}
         >
           <SectionHeader title="Strength Indicators" />
@@ -235,7 +272,7 @@ export default function InputScreen() {
             label="Product Readiness"
             value={productReadiness}
             onValueChange={setProductReadiness}
-            color={COLORS.accent}
+            color={COLORS.primary}
           />
           <SliderField
             label="Competition Intensity"
@@ -249,11 +286,11 @@ export default function InputScreen() {
           <Animated.View
             entering={FadeInDown.springify()}
             style={{
-              backgroundColor: 'rgba(255,71,87,0.12)',
+              backgroundColor: 'rgba(248,113,113,0.10)',
               borderRadius: 12,
               padding: 14,
               borderWidth: 1,
-              borderColor: 'rgba(255,71,87,0.3)',
+              borderColor: 'rgba(248,113,113,0.25)',
             }}
           >
             <Text style={{ fontSize: 14, color: COLORS.negative, lineHeight: 20 }}>{error}</Text>
@@ -266,21 +303,17 @@ export default function InputScreen() {
           style={{
             backgroundColor: isLoading ? COLORS.surfaceTertiary : COLORS.primary,
             borderRadius: 14,
-            height: 56,
+            height: 52,
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
             gap: 10,
-            borderCurve: 'continuous',
           }}
         >
           {isLoading ? (
-            <>
-              <ActivityIndicator color={COLORS.text} size="small" />
-              <Text style={{ fontSize: 16, fontWeight: '700', color: COLORS.textSecondary }}>Evaluating...</Text>
-            </>
+            <PulsingText text="Evaluating strategy..." />
           ) : (
-            <Text style={{ fontSize: 16, fontWeight: '700', color: '#0A0E1A' }}>Evaluate Strategy</Text>
+            <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Run evaluation</Text>
           )}
         </AnimatedPressable>
       </ScrollView>

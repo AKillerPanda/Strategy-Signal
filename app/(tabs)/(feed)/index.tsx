@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Lightbulb, Sliders } from 'lucide-react-native';
@@ -22,14 +21,23 @@ interface Recommendation {
   category: string;
 }
 
-const PRIORITY_CONFIG: Record<Priority, { color: string; bg: string; label: string }> = {
-  high: { color: COLORS.negative, bg: 'rgba(255,71,87,0.12)', label: 'HIGH' },
-  medium: { color: COLORS.warning, bg: 'rgba(245,158,11,0.12)', label: 'MED' },
-  low: { color: COLORS.positive, bg: COLORS.primaryMuted, label: 'LOW' },
+const PRIORITY_CONFIG: Record<Priority, { color: string; bg: string; label: string; dotColor: string }> = {
+  high: { color: COLORS.negative, bg: 'rgba(248,113,113,0.12)', label: 'HIGH', dotColor: COLORS.negative },
+  medium: { color: COLORS.warning, bg: 'rgba(251,191,36,0.12)', label: 'MED', dotColor: COLORS.warning },
+  low: { color: COLORS.positive, bg: COLORS.accentMuted, label: 'LOW', dotColor: COLORS.positive },
+};
+
+const PRIORITY_BORDER: Record<Priority, string> = {
+  high: COLORS.negative,
+  medium: COLORS.warning,
+  low: COLORS.positive,
 };
 
 function RecommendationCard({ item, index }: { item: Recommendation; index: number }) {
   const config = PRIORITY_CONFIG[item.priority] ?? PRIORITY_CONFIG.low;
+  const borderColor = PRIORITY_BORDER[item.priority] ?? COLORS.positive;
+  const categoryUpper = item.category.toUpperCase();
+  const priorityLabel = config.label;
 
   return (
     <Animated.View entering={FadeInDown.delay(index * 80).springify()}>
@@ -38,29 +46,58 @@ function RecommendationCard({ item, index }: { item: Recommendation; index: numb
         style={{
           backgroundColor: COLORS.surface,
           borderRadius: 16,
-          padding: 16,
           borderWidth: 1,
           borderColor: COLORS.border,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
-          borderCurve: 'continuous',
-          gap: 10,
+          borderLeftWidth: 2,
+          borderLeftColor: borderColor,
+          overflow: 'hidden',
         }}
       >
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Text style={{ fontSize: 12, color: COLORS.textSecondary, fontWeight: '500', textTransform: 'uppercase', letterSpacing: 0.8 }}>
-            {item.category}
-          </Text>
-          <View style={{
-            backgroundColor: config.bg,
-            borderRadius: 6,
-            paddingHorizontal: 8,
-            paddingVertical: 3,
-          }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', color: config.color }}>{config.label}</Text>
+        <View style={{ padding: 16, gap: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: config.dotColor }} />
+            <Text
+              style={{
+                fontSize: 11,
+                fontWeight: '600',
+                color: COLORS.textSecondary,
+                textTransform: 'uppercase',
+                letterSpacing: 1,
+                flex: 1,
+              }}
+            >
+              {categoryUpper}
+            </Text>
+            <View
+              style={{
+                backgroundColor: config.bg,
+                borderRadius: 20,
+                paddingHorizontal: 8,
+                paddingVertical: 3,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: '700',
+                  color: config.color,
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.8,
+                }}
+              >
+                {priorityLabel}
+              </Text>
+            </View>
           </View>
+
+          <Text style={{ fontSize: 16, fontWeight: '600', color: COLORS.text, lineHeight: 22 }}>
+            {item.title}
+          </Text>
+
+          <Text style={{ fontSize: 14, color: COLORS.textSecondary, lineHeight: 20 }}>
+            {item.description}
+          </Text>
         </View>
-        <Text style={{ fontSize: 17, fontWeight: '600', color: COLORS.text }}>{item.title}</Text>
-        <Text style={{ fontSize: 15, color: COLORS.textSecondary, lineHeight: 22 }}>{item.description}</Text>
       </AnimatedPressable>
     </Animated.View>
   );
@@ -83,7 +120,7 @@ function SkeletonFeed() {
         >
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <SkeletonLoader width={80} height={12} />
-            <SkeletonLoader width={40} height={20} borderRadius={6} />
+            <SkeletonLoader width={40} height={20} borderRadius={10} />
           </View>
           <SkeletonLoader width="70%" height={18} />
           <SkeletonLoader width="100%" height={14} />
@@ -129,8 +166,8 @@ function EmptyState({ onNavigate }: { onNavigate: () => void }) {
           alignItems: 'center',
         }}
       >
-        <Sliders size={16} color="#0A0E1A" />
-        <Text style={{ fontSize: 16, fontWeight: '700', color: '#0A0E1A' }}>Evaluate Strategy</Text>
+        <Sliders size={16} color="#fff" />
+        <Text style={{ fontSize: 16, fontWeight: '700', color: '#fff' }}>Evaluate Strategy</Text>
       </AnimatedPressable>
     </View>
   );
@@ -166,7 +203,7 @@ export default function FeedScreen() {
     <FlatList
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
-      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, gap: 12 }}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 12 }}
       data={result.recommendations}
       keyExtractor={(_, i) => String(i)}
       renderItem={({ item, index }) => (
