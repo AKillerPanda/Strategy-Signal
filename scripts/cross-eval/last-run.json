@@ -1,0 +1,121 @@
+{
+  "when": "2026-05-09T14:26:19.936Z",
+  "totals": {
+    "passes": 10,
+    "fails": 0,
+    "asserts": 75,
+    "failed_asserts": 0
+  },
+  "results": [
+    {
+      "name": "1: Output shape & required fields",
+      "status": "PASS",
+      "asserts": 17,
+      "fails": 0,
+      "ms": 1,
+      "metrics": {
+        "score": 64,
+        "fragmentation_risk": 23,
+        "rec_count": 3,
+        "competitor_count": 2
+      }
+    },
+    {
+      "name": "2: Score bounds (0..100) across 1000 random inputs",
+      "status": "PASS",
+      "asserts": 2,
+      "fails": 0,
+      "ms": 25,
+      "metrics": {
+        "score_min": 13,
+        "score_max": 96,
+        "n": 1000
+      }
+    },
+    {
+      "name": "3: Monotonicity — product_readiness ↑ should not lower strategy_score",
+      "status": "PASS",
+      "asserts": 1,
+      "fails": 0,
+      "ms": 20,
+      "metrics": {
+        "comparisons": 2000,
+        "avg_delta_per_step": "4.241"
+      }
+    },
+    {
+      "name": "4: Anti-monotonicity — competition_intensity ↑ should not raise strategy_score",
+      "status": "PASS",
+      "asserts": 1,
+      "fails": 0,
+      "ms": 17,
+      "metrics": {
+        "comparisons": 2000,
+        "avg_delta_per_step": "-2.521"
+      }
+    },
+    {
+      "name": "5: Determinism — same input → same score & fragmentation_risk",
+      "status": "PASS",
+      "asserts": 1,
+      "fails": 0,
+      "ms": 2,
+      "metrics": {
+        "trials": 50
+      }
+    },
+    {
+      "name": "6: Edge cases — empty arrays, 0/100 extremes",
+      "status": "PASS",
+      "asserts": 18,
+      "fails": 0,
+      "ms": 0,
+      "metrics": {
+        "cases_ok": 3,
+        "cases_total": 3
+      }
+    },
+    {
+      "name": "7: Demo presets — referenced ids resolve & output shape OK",
+      "status": "PASS",
+      "asserts": 29,
+      "fails": 0,
+      "ms": 0,
+      "metrics": {
+        "preset_ids": "ai-copilot,creator-growth,ops-marketplace"
+      }
+    },
+    {
+      "name": "8: Recommendation priorities — produced when triggers met",
+      "status": "PASS",
+      "asserts": 3,
+      "fails": 0,
+      "ms": 0,
+      "metrics": {
+        "weak_priorities": "high,high,low",
+        "strong_priorities": "low"
+      }
+    },
+    {
+      "name": "9: Competitor ranking — first competitor is highest threat",
+      "status": "PASS",
+      "asserts": 2,
+      "fails": 0,
+      "ms": 0,
+      "metrics": {
+        "threats": "64,57,50,43"
+      }
+    },
+    {
+      "name": "10: Performance — 1000 evaluations under 500ms",
+      "status": "PASS",
+      "asserts": 1,
+      "fails": 0,
+      "ms": 12,
+      "metrics": {
+        "ms_for_1000": 11,
+        "mean_score": "56.37"
+      }
+    }
+  ]
+}

@@ -294,3 +294,13 @@ Performance optimizations: OFF.
 [2026-05-09T14:00:26.417Z] [Web] [LOG] [Input] Parsed input {"features":["AI onboarding assistant","workflow analytics"],"channels":["SEO","LinkedIn"],"competitors":["Notion AI","ClickUp AI"],"milestones":["Beta launch","team pilot"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
 [2026-05-09T14:00:26.418Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":["AI onboarding assistant","workflow analytics"],"channels":["SEO","LinkedIn"],"competitors":["Notion AI","ClickUp AI"],"milestones":["Beta launch","team pilot"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60},"apiBaseCandidates":["http://127.0.0.1:8000","https://3j5en5ecxpd3gktxj6twjfq94nqwj5n8.app.specular.dev"]}
 [2026-05-09T14:00:26.527Z] [Web] [LOG] [Input] Evaluation success, navigating to Dashboard
+[2026-05-09T14:09:42.600Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T14:09:42.968Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T14:09:42.784Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T14:09:43.164Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents

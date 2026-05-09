@@ -36,17 +36,15 @@ export default function AnimatedPressable({
   return (
     <AnimatedPressableInner
       style={[animatedStyle, style]}
-      onPressIn={() => {
-        console.log('[AnimatedPressable] onPressIn');
+      onPressIn={(e) => {
         scale.value = withSpring(scaleDown, { damping: 15, stiffness: 300 });
-        onPressIn?.();
+        onPressIn?.(e);
       }}
-      onPressOut={() => {
+      onPressOut={(e) => {
         scale.value = withSpring(1, { damping: 15, stiffness: 300 });
-        onPressOut?.();
+        onPressOut?.(e);
       }}
       onPress={(e) => {
-        console.log('[AnimatedPressable] onPress');
         onPress?.(e);
       }}
       disabled={disabled}

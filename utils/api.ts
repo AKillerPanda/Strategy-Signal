@@ -281,19 +281,29 @@ function buildRecommendationCards(recommendations: string[] | undefined): Strate
   }));
 }
 
+// Backend reports fragmentation on 0..1; UI expects 0..100. Scale up if it
+// looks like a fraction so the dashboard's percentage rendering stays correct.
+function toPercent(value: number): number {
+  if (!Number.isFinite(value)) return 50;
+  return value <= 1.5 ? clamp(Math.round(value * 100), 0, 100) : clamp(Math.round(value), 0, 100);
+}
+
 function normalizeBackendResult(raw: BackendResponse, input: EvaluateInput): StrategyResult {
-  const summary = raw.summary ?? raw;
+  const summary = raw.summary ?? {};
   const recommendationCards = raw.recommendations && raw.recommendations.length > 0
     ? raw.recommendations
     : buildRecommendationCards(raw.evaluation?.recommendations);
   const score = Number(summary.strategy_score ?? raw.strategy_score ?? 50);
+  const rawFragmentation = Number(
+    summary.fragmentation_risk ?? summary.fragmentation_score ?? raw.fragmentation_risk ?? 50
+  );
 
   return {
     strategy_score: score,
     marketing_strength: Number(summary.marketing_strength ?? raw.marketing_strength ?? input.marketing_strength),
     product_readiness: Number(summary.product_readiness ?? raw.product_readiness ?? input.product_readiness),
     competition_intensity: Number(summary.competition_intensity ?? raw.competition_intensity ?? input.competition_intensity),
-    fragmentation_risk: Number(summary.fragmentation_risk ?? summary.fragmentation_score ?? raw.fragmentation_risk ?? 50),
+    fragmentation_risk: toPercent(rawFragmentation),
     best_launch_strategy: String(summary.best_launch_strategy ?? raw.best_launch_strategy ?? 'Focused Launch'),
     top_recommendation: String(
       summary.top_recommendation

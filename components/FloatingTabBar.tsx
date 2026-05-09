@@ -190,14 +190,13 @@ export default function FloatingTabBar({
               const isActive = activeTabIndex === index;
 
               return (
-                <React.Fragment key={index}>
                 <TouchableOpacity
-                  key={index} // Use index as key
+                  key={tab.name}
                   style={styles.tab}
                   onPress={() => handleTabPress(tab.route)}
                   activeOpacity={0.7}
                 >
-                  <View key={index} style={styles.tabContent}>
+                  <View style={styles.tabContent}>
                     <IconSymbol
                       android_material_icon_name={MATERIAL_ICON_MAP[tab.icon]}
                       ios_icon_name={IOS_ICON_MAP[tab.icon]}
@@ -215,7 +214,6 @@ export default function FloatingTabBar({
                     </Text>
                   </View>
                 </TouchableOpacity>
-                </React.Fragment>
               );
             })}
           </View>

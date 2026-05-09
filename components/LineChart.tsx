@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Svg, { Path, Defs, LinearGradient, Stop, Line, Circle, Text as SvgText } from 'react-native-svg';
 import { COLORS } from '@/styles/colors';
 
@@ -46,8 +46,11 @@ export default function LineChart({
   const minVal = 0;
   const maxVal = 100;
 
+  const denom = Math.max(1, displayData.length - 1);
   const points = displayData.map((val, i) => ({
-    x: paddingLeft + (i / (displayData.length - 1)) * chartWidth,
+    x: displayData.length === 1
+      ? paddingLeft + chartWidth / 2
+      : paddingLeft + (i / denom) * chartWidth,
     y: paddingTop + chartHeight - ((val - minVal) / (maxVal - minVal)) * chartHeight,
   }));
 
