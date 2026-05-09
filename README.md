@@ -257,7 +257,14 @@ Backend-specific setup and deployment notes live in `rendor/README.md`.
 The mobile app reads its backend URL in this order:
 
 1. `EXPO_PUBLIC_API_BASE_URL`
-2. `expo.extra.backendUrl` in `app.json`
+2. Local FastAPI backend at `http://127.0.0.1:8000` when the app is running on local web preview and no explicit override is set
+3. `expo.extra.backendUrl` in `app.json`
+
+Useful local-development scripts:
+
+- `npm run backend` starts the FastAPI service from the repo `.venv` when available
+- `npm run web:local-backend` starts Expo web with `EXPO_PUBLIC_API_BASE_URL=http://127.0.0.1:8000`
+- `npm run dev:local-backend` starts Expo with the same local backend override for non-web preview
 
 If the backend enables API-key protection, the mobile app can also send:
 
