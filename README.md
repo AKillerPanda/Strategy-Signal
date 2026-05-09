@@ -17,6 +17,122 @@ The mobile app captures startup inputs and surfaces scorecards, charts, watchlis
 - game-theory payoff scoring for launch posture selection
 - saved heuristic, predictive, RL, and scenario checkpoints for demo flows
 
+## Architecture Overview
+
+StrategySignal uses a mobile-first architecture. The Newly / Expo app handles the user experience, while the Python FastAPI backend in `rendor/` handles the strategy evaluation logic.
+
+The mobile app does not run the ML, graph, or game-theory logic directly. It sends startup strategy inputs to the backend, and the backend returns a structured JSON response that the app displays as scorecards, charts, watchlists, alerts, and recommendations.
+
+```mermaid
+flowchart TD
+    U[Founder / User] --> M[StrategySignal Mobile App<br/>Newly / Expo / React Native]
+
+    M --> S1[Input Screens<br/>Product, Channels, Competitors, Milestones]
+    M --> S2[Dashboard Screens<br/>Scorecards, Charts, Watchlists, Recommendations]
+
+    S1 --> Client[utils/api.ts<br/>Mobile API Client]
+
+    Client -->|POST /evaluate| API[rendor/api.py<br/>FastAPI Backend]
+    Client -->|GET /saved-scenario| API
+    Client -->|GET /health| API
+
+    API --> Eval[rendor/evaluator.py<br/>Strategy Evaluation Pipeline]
+
+    Eval --> Graph[rendor/graph_model.py<br/>Graph Analysis]
+    Eval --> Game[rendor/game_theory.py<br/>Launch Payoff Model]
+    Eval --> Recs[rendor/rlagent.py<br/>Recommendation Layer]
+
+    Graph --> Spectral[Normalized Laplacian<br/>Fiedler Value<br/>Fragmentation Score]
+    Game --> Payoff[Aggressive Launch<br/>Delayed Launch<br/>Niche Positioning]
+    Recs --> Advice[Next-Step Recommendations<br/>Risk Warnings]
+
+    API --> Loader[rendor/dataset_loader.py<br/>Saved Scenario Loader]
+    Loader --> Models[rendor/models<br/>Saved Checkpoints]
+
+    Models --> H[heuristic_checkpoint.json<br/>Learned Heuristics]
+    Models --> P[strategysignal_predictive.joblib<br/>Predictive Models]
+    Models --> R[strategysignal_rl_policy.json<br/>Experimental RL Policy]
+    Models --> SS[scenario_snapshot.json<br/>Demo Scenario Snapshot]
+
+    API --> Market[rendor/market_data.py<br/>Competitor / Brand Proxy Lookup]
+    Market --> Data[rendor/data<br/>competitors_by_category.json]
+
+    Spectral --> Response[JSON Strategy Response]
+    Payoff --> Response
+    Advice --> Response
+    H --> Response
+    P --> Response
+    R --> Response
+    SS --> Response
+
+    Response --> Client
+    Client --> S2
+```
+
+## Request Flow
+
+```mermaid
+sequenceDiagram
+    participant User as Founder
+    participant App as StrategySignal Mobile App
+    participant API as FastAPI Backend
+    participant Engine as Strategy Engine
+    participant Checkpoints as Saved Checkpoints
+
+    User->>App: Enters startup strategy inputs
+    App->>API: POST /evaluate
+    API->>Engine: Run evaluator.py
+    Engine->>Engine: Build strategy graph
+    Engine->>Engine: Compute fragmentation score
+    Engine->>Engine: Score launch strategies
+    Engine->>Engine: Generate recommendations
+    Engine-->>API: Strategy score + insights
+    API-->>App: JSON response
+    App-->>User: Shows dashboard, charts, alerts, and next actions
+
+    User->>App: Opens demo scenario
+    App->>API: GET /saved-scenario
+    API->>Checkpoints: Load saved artifacts
+    Checkpoints-->>API: Scenario + model outputs
+    API-->>App: Checkpoint-backed response
+    App-->>User: Shows fast demo dashboard
+```
+
+## System Layers
+
+| Layer | Technology | Role |
+| --- | --- | --- |
+| Mobile UI | Newly / Expo / React Native | Collects founder inputs and displays the strategy dashboard |
+| API Client | `utils/api.ts` | Sends requests from the mobile app to the backend |
+| Backend API | FastAPI in `rendor/api.py` | Exposes `/evaluate`, `/saved-scenario`, and health endpoints |
+| Strategy Engine | Python modules in `rendor/` | Runs graph analysis, payoff scoring, recommendations, and checkpoint loading |
+| Saved Artifacts | JSON + Joblib files in `rendor/models/` | Support fast demo scenarios without retraining |
+| Data Helpers | `market_data.py` + JSON data | Support competitor / brand proxy lookup |
+
+## Evaluation Pipeline
+
+```mermaid
+flowchart LR
+    A[Startup Inputs] --> B[FastAPI /evaluate]
+    B --> C[evaluator.py]
+
+    C --> D[graph_model.py]
+    D --> E[Fragmentation Score]
+
+    C --> F[game_theory.py]
+    F --> G[Best Launch Strategy]
+
+    C --> H[rlagent.py]
+    H --> I[Recommendations]
+
+    E --> J[Final Strategy Score]
+    G --> J
+    I --> J
+
+    J --> K[Mobile JSON Response]
+    K --> L[Scorecards, Charts, Alerts, Watchlist]
+```
+
 ## Final Submission Layout
 
 ```text
@@ -48,10 +164,10 @@ ml hackathon/
 |   |-- data/
 |   |   |-- competitors_by_category.json
 |   |-- models/
-|       |-- heuristic_checkpoint.json
-|       |-- strategysignal_predictive.joblib
-|       |-- strategysignal_rl_policy.json
-|       |-- scenario_snapshot.json
+|   |   |-- heuristic_checkpoint.json
+|   |   |-- strategysignal_predictive.joblib
+|   |   |-- strategysignal_rl_policy.json
+|   |   |-- scenario_snapshot.json
 ```
 
 ## How It Works
