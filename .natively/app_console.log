@@ -237,3 +237,46 @@ Performance optimizations: OFF.
 [2026-05-09T13:48:19.383Z] [Web] [LOG] [Home] Navigate to Evaluate tab
 [2026-05-09T13:48:19.438Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
 [2026-05-09T13:48:27.404Z] [Web] [WARN] "show_chart" is not a valid icon name for family "material"
+[2026-05-09T13:48:58.262Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:48:58.812Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:49:16.462Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:49:16.818Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:49:37.591Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:49:37.596Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:49:37.597Z] [Web] [LOG] [Input] Evaluate Strategy button pressed
+[2026-05-09T13:49:37.598Z] [Web] [LOG] [Input] Parsed input {"features":["AI scheduling assistant","team calendar sync","meeting prep notes"],"channels":["LinkedIn","email outreach","Product Hunt"],"competitors":["Clockwise","Motion","Reclaim"],"milestones":["Beta launch","team pilots","paid plans"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}
+[2026-05-09T13:49:37.599Z] [Web] [LOG] [API] evaluateStrategy called {"input":{"features":["AI scheduling assistant","team calendar sync","meeting prep notes"],"channels":["LinkedIn","email outreach","Product Hunt"],"competitors":["Clockwise","Motion","Reclaim"],"milestones":["Beta launch","team pilots","paid plans"],"marketing_strength":70,"product_readiness":65,"competition_intensity":60}}
+[2026-05-09T13:49:37.746Z] [Web] [ERROR] [API] evaluateStrategy error {"status":404,"text":"{\"message\":\"Route POST:/evaluate not found\",\"error\":\"Not Found\",\"statusCode\":404}"}
+[2026-05-09T13:49:37.747Z] [Web] [WARN] [API] Falling back to local evaluation after API error
+[2026-05-09T13:49:37.747Z] [Web] [LOG] [Input] Evaluation success, navigating to Dashboard
+[2026-05-09T13:50:42.071Z] [Web] [LOG] Running application "main" with appParams:
+ {"rootTag":"#root"} 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+[2026-05-09T13:50:42.512Z] [Web] [WARN] props.pointerEvents is deprecated. Use style.pointerEvents
+[2026-05-09T13:50:52.385Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:50:52.580Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:50:52.581Z] [Web] [LOG] [Home] Empty state Demo button pressed
+[2026-05-09T13:50:52.581Z] [Web] [LOG] [Home] Navigate to Guided Demo
+[2026-05-09T13:50:53.831Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:50:53.995Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:50:55.802Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:50:55.999Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:51:23.142Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:51:23.320Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:51:23.322Z] [Web] [LOG] [Input] Guided demo button pressed creator-growth
+[2026-05-09T13:51:34.509Z] [Web] [LOG] [Input] Slider "Marketing Strength" changed to 47
+[2026-05-09T13:51:36.197Z] [Web] [LOG] [Input] Slider "Product Readiness" changed to 89
+[2026-05-09T13:51:38.809Z] [Web] [LOG] [Input] Slider "Competition Intensity" changed to 89
+[2026-05-09T13:51:40.594Z] [Web] [LOG] [Input] Slider "Product Readiness" changed to 73
+[2026-05-09T13:51:42.618Z] [Web] [LOG] [Input] Slider "Marketing Strength" changed to 65
+[2026-05-09T13:51:43.506Z] [Web] [LOG] [Input] Slider "Marketing Strength" changed to 87
+[2026-05-09T13:51:46.155Z] [Web] [LOG] [AnimatedPressable] onPressIn
+[2026-05-09T13:51:46.331Z] [Web] [LOG] [AnimatedPressable] onPress
+[2026-05-09T13:51:46.332Z] [Web] [LOG] [Input] Guided demo button pressed creator-growth

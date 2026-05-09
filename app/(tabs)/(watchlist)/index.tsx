@@ -4,8 +4,8 @@ import {
   Text,
   FlatList,
   Alert,
-  Clipboard,
 } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 import { useRouter } from 'expo-router';
 import { Users, Sliders } from 'lucide-react-native';
 import { COLORS } from '@/styles/colors';
@@ -49,9 +49,9 @@ function CompetitorRow({ item, index }: { item: Competitor; index: number }) {
       [
         {
           text: 'Copy Response',
-          onPress: () => {
+          onPress: async () => {
             console.log('[Watchlist] Copy response for', item.name);
-            Clipboard.setString(item.suggested_response);
+            await Clipboard.setStringAsync(item.suggested_response);
             Alert.alert('Copied', 'Suggested response copied to clipboard.');
           },
         },
