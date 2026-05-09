@@ -1,24 +1,52 @@
 # Startup Strategy Evaluator
 
-Startup Strategy Evaluator is an MVP decision-support app for founders. It combines startup strategy inputs with graph analysis, game-theory style payoff scoring, and a rule-based recommendation layer to estimate how strong a launch plan looks and where it may break down.
+![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![Graph Analysis](https://img.shields.io/badge/Analysis-Spectral%20Graph-0A7EA4)
+![Status](https://img.shields.io/badge/Status-Hackathon%20MVP-F59E0B)
 
-The project is based on the idea of evaluating:
+Startup Strategy Evaluator is a founder-facing MVP that turns a startup plan into a scored decision model. It combines spectral graph theory, payoff-based competitive analysis, and a rule-based recommendation layer to help teams spot bottlenecks, choose a launch posture, and identify the next best strategic moves.
 
-- marketing strategy
-- product timeline
+## Hackathon Pitch
+
+Founders make high-stakes launch decisions with incomplete information. This project reframes startup planning as a structured decision system: model the business as a graph, score launch options under competitive pressure, and return practical recommendations instead of vague advice.
+
+The core idea is simple: take a messy strategy conversation and convert it into a measurable evaluation pipeline.
+
+Current founder inputs:
+
+- product features
+- marketing channels
 - competitors
 - milestones
-- market positioning
+- marketing strength
+- product readiness
+- competition intensity
 
-with a mix of:
+Current outputs:
 
-- spectral graph theory
-- payoff modeling inspired by game theory
-- a recommendation agent inspired by reinforcement learning
+- overall strategy score
+- best launch strategy from the payoff model
+- payoff breakdown across strategy options
+- Fiedler value and bottleneck score from the graph
+- action-oriented recommendations
 
-## Vision
+## Demo Snapshots
 
-The broader product concept is a founder-facing strategy simulator where users enter:
+| Strategy input view | Evaluation output |
+|---|---|
+| ![Startup strategy input screen](assets/app-inputs.png) | ![Startup strategy evaluation results](assets/app-results.png) |
+
+## Why This Is Interesting
+
+- It treats startup execution as a connected system rather than a checklist.
+- It uses spectral signals to identify fragmentation and structural weakness.
+- It introduces competitive reasoning with a simple game-theory payoff model.
+- It creates a path from heuristic scoring today to simulation-driven reinforcement learning later.
+
+## Product Vision
+
+The broader concept goes beyond the current MVP. The long-term app should allow founders to enter:
 
 - marketing strategy
 - product timeline
@@ -28,45 +56,21 @@ The broader product concept is a founder-facing strategy simulator where users e
 - milestones
 - traction metrics
 
-The system then evaluates the plan using:
+Then evaluate the plan using:
 
-- game theory to estimate competitor responses and payoff tradeoffs
-- reinforcement learning to learn which strategy actions improve outcomes over time
-- spectral graph theory to model relationships across the product, market, competitors, and customer segments
-- the Fiedler vector and a Cheeger-style bottleneck approximation to identify weak links, fragmentation risk, and segmentation opportunities
-
-## Current MVP In This Repo
-
-The checked-in code implements a smaller MVP than the full vision above.
-
-Current user inputs:
-
-- product features
-- marketing channels
-- competitors
-- product milestones
-- marketing strength score
-- product readiness score
-- competition intensity score
-
-Current outputs:
-
-- overall strategy score
-- best launch posture from the payoff model
-- payoff breakdown across strategic options
-- Fiedler value and bottleneck score from the strategy graph
-- plain-language recommendations
-
-Important limitation: the current `rlagent.py` module is not true reinforcement learning yet. It is a rule-based recommendation layer that uses the evaluation score, bottleneck score, and best strategy label to generate suggestions.
+- game theory for competitor response and payoff tradeoffs
+- reinforcement learning for action selection over repeated simulations
+- spectral graph theory for structure and dependency analysis
+- Fiedler vector and Cheeger-style approximation for bottleneck and segmentation detection
 
 ## Core Flow
 
-1. A founder enters startup strategy details in the Streamlit interface.
+1. The founder submits startup strategy details in Streamlit.
 2. The evaluator builds a strategy graph from features, channels, competitors, and milestones.
-3. The graph module computes a normalized Laplacian, the Fiedler value/vector, and a Cheeger-style bottleneck approximation.
-4. The game-theory module scores a small set of strategic launch options.
-5. The evaluator combines numeric inputs with the spectral bottleneck penalty to produce a final score.
-6. The recommendation module returns action-oriented guidance based on that score and the best strategic posture.
+3. The graph module computes the normalized Laplacian, Fiedler value, Fiedler vector, and bottleneck score.
+4. The game-theory module scores several launch strategies.
+5. The evaluator combines numeric inputs and the spectral penalty into a final score.
+6. The recommendation layer returns next-step suggestions based on score quality and strategic posture.
 
 ## Architecture Diagram
 
@@ -76,12 +80,12 @@ flowchart TD
     B --> C[evaluator.py\nstrategy evaluation pipeline]
 
     C --> D[graph_model.py\nBuild strategy graph]
-    D --> E[NumPy + NetworkX\nLaplacian, Fiedler value, bottleneck score]
+    D --> E[NumPy + NetworkX\nLaplacian, Fiedler value, Fiedler vector, bottleneck score]
 
     C --> F[gametheory.py\nWeighted payoff model]
     F --> G[Aggressive launch\nDelayed launch\nNiche positioning]
 
-    C --> H[rlagent.py\nRule-based recommendation agent]
+    C --> H[rlagent.py\nRule-based recommendation layer]
 
     E --> C
     G --> C
@@ -107,43 +111,35 @@ ml hackathon/
 |-- gametheory.py
 |-- graph_model.py
 |-- rlagent.py
+|-- assets/
+|   |-- app-inputs.png
+|   |-- app-results.png
+|-- README.md
 |-- requirements.txt
 ```
 
 Module responsibilities:
 
-- `app.py`: Streamlit UI for collecting inputs and displaying results.
-- `evaluator.py`: central orchestration layer that combines spectral analysis, payoff scoring, and recommendation generation.
+- `app.py`: Streamlit interface and user interaction flow.
+- `evaluator.py`: central orchestration for scoring and recommendations.
 - `graph_model.py`: graph construction and spectral analysis.
-- `gametheory.py`: simple heuristic payoff model for launch strategies.
-- `rlagent.py`: rule-based action recommendation layer.
-- `requirements.txt`: Python dependencies for the MVP.
+- `gametheory.py`: heuristic payoff scoring for launch strategies.
+- `rlagent.py`: rule-based recommendation logic.
+- `requirements.txt`: MVP dependency list.
 
 ## Library Overview
 
-### Streamlit
+| Library | Role in the project |
+|---|---|
+| `streamlit` | Runs the MVP interface with text areas, sliders, buttons, and results panels. |
+| `numpy` | Handles linear algebra for Laplacian eigenvalue and eigenvector computation. |
+| `networkx` | Builds the startup strategy graph and produces the normalized Laplacian matrix. |
+| `scikit-learn` | Included for future model expansion, such as clustering, feature engineering, or learned evaluators. |
+| `pandas` | Included for future scenario datasets, benchmarking tables, or saved strategy evaluations. |
 
-Used for the MVP frontend. It provides the sliders, text areas, buttons, score metric, and JSON output that make the app easy to demo without building a separate frontend.
+## How The MVP Works
 
-### NumPy
-
-Used for numerical linear algebra inside the spectral analysis pipeline. The graph Laplacian eigen-decomposition is computed with NumPy.
-
-### NetworkX
-
-Used to build and analyze the startup strategy graph. The graph stores nodes for features, channels, competitors, and milestones, then produces the normalized Laplacian used for spectral analysis.
-
-### scikit-learn
-
-Included in `requirements.txt`, but not yet used directly in the current checked-in modules. It is a sensible future dependency for clustering, feature engineering, or predictive modeling once the app moves beyond heuristic scoring.
-
-### pandas
-
-Included in `requirements.txt`, but not yet used directly in the current checked-in modules. It would fit naturally for loading startup profiles, benchmarking strategy scenarios, or storing evaluation datasets.
-
-## How The MVP Scoring Works
-
-### 1. Strategy graph
+### Strategy graph
 
 The graph layer creates nodes for:
 
@@ -152,9 +148,9 @@ The graph layer creates nodes for:
 - competitors
 - milestones
 
-In the current MVP, all nodes are connected with a default edge weight. This is a simplification of the larger product vision, where edges would represent richer signals such as influence, dependency, competition, overlap, or customer-segment affinity.
+The current MVP connects all nodes with a default edge weight. That is intentionally simple and keeps the prototype easy to explain, but future versions should replace it with explicit relationships such as dependency, overlap, influence, or direct competition.
 
-### 2. Spectral analysis
+### Spectral analysis
 
 The graph module computes:
 
@@ -164,37 +160,36 @@ The graph module computes:
 - Fiedler vector
 - bottleneck score using `sqrt(2 * fiedler_value)`
 
-These metrics are used as a structural health signal for the strategy graph.
+These metrics act as a structural health signal for the startup plan.
 
-### 3. Game-theory style payoffs
+### Game-theory payoff model
 
-The game-theory module estimates payoff values for three options:
+The payoff model estimates three strategic options:
 
 - Aggressive launch
 - Delayed launch
 - Niche positioning
 
-The payoffs are heuristic weighted combinations of:
+Each payoff is computed from a weighted combination of:
 
 - marketing strength
 - product readiness
 - competition intensity
 
-### 4. Final score
+### Final strategy score
 
-The evaluator computes a base score from the three numeric inputs, then subtracts a spectral penalty derived from the bottleneck score. The final score is clamped to the range `0-100`.
+The evaluator computes a base score from the numeric inputs, subtracts a spectral penalty derived from the bottleneck score, and clamps the final result to a `0-100` range.
 
-### 5. Recommendations
+### Recommendations
 
-The recommendation layer turns the score and strategic posture into suggested next moves such as:
+The recommendation layer converts the score and best strategy label into guidance such as:
 
-- improve positioning
-- reduce fragmentation risk
-- accelerate GTM execution
+- improve positioning and acquisition channels
+- reduce fragmentation across milestones and go-to-market execution
 - delay launch until product readiness improves
-- focus on a narrower segment
+- focus on a narrower initial segment
 
-## Run The App
+## Run Locally
 
 Install dependencies:
 
@@ -202,21 +197,28 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Start Streamlit:
+Start the app:
 
 ```bash
 streamlit run app.py
 ```
 
-## Notes On The Current Codebase
+## Current Limitation
 
-The implementation reflects the MVP code sketch closely, but there is still room to align the package structure with the original concept. The code currently lives at the repository root, while the conceptual structure in the original idea places the analytical modules inside a dedicated `strategy_engine/` package.
+The current `rlagent.py` module is not a true reinforcement-learning agent yet. It is a rule-based recommender that reacts to the final score, bottleneck score, and best strategy label.
 
-## Suggested Next Steps
+To turn this into real RL, the next version needs:
 
-1. Move the analytical modules into a real `strategy_engine/` package and align imports consistently.
-2. Replace the fully connected graph with explicit edge generation based on dependency, overlap, and competition signals.
-3. Add budget, target market, and traction metrics to the UI and scoring pipeline.
-4. Introduce persistence with SQLite for scenario history.
-5. Build a real reinforcement-learning environment with states, actions, and rewards instead of rule-based recommendations.
-6. Expose the evaluator through FastAPI once the prototype grows beyond a single Streamlit app.
+- a state representation of startup strategy plus market conditions
+- a defined action space such as reallocate budget, delay launch, or reposition product
+- a reward function tied to simulated or real outcomes
+- repeated strategy simulation so a policy can learn over time
+
+## Roadmap
+
+1. Move the analytical modules into a dedicated `strategy_engine/` package.
+2. Replace the fully connected graph with richer, typed edge generation.
+3. Add budget, target market, and traction metrics to the UI and evaluator.
+4. Persist scenarios and evaluations with SQLite.
+5. Introduce a real strategy simulation environment for reinforcement learning.
+6. Expose the evaluation engine through FastAPI when the prototype grows.

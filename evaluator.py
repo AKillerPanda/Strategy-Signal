@@ -1,6 +1,6 @@
-from .graph_model import build_strategy_graph, spectral_analysis
-from .game_theory import evaluate_payoff
-from .rl_agent import recommend_actions
+from graph_model import build_strategy_graph, spectral_analysis
+from gametheory import evaluate_payoff
+from rlagent import recommend_actions
 
 def evaluate_strategy(features, channels, competitors, milestones,
                       marketing_strength, product_readiness, competition_intensity):

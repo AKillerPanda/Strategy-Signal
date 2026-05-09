@@ -1,5 +1,5 @@
 import streamlit as st
-from strategy_engine.evaluator import evaluate_strategy
+from evaluator import evaluate_strategy
 
 st.title("Startup Strategy Evaluator")
 st.write("Evaluate marketing, product timeline, and competitive strategy using ML, game theory, and spectral graph theory.")
