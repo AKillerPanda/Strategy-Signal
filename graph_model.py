@@ -28,21 +28,25 @@ def build_strategy_graph(features, channels, competitors, milestones):
 def spectral_analysis(G):
     if len(G.nodes) < 3:
         return {
-            "fiedler_value": 0,
-            "bottleneck_score": 1,
+            "fiedler_value": 0.0,
+            "bottleneck_score": 1.0,
             "fiedler_vector": []
         }
 
     L = nx.normalized_laplacian_matrix(G).toarray()
     eigenvalues, eigenvectors = np.linalg.eigh(L)
 
-    fiedler_value = eigenvalues[1]
+    fiedler_value = float(eigenvalues[1])
     fiedler_vector = eigenvectors[:, 1]
 
-    bottleneck_score = np.sqrt(2 * fiedler_value)
+    # Higher Fiedler value implies stronger algebraic connectivity, so the
+    # bottleneck score must shrink as the graph gets healthier. We invert the
+    # Cheeger-style sqrt(fiedler) signal and clamp into [0, 1] so downstream
+    # penalties and the "lower is healthier" UI label stay consistent.
+    bottleneck_score = max(0.0, 1.0 - float(np.sqrt(fiedler_value)))
 
     return {
-        "fiedler_value": float(fiedler_value),
-        "bottleneck_score": float(bottleneck_score),
+        "fiedler_value": fiedler_value,
+        "bottleneck_score": bottleneck_score,
         "fiedler_vector": fiedler_vector.tolist()
     }

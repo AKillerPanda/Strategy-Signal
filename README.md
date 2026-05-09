@@ -231,7 +231,7 @@ The graph module computes:
 - eigenvalues and eigenvectors
 - Fiedler value
 - Fiedler vector
-- bottleneck score using `sqrt(2 * fiedler_value)`
+- bottleneck score derived from `1 - sqrt(fiedler_value)` (clamped to `[0, 1]`, so a fragmented graph approaches `1` and a well-connected graph approaches `0`)
 
 These metrics act as a structural health signal for the startup plan.
 

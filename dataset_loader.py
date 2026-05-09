@@ -4,7 +4,9 @@ from pathlib import Path
 
 import pandas as pd
 
+from predictive_models import train_predictive_models
 from reinforcement_model import POLICY_CONFIGS, learn_heuristic_scores, save_heuristic_checkpoint
+from strategy_signal_rl import build_strategy_timeseries, train_rl_policy
 
 
 REQUIRED_FILES = {
@@ -206,6 +208,60 @@ def _aggregate_monthly_events(events_path):
     return monthly_events.fillna(0.0), event_type_totals, traffic_source_totals
 
 
+def _aggregate_channel_monthly_events(events_path):
+    channel_event_counts_total = None
+    channel_session_totals = None
+
+    for chunk in pd.read_csv(
+        events_path,
+        usecols=["timestamp", "traffic_source", "event_type", "session_duration_sec"],
+        parse_dates=["timestamp"],
+        chunksize=200_000,
+    ):
+        chunk["month"] = chunk["timestamp"].dt.to_period("M").astype(str)
+        event_counts_chunk = (
+            chunk.groupby(["month", "traffic_source", "event_type"]).size().unstack(fill_value=0)
+        )
+        session_totals_chunk = chunk.groupby(["month", "traffic_source"])["session_duration_sec"].agg(
+            duration_sum="sum",
+            duration_count="count",
+        )
+
+        channel_event_counts_total = _accumulate_frame(channel_event_counts_total, event_counts_chunk)
+        channel_session_totals = _accumulate_frame(channel_session_totals, session_totals_chunk)
+
+    if channel_event_counts_total is None:
+        return pd.DataFrame()
+
+    channel_event_counts_total = channel_event_counts_total.fillna(0.0).sort_index()
+    channel_session_totals = channel_session_totals.fillna(0.0).sort_index()
+
+    channel_frame = channel_event_counts_total.reset_index()
+    index = channel_event_counts_total.index
+    views = _series_or_zero(channel_event_counts_total, "view", index)
+    clicks = _series_or_zero(channel_event_counts_total, "click", index)
+    add_to_cart = _series_or_zero(channel_event_counts_total, "add_to_cart", index)
+    purchases = _series_or_zero(channel_event_counts_total, "purchase", index)
+    bounces = _series_or_zero(channel_event_counts_total, "bounce", index)
+    events_count = channel_event_counts_total.sum(axis=1)
+
+    channel_frame["views"] = views.values
+    channel_frame["clicks"] = clicks.values
+    channel_frame["add_to_cart"] = add_to_cart.values
+    channel_frame["purchases"] = purchases.values
+    channel_frame["bounces"] = bounces.values
+    channel_frame["events_count"] = events_count.values
+    channel_frame["purchase_rate"] = _safe_divide(purchases, views + clicks + add_to_cart + purchases).values
+    channel_frame["click_through_rate"] = _safe_divide(clicks, views).values
+    channel_frame["add_to_cart_rate"] = _safe_divide(add_to_cart, clicks).values
+    channel_frame["bounce_rate"] = _safe_divide(bounces, events_count).values
+    channel_frame["average_session_duration"] = _safe_divide(
+        channel_session_totals["duration_sum"],
+        channel_session_totals["duration_count"],
+    ).values
+    return channel_frame.fillna(0.0)
+
+
 def _aggregate_monthly_transactions(transactions_path):
     transactions = pd.read_csv(
         transactions_path,
@@ -316,6 +372,135 @@ def _build_monthly_feature_frame(dataset_dir, customers, products, campaigns):
     return monthly_features.astype(float), event_type_totals, traffic_source_totals
 
 
+def _build_competitor_watchlist(products):
+    brand_frame = products.groupby("brand").agg(
+        product_count=("product_id", "count"),
+        category_diversity=("category", "nunique"),
+        average_price=("base_price", "mean"),
+        premium_share=("is_premium", "mean"),
+    )
+    brand_frame = brand_frame.sort_values("product_count", ascending=False).head(6).copy()
+
+    for column_name in ["product_count", "category_diversity", "average_price", "premium_share"]:
+        max_value = brand_frame[column_name].max()
+        if max_value > 0:
+            brand_frame[f"{column_name}_norm"] = brand_frame[column_name] / max_value
+        else:
+            brand_frame[f"{column_name}_norm"] = 0.0
+
+    brand_frame["threat_score"] = 100 * (
+        0.40 * brand_frame["product_count_norm"]
+        + 0.20 * brand_frame["category_diversity_norm"]
+        + 0.20 * brand_frame["average_price_norm"]
+        + 0.20 * brand_frame["premium_share_norm"]
+    )
+
+    watchlist = []
+    for brand_name, row in brand_frame.sort_values("threat_score", ascending=False).iterrows():
+        threat_score = float(row["threat_score"])
+        if threat_score >= 70:
+            threat_level = "High"
+            response = "Niche down and tighten differentiation"
+        elif threat_score >= 45:
+            threat_level = "Medium"
+            response = "Protect conversion and sharpen positioning"
+        else:
+            threat_level = "Low"
+            response = "Monitor but prioritize higher-risk rivals"
+
+        watchlist.append(
+            {
+                "competitor": brand_name,
+                "threat_level": threat_level,
+                "threat_score": round(threat_score, 2),
+                "suggested_response": response,
+            }
+        )
+
+    return watchlist
+
+
+def _build_alerts(strategy_timeseries, predictive_models, rl_policy):
+    latest = strategy_timeseries.iloc[-1]
+    trailing = strategy_timeseries.tail(3)
+    alerts = []
+
+    trailing_launch_risk = trailing["launch_timing_risk"].mean()
+    launch_delta = latest["launch_timing_risk"] - trailing_launch_risk
+    if latest["launch_timing_risk"] >= 55:
+        alerts.append(
+            {
+                "severity": "High",
+                "title": "Launch timing risk increased",
+                "message": f"Launch timing risk is {latest['launch_timing_risk']:.1f} and moved by {launch_delta:+.1f} points versus the recent baseline.",
+            }
+        )
+
+    weak_channel = predictive_models["channel_model"]["weak_channels"][0]
+    if weak_channel["predicted_weakness_probability"] >= 55:
+        alerts.append(
+            {
+                "severity": "Medium",
+                "title": "A paid or owned channel is underperforming",
+                "message": f"{weak_channel['channel']} shows {weak_channel['predicted_weakness_probability']:.1f}% weakness probability. Rebalance channel mix before scaling spend.",
+            }
+        )
+
+    if latest["product_readiness"] < 45 and latest["launch_timing_risk"] > 50:
+        alerts.append(
+            {
+                "severity": "High",
+                "title": "Product timeline is too aggressive",
+                "message": "Readiness is lagging while launch pressure remains elevated. Delay scope or launch in a narrower beta window.",
+            }
+        )
+
+    if rl_policy["recommended_action"] == "target niche segment":
+        alerts.append(
+            {
+                "severity": "Medium",
+                "title": "Niche positioning may outperform broad launch",
+                "message": "The trained policy favors narrower focus over broad acquisition. Consider a segment-led go-to-market plan.",
+            }
+        )
+
+    if latest["customer_conversion_probability"] < 40 and latest["marketing_strength"] >= 30:
+        alerts.append(
+            {
+                "severity": "Medium",
+                "title": "Onboarding is limiting conversion",
+                "message": "Traffic and marketing signals are present, but conversion probability remains soft. Improve onboarding before increasing ad spend.",
+            }
+        )
+
+    return alerts
+
+
+def _build_strategy_feed(strategy_timeseries, predictive_models, rl_policy):
+    latest = strategy_timeseries.iloc[-1]
+    weak_channel = predictive_models["channel_model"]["weak_channels"][0]
+    segment = predictive_models["customer_segmentation"]["profiles"][0]
+
+    return [
+        {
+            "headline": "Best next move",
+            "detail": rl_policy["recommended_action"].title(),
+        },
+        {
+            "headline": "Weakest channel",
+            "detail": f"{weak_channel['channel']} at {weak_channel['predicted_weakness_probability']:.1f}% weakness probability",
+        },
+        {
+            "headline": "Top customer segment",
+            "detail": f"{segment['segment']} led by {segment['top_acquisition']} acquisition and {segment['top_loyalty']} loyalty",
+        },
+        {
+            "headline": "Current launch risk",
+            "detail": f"{latest['launch_timing_risk']:.1f}/100 launch timing risk",
+        },
+    ]
+
+
 @lru_cache(maxsize=4)
 def load_archive_scenario(base_dir):
     dataset_dir = Path(base_dir).expanduser()
@@ -337,8 +522,26 @@ def load_archive_scenario(base_dir):
         products,
         campaigns,
     )
+    channel_monthly_features = _aggregate_channel_monthly_events(
+        dataset_dir / REQUIRED_FILES["events"]
+    )
     feature_snapshot = monthly_features.mean().to_dict()
     heuristic_models = learn_heuristic_scores(monthly_features, feature_snapshot)
+    predictive_models = train_predictive_models(
+        monthly_features,
+        channel_monthly_features,
+        customers,
+        feature_snapshot,
+    )
+    strategy_timeseries = build_strategy_timeseries(
+        monthly_features,
+        heuristic_models,
+        predictive_models,
+    )
+    rl_policy = train_rl_policy(strategy_timeseries)
+    competitor_watchlist = _build_competitor_watchlist(products)
+    alerts = _build_alerts(strategy_timeseries, predictive_models, rl_policy)
+    strategy_feed = _build_strategy_feed(strategy_timeseries, predictive_models, rl_policy)
 
     top_categories = products["category"].value_counts().head(4).index.to_series()
     features = _top_values(top_categories, 4)
@@ -419,6 +622,11 @@ def load_archive_scenario(base_dir):
     return {
         "dataset_path": str(dataset_dir),
         "checkpoint_path": checkpoint_path,
+        "checkpoint_paths": {
+            "heuristics": checkpoint_path,
+            "predictive_models": predictive_models["checkpoint_path"],
+            "rl_policy": rl_policy["checkpoint_path"],
+        },
         "features": features,
         "channels": channels,
         "competitors": competitors,
@@ -427,6 +635,20 @@ def load_archive_scenario(base_dir):
         "product_readiness": product_readiness,
         "competition_intensity": competition_intensity,
         "heuristic_models": heuristic_models,
+        "predictive_models": predictive_models,
+        "rl_policy": rl_policy,
+        "strategy_timeseries": strategy_timeseries.assign(
+            month=strategy_timeseries["month"].dt.strftime("%Y-%m-%d")
+        ).to_dict("records"),
+        "competitor_watchlist": competitor_watchlist,
+        "alerts": alerts,
+        "strategy_feed": strategy_feed,
+        "dashboard_metrics": {
+            "customer_conversion_probability": round(float(strategy_timeseries.iloc[-1]["customer_conversion_probability"]), 2),
+            "launch_timing_risk": round(float(strategy_timeseries.iloc[-1]["launch_timing_risk"]), 2),
+            "marketing_roi": round(float(strategy_timeseries.iloc[-1]["marketing_roi"]), 2),
+            "best_next_move": rl_policy["recommended_action"],
+        },
         "dataset_metrics": {
             "purchase_rate_pct": round(purchase_rate * 100, 2),
             "average_campaign_uplift_pct": round(avg_uplift * 100, 2),
@@ -451,5 +673,6 @@ def load_archive_scenario(base_dir):
             "Competitor nodes are derived from top product brands because the dataset has no explicit competitor table.",
             "Archive scores are now learned by an offline reinforcement-style policy search over monthly dataset episodes instead of fixed hand-tuned constants.",
             "Each archive heuristic uses a wider feature set spanning events, campaigns, transactions, products, and customers.",
+            "Predictive ML checkpoints and RL policy checkpoints are stored under the models directory during archive scenario generation.",
         ],
     }
