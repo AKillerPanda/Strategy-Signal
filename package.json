@@ -9,7 +9,7 @@
     "ios": "cross-env EXPO_NO_TELEMETRY=1 expo start --ios",
     "web": "cross-env EXPO_NO_TELEMETRY=1 expo start --web",
     "web:local-backend": "cross-env EXPO_NO_TELEMETRY=1 EXPO_PUBLIC_API_BASE_URL=http://127.0.0.1:8000 expo start --web",
-    "backend": "python -m uvicorn api:app --reload --app-dir rendor",
+    "backend": "node scripts/run-backend.cjs",
     "build:web": "expo export -p web && npx workbox generateSW workbox-config.js",
     "build:android": "expo prebuild -p android",
     "lint": "eslint ."
