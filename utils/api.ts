@@ -23,8 +23,36 @@ type ExtraConfig = {
 
 const extra = (Constants.expoConfig?.extra ?? {}) as ExtraConfig;
 
-export const API_BASE_URL = (process.env.EXPO_PUBLIC_API_BASE_URL || extra.backendUrl || '').replace(/\/+$/, '');
+const EXPLICIT_API_BASE_URL = (process.env.EXPO_PUBLIC_API_BASE_URL || '').replace(/\/+$/, '');
+const CONFIGURED_API_BASE_URL = (extra.backendUrl || '').replace(/\/+$/, '');
+const LOCAL_DEV_API_BASE_URL = (process.env.EXPO_PUBLIC_LOCAL_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
+
+export const API_BASE_URL = EXPLICIT_API_BASE_URL || CONFIGURED_API_BASE_URL;
 const API_KEY = process.env.EXPO_PUBLIC_STRATEGYSIGNAL_API_KEY || extra.apiKey || '';
+
+function isLocalWebPreview(): boolean {
+  if (typeof globalThis.location === 'undefined') {
+    return false;
+  }
+
+  return globalThis.location.hostname === 'localhost' || globalThis.location.hostname === '127.0.0.1';
+}
+
+function getApiBaseCandidates(): string[] {
+  const candidates: string[] = [];
+
+  if (EXPLICIT_API_BASE_URL) {
+    candidates.push(EXPLICIT_API_BASE_URL);
+  } else if (isLocalWebPreview() && LOCAL_DEV_API_BASE_URL) {
+    candidates.push(LOCAL_DEV_API_BASE_URL);
+  }
+
+  if (CONFIGURED_API_BASE_URL && !candidates.includes(CONFIGURED_API_BASE_URL)) {
+    candidates.push(CONFIGURED_API_BASE_URL);
+  }
+
+  return candidates;
+}
 
 export interface EvaluateInput {
   features: string[];
@@ -253,75 +281,82 @@ function buildRecommendationCards(recommendations: string[] | undefined): Strate
   }));
 }
 
+function normalizeBackendResult(raw: BackendResponse, input: EvaluateInput): StrategyResult {
+  const summary = raw.summary ?? raw;
+  const recommendationCards = raw.recommendations && raw.recommendations.length > 0
+    ? raw.recommendations
+    : buildRecommendationCards(raw.evaluation?.recommendations);
+  const score = Number(summary.strategy_score ?? raw.strategy_score ?? 50);
+
+  return {
+    strategy_score: score,
+    marketing_strength: Number(summary.marketing_strength ?? raw.marketing_strength ?? input.marketing_strength),
+    product_readiness: Number(summary.product_readiness ?? raw.product_readiness ?? input.product_readiness),
+    competition_intensity: Number(summary.competition_intensity ?? raw.competition_intensity ?? input.competition_intensity),
+    fragmentation_risk: Number(summary.fragmentation_risk ?? summary.fragmentation_score ?? raw.fragmentation_risk ?? 50),
+    best_launch_strategy: String(summary.best_launch_strategy ?? raw.best_launch_strategy ?? 'Focused Launch'),
+    top_recommendation: String(
+      summary.top_recommendation
+      ?? raw.top_recommendation
+      ?? recommendationCards[0]?.description
+      ?? 'Evaluate your strategy to get recommendations.'
+    ),
+    recommendations: recommendationCards.length > 0
+      ? recommendationCards
+      : summary.top_recommendation
+        ? [{ title: 'Top Recommendation', description: String(summary.top_recommendation), priority: 'high', category: 'Strategy' }]
+        : [],
+    competitors: raw.competitors && raw.competitors.length > 0
+      ? raw.competitors
+      : input.competitors.map((name, index) => buildCompetitorResponse(titleCase(name), input, index)),
+    score_history: raw.score_history && raw.score_history.length > 0
+      ? raw.score_history
+      : generateMockHistory(score),
+    launch_readiness_history: raw.launch_readiness_history && raw.launch_readiness_history.length > 0
+      ? raw.launch_readiness_history
+      : generateMockHistory(Number(summary.marketing_strength ?? raw.marketing_strength ?? input.marketing_strength)),
+    product_readiness_history: raw.product_readiness_history && raw.product_readiness_history.length > 0
+      ? raw.product_readiness_history
+      : generateMockHistory(Number(summary.product_readiness ?? raw.product_readiness ?? input.product_readiness)),
+    market_pressure_history: raw.market_pressure_history && raw.market_pressure_history.length > 0
+      ? raw.market_pressure_history
+      : generateMockHistory(Number(summary.competition_intensity ?? raw.competition_intensity ?? input.competition_intensity)),
+    evaluated_at: raw.evaluated_at ?? new Date().toISOString(),
+  };
+}
+
 export async function evaluateStrategy(input: EvaluateInput): Promise<StrategyResult> {
-  if (!API_BASE_URL) {
+  const apiBaseCandidates = getApiBaseCandidates();
+
+  if (apiBaseCandidates.length === 0) {
     console.warn('[API] Missing API base URL, using local evaluation fallback');
     return buildLocalStrategyResult(input);
   }
 
-  console.log('[API] evaluateStrategy called', { input });
+  console.log('[API] evaluateStrategy called', { input, apiBaseCandidates });
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/evaluate`, {
-      method: 'POST',
-      headers: buildHeaders(),
-      body: JSON.stringify(input),
-    });
+  for (const baseUrl of apiBaseCandidates) {
+    try {
+      const response = await fetch(`${baseUrl}/evaluate`, {
+        method: 'POST',
+        headers: buildHeaders(),
+        body: JSON.stringify(input),
+      });
 
-    if (!response.ok) {
-      const text = await response.text();
-      console.error('[API] evaluateStrategy error', { status: response.status, text });
-      console.warn('[API] Falling back to local evaluation after API error');
-      return buildLocalStrategyResult(input);
+      if (!response.ok) {
+        const text = await response.text();
+        console.error('[API] evaluateStrategy error', { baseUrl, status: response.status, text });
+        continue;
+      }
+
+      const raw = await response.json() as BackendResponse;
+      console.log('[API] evaluateStrategy response', { baseUrl, raw });
+      return normalizeBackendResult(raw, input);
+    } catch (error) {
+      console.error('[API] evaluateStrategy network failure', { baseUrl, error });
     }
-
-    const raw = await response.json() as BackendResponse;
-    console.log('[API] evaluateStrategy response', raw);
-
-    const summary = raw.summary ?? raw;
-    const recommendationCards = raw.recommendations && raw.recommendations.length > 0
-      ? raw.recommendations
-      : buildRecommendationCards(raw.evaluation?.recommendations);
-    const score = Number(summary.strategy_score ?? raw.strategy_score ?? 50);
-
-    return {
-      strategy_score: score,
-      marketing_strength: Number(summary.marketing_strength ?? raw.marketing_strength ?? input.marketing_strength),
-      product_readiness: Number(summary.product_readiness ?? raw.product_readiness ?? input.product_readiness),
-      competition_intensity: Number(summary.competition_intensity ?? raw.competition_intensity ?? input.competition_intensity),
-      fragmentation_risk: Number(summary.fragmentation_risk ?? summary.fragmentation_score ?? raw.fragmentation_risk ?? 50),
-      best_launch_strategy: String(summary.best_launch_strategy ?? raw.best_launch_strategy ?? 'Focused Launch'),
-      top_recommendation: String(
-        summary.top_recommendation
-        ?? raw.top_recommendation
-        ?? recommendationCards[0]?.description
-        ?? 'Evaluate your strategy to get recommendations.'
-      ),
-      recommendations: recommendationCards.length > 0
-        ? recommendationCards
-        : summary.top_recommendation
-          ? [{ title: 'Top Recommendation', description: String(summary.top_recommendation), priority: 'high', category: 'Strategy' }]
-          : [],
-      competitors: raw.competitors && raw.competitors.length > 0
-        ? raw.competitors
-        : input.competitors.map((name, index) => buildCompetitorResponse(titleCase(name), input, index)),
-      score_history: raw.score_history && raw.score_history.length > 0
-        ? raw.score_history
-        : generateMockHistory(score),
-      launch_readiness_history: raw.launch_readiness_history && raw.launch_readiness_history.length > 0
-        ? raw.launch_readiness_history
-        : generateMockHistory(Number(summary.marketing_strength ?? raw.marketing_strength ?? input.marketing_strength)),
-      product_readiness_history: raw.product_readiness_history && raw.product_readiness_history.length > 0
-        ? raw.product_readiness_history
-        : generateMockHistory(Number(summary.product_readiness ?? raw.product_readiness ?? input.product_readiness)),
-      market_pressure_history: raw.market_pressure_history && raw.market_pressure_history.length > 0
-        ? raw.market_pressure_history
-        : generateMockHistory(Number(summary.competition_intensity ?? raw.competition_intensity ?? input.competition_intensity)),
-      evaluated_at: raw.evaluated_at ?? new Date().toISOString(),
-    };
-  } catch (error) {
-    console.error('[API] evaluateStrategy network failure', error);
-    console.warn('[API] Falling back to local evaluation after network failure');
-    return buildLocalStrategyResult(input);
   }
+
+  console.warn('[API] Falling back to local evaluation after all backend candidates failed');
+  return buildLocalStrategyResult(input);
 }
