@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from reinforcement_model import learn_heuristic_scores
+from reinforcement_model import learn_heuristic_scores, save_heuristic_checkpoint
 
 
 REQUIRED_FILES = {
@@ -384,8 +384,129 @@ def load_archive_scenario(base_dir):
     product_readiness = heuristic_models["product_readiness"]["score"]
     competition_intensity = heuristic_models["competition_intensity"]["score"]
 
+    checkpoint_path = save_heuristic_checkpoint(
+        heuristic_models,
+        {
+            "dataset_path": str(dataset_dir),
+            "month_range": {
+                "start": str(monthly_features.index.min()),
+                "end": str(monthly_features.index.max()),
+            },
+            "monthly_feature_columns": monthly_features.columns.tolist(),
+            "feature_snapshot": {
+                key: round(float(value), 6)
+                for key, value in feature_snapshot.items()
+            },
+            "table_counts": {
+                "customers": int(len(customers)),
+                "products": int(len(products)),
+                "campaigns": int(len(campaigns)),
+                "events": int(sum(traffic_source_counts.values())),
+                "transactions": int(len(transactions)),
+            },
+            "policy_configs": {
+                heuristic_name: {
+                    "label": config["label"],
+                    "inputs": config["inputs"],
+                    "reward_features": config["reward_features"],
+                    "seed": config["seed"],
+                }
+                for heuristic_name, config in {
+                    "marketing_strength": {
+                        "label": heuristic_models["marketing_strength"]["label"],
+                        "inputs": [
+                            "purchase_rate",
+                            "click_through_rate",
+                            "add_to_cart_rate",
+                            "bounce_resilience",
+                            "average_session_duration",
+                            "traffic_diversity",
+                            "organic_share",
+                            "direct_share",
+                            "paid_share",
+                            "average_campaign_uplift",
+                            "campaign_count",
+                            "channel_diversity",
+                            "target_segment_diversity",
+                            "acquisition_diversity",
+                            "signup_count",
+                        ],
+                        "reward_features": [
+                            "purchase_rate",
+                            "click_through_rate",
+                            "add_to_cart_rate",
+                            "bounce_resilience",
+                            "average_session_duration",
+                            "average_campaign_uplift",
+                            "signup_count",
+                        ],
+                        "seed": 11,
+                    },
+                    "product_readiness": {
+                        "label": heuristic_models["product_readiness"]["label"],
+                        "inputs": [
+                            "purchase_rate",
+                            "average_order_revenue",
+                            "average_quantity",
+                            "discount_efficiency",
+                            "refund_resilience",
+                            "premium_share",
+                            "average_base_price",
+                            "category_diversity",
+                            "brand_diversity",
+                            "launch_count",
+                            "loyalty_strength",
+                            "gold_plus_share",
+                            "signup_count",
+                        ],
+                        "reward_features": [
+                            "purchase_rate",
+                            "average_order_revenue",
+                            "average_quantity",
+                            "discount_efficiency",
+                            "refund_resilience",
+                            "premium_share",
+                            "loyalty_strength",
+                            "launch_count",
+                        ],
+                        "seed": 23,
+                    },
+                    "competition_intensity": {
+                        "label": heuristic_models["competition_intensity"]["label"],
+                        "inputs": [
+                            "brand_diversity",
+                            "category_diversity",
+                            "channel_diversity",
+                            "traffic_diversity",
+                            "paid_share",
+                            "traffic_concentration",
+                            "campaign_count",
+                            "target_segment_diversity",
+                            "acquisition_diversity",
+                            "country_diversity",
+                            "loyalty_fragility",
+                            "refund_rate",
+                            "discount_rate",
+                        ],
+                        "reward_features": [
+                            "brand_diversity",
+                            "channel_diversity",
+                            "paid_share",
+                            "traffic_concentration",
+                            "target_segment_diversity",
+                            "loyalty_fragility",
+                            "refund_rate",
+                        ],
+                        "seed": 37,
+                    },
+                }.items()
+            },
+        },
+    )
+
     return {
         "dataset_path": str(dataset_dir),
+        "checkpoint_path": checkpoint_path,
         "features": features,
         "channels": channels,
         "competitors": competitors,

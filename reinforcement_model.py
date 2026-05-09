@@ -1,3 +1,7 @@
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
@@ -91,6 +95,10 @@ POLICY_CONFIGS = {
         "seed": 37,
     },
 }
+
+DEFAULT_CHECKPOINT_PATH = (
+    Path(__file__).resolve().parent / "models" / "heuristic_checkpoint.json"
+)
 
 
 def _softmax(values):
@@ -213,6 +221,25 @@ def _feature_rows(feature_names, weights, scenario_values):
 
     rows.sort(key=lambda row: row["contribution_share"], reverse=True)
     return rows
+
+
+def save_heuristic_checkpoint(heuristic_models, metadata, checkpoint_path=None):
+    target_path = Path(checkpoint_path or DEFAULT_CHECKPOINT_PATH)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+
+    checkpoint_payload = {
+        "version": 1,
+        "saved_at_utc": datetime.now(timezone.utc).isoformat(),
+        "metadata": metadata,
+        "heuristic_models": heuristic_models,
+    }
+
+    target_path.write_text(
+        json.dumps(checkpoint_payload, indent=2),
+        encoding="utf-8",
+    )
+
+    return str(target_path)
 
 
 def learn_heuristic_scores(monthly_features, scenario_feature_snapshot):

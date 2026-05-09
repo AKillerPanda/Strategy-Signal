@@ -1,0 +1,1150 @@
+{
+  "version": 1,
+  "saved_at_utc": "2026-05-09T10:20:25.337290+00:00",
+  "metadata": {
+    "dataset_path": "C:\\Users\\Anusk\\Downloads\\archive",
+    "month_range": {
+      "start": "2021-01",
+      "end": "2023-12"
+    },
+    "monthly_feature_columns": [
+      "purchase_rate",
+      "click_through_rate",
+      "add_to_cart_rate",
+      "bounce_rate",
+      "bounce_resilience",
+      "average_session_duration",
+      "traffic_diversity",
+      "organic_share",
+      "direct_share",
+      "paid_share",
+      "email_share",
+      "social_share",
+      "traffic_concentration",
+      "transaction_count",
+      "average_order_revenue",
+      "average_quantity",
+      "discount_rate",
+      "refund_rate",
+      "discount_efficiency",
+      "refund_resilience",
+      "campaign_count",
+      "average_campaign_uplift",
+      "channel_diversity",
+      "target_segment_diversity",
+      "campaign_duration_days",
+      "launch_count",
+      "premium_share",
+      "average_base_price",
+      "category_diversity",
+      "brand_diversity",
+      "signup_count",
+      "acquisition_diversity",
+      "country_diversity",
+      "loyalty_strength",
+      "gold_plus_share",
+      "loyalty_fragility"
+    ],
+    "feature_snapshot": {
+      "purchase_rate": 0.056953,
+      "click_through_rate": 0.363184,
+      "add_to_cart_rate": 0.750393,
+      "bounce_rate": 0.094961,
+      "bounce_resilience": 0.905039,
+      "average_session_duration": 130.643534,
+      "traffic_diversity": 10.0,
+      "organic_share": 0.388385,
+      "direct_share": 0.096932,
+      "paid_share": 0.339417,
+      "email_share": 0.145335,
+      "social_share": 0.145597,
+      "traffic_concentration": 0.388385,
+      "transaction_count": 2864.638889,
+      "average_order_revenue": 90.403721,
+      "average_quantity": 1.381788,
+      "discount_rate": 0.041381,
+      "refund_rate": 0.02936,
+      "discount_efficiency": 0.958619,
+      "refund_resilience": 0.97064,
+      "campaign_count": 1.388889,
+      "average_campaign_uplift": 0.06009,
+      "channel_diversity": 1.222222,
+      "target_segment_diversity": 1.194444,
+      "campaign_duration_days": 35.337963,
+      "launch_count": 55.555556,
+      "premium_share": 0.500344,
+      "average_base_price": 72.304253,
+      "category_diversity": 6.0,
+      "brand_diversity": 42.722222,
+      "signup_count": 2777.777778,
+      "acquisition_diversity": 5.0,
+      "country_diversity": 7.0,
+      "loyalty_strength": 0.393912,
+      "gold_plus_share": 0.148173,
+      "loyalty_fragility": 0.606088
+    },
+    "table_counts": {
+      "customers": 100000,
+      "products": 2000,
+      "campaigns": 50,
+      "events": 2000000,
+      "transactions": 103127
+    },
+    "policy_configs": {
+      "marketing_strength": {
+        "label": "Marketing strength",
+        "inputs": [
+          "purchase_rate",
+          "click_through_rate",
+          "add_to_cart_rate",
+          "bounce_resilience",
+          "average_session_duration",
+          "traffic_diversity",
+          "organic_share",
+          "direct_share",
+          "paid_share",
+          "average_campaign_uplift",
+          "campaign_count",
+          "channel_diversity",
+          "target_segment_diversity",
+          "acquisition_diversity",
+          "signup_count"
+        ],
+        "reward_features": [
+          "purchase_rate",
+          "click_through_rate",
+          "add_to_cart_rate",
+          "bounce_resilience",
+          "average_session_duration",
+          "average_campaign_uplift",
+          "signup_count"
+        ],
+        "seed": 11
+      },
+      "product_readiness": {
+        "label": "Product readiness",
+        "inputs": [
+          "purchase_rate",
+          "average_order_revenue",
+          "average_quantity",
+          "discount_efficiency",
+          "refund_resilience",
+          "premium_share",
+          "average_base_price",
+          "category_diversity",
+          "brand_diversity",
+          "launch_count",
+          "loyalty_strength",
+          "gold_plus_share",
+          "signup_count"
+        ],
+        "reward_features": [
+          "purchase_rate",
+          "average_order_revenue",
+          "average_quantity",
+          "discount_efficiency",
+          "refund_resilience",
+          "premium_share",
+          "loyalty_strength",
+          "launch_count"
+        ],
+        "seed": 23
+      },
+      "competition_intensity": {
+        "label": "Competition intensity",
+        "inputs": [
+          "brand_diversity",
+          "category_diversity",
+          "channel_diversity",
+          "traffic_diversity",
+          "paid_share",
+          "traffic_concentration",
+          "campaign_count",
+          "target_segment_diversity",
+          "acquisition_diversity",
+          "country_diversity",
+          "loyalty_fragility",
+          "refund_rate",
+          "discount_rate"
+        ],
+        "reward_features": [
+          "brand_diversity",
+          "channel_diversity",
+          "paid_share",
+          "traffic_concentration",
+          "target_segment_diversity",
+          "loyalty_fragility",
+          "refund_rate"
+        ],
+        "seed": 37
+      }
+    }
+  },
+  "heuristic_models": {
+    "marketing_strength": {
+      "label": "Marketing strength",
+      "score": 33,
+      "training_score": 1.2772,
+      "episode_count": 36,
+      "reward_proxy": 0.2863,
+      "average_episode_score": 33.42,
+      "feature_weights": {
+        "purchase_rate": 0.0948,
+        "click_through_rate": 0.0953,
+        "add_to_cart_rate": 0.0908,
+        "bounce_resilience": 0.083,
+        "average_session_duration": 0.0763,
+        "traffic_diversity": 0.1081,
+        "organic_share": 0.0029,
+        "direct_share": 0.0037,
+        "paid_share": 0.057,
+        "average_campaign_uplift": 0.1487,
+        "campaign_count": 0.0204,
+        "channel_diversity": 0.0396,
+        "target_segment_diversity": 0.0296,
+        "acquisition_diversity": 0.1411,
+        "signup_count": 0.0088
+      },
+      "feature_breakdown": [
+        {
+          "feature": "Average Campaign Uplift",
+          "weight": 0.1487,
+          "normalized_value": 0.4418,
+          "contribution_share": 0.1965
+        },
+        {
+          "feature": "Add To Cart Rate",
+          "weight": 0.0908,
+          "normalized_value": 0.6284,
+          "contribution_share": 0.1707
+        },
+        {
+          "feature": "Click Through Rate",
+          "weight": 0.0953,
+          "normalized_value": 0.5043,
+          "contribution_share": 0.1438
+        },
+        {
+          "feature": "Average Session Duration",
+          "weight": 0.0763,
+          "normalized_value": 0.5436,
+          "contribution_share": 0.124
+        },
+        {
+          "feature": "Bounce Resilience",
+          "weight": 0.083,
+          "normalized_value": 0.4208,
+          "contribution_share": 0.1045
+        },
+        {
+          "feature": "Paid Share",
+          "weight": 0.057,
+          "normalized_value": 0.4946,
+          "contribution_share": 0.0843
+        },
+        {
+          "feature": "Purchase Rate",
+          "weight": 0.0948,
+          "normalized_value": 0.231,
+          "contribution_share": 0.0655
+        },
+        {
+          "feature": "Channel Diversity",
+          "weight": 0.0396,
+          "normalized_value": 0.3056,
+          "contribution_share": 0.0362
+        },
+        {
+          "feature": "Target Segment Diversity",
+          "weight": 0.0296,
+          "normalized_value": 0.2986,
+          "contribution_share": 0.0265
+        },
+        {
+          "feature": "Campaign Count",
+          "weight": 0.0204,
+          "normalized_value": 0.3472,
+          "contribution_share": 0.0212
+        },
+        {
+          "feature": "Signup Count",
+          "weight": 0.0088,
+          "normalized_value": 0.6592,
+          "contribution_share": 0.0174
+        },
+        {
+          "feature": "Direct Share",
+          "weight": 0.0037,
+          "normalized_value": 0.4899,
+          "contribution_share": 0.0054
+        },
+        {
+          "feature": "Organic Share",
+          "weight": 0.0029,
+          "normalized_value": 0.4628,
+          "contribution_share": 0.004
+        },
+        {
+          "feature": "Traffic Diversity",
+          "weight": 0.1081,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        },
+        {
+          "feature": "Acquisition Diversity",
+          "weight": 0.1411,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        }
+      ],
+      "top_features": [
+        {
+          "feature": "Average Campaign Uplift",
+          "weight": 0.1487,
+          "normalized_value": 0.4418,
+          "contribution_share": 0.1965
+        },
+        {
+          "feature": "Add To Cart Rate",
+          "weight": 0.0908,
+          "normalized_value": 0.6284,
+          "contribution_share": 0.1707
+        },
+        {
+          "feature": "Click Through Rate",
+          "weight": 0.0953,
+          "normalized_value": 0.5043,
+          "contribution_share": 0.1438
+        },
+        {
+          "feature": "Average Session Duration",
+          "weight": 0.0763,
+          "normalized_value": 0.5436,
+          "contribution_share": 0.124
+        },
+        {
+          "feature": "Bounce Resilience",
+          "weight": 0.083,
+          "normalized_value": 0.4208,
+          "contribution_share": 0.1045
+        }
+      ],
+      "episode_history": [
+        {
+          "month": "2021-01",
+          "score": 33.53,
+          "reward_proxy": 36.33
+        },
+        {
+          "month": "2021-02",
+          "score": 28.62,
+          "reward_proxy": 30.08
+        },
+        {
+          "month": "2021-03",
+          "score": 37.62,
+          "reward_proxy": 41.7
+        },
+        {
+          "month": "2021-04",
+          "score": 41.92,
+          "reward_proxy": 48.47
+        },
+        {
+          "month": "2021-05",
+          "score": 22.42,
+          "reward_proxy": 6.84
+        },
+        {
+          "month": "2021-06",
+          "score": 24.28,
+          "reward_proxy": 6.07
+        },
+        {
+          "month": "2021-07",
+          "score": 35.75,
+          "reward_proxy": 40.1
+        },
+        {
+          "month": "2021-08",
+          "score": 43.51,
+          "reward_proxy": 53.42
+        },
+        {
+          "month": "2021-09",
+          "score": 33.07,
+          "reward_proxy": 43.6
+        },
+        {
+          "month": "2021-10",
+          "score": 41.3,
+          "reward_proxy": 46.82
+        },
+        {
+          "month": "2021-11",
+          "score": 48.47,
+          "reward_proxy": 68.09
+        },
+        {
+          "month": "2021-12",
+          "score": 47.23,
+          "reward_proxy": 63.87
+        },
+        {
+          "month": "2022-01",
+          "score": 33.12,
+          "reward_proxy": 34.99
+        },
+        {
+          "month": "2022-02",
+          "score": 28.25,
+          "reward_proxy": 4.5
+        },
+        {
+          "month": "2022-03",
+          "score": 33.8,
+          "reward_proxy": 40.73
+        },
+        {
+          "month": "2022-04",
+          "score": 36.28,
+          "reward_proxy": 28.67
+        },
+        {
+          "month": "2022-05",
+          "score": 20.28,
+          "reward_proxy": 1.03
+        },
+        {
+          "month": "2022-06",
+          "score": 20.32,
+          "reward_proxy": 6.1
+        },
+        {
+          "month": "2022-07",
+          "score": 35.64,
+          "reward_proxy": 7.63
+        },
+        {
+          "month": "2022-08",
+          "score": 20.31,
+          "reward_proxy": 5.44
+        },
+        {
+          "month": "2022-09",
+          "score": 33.39,
+          "reward_proxy": 34.63
+        },
+        {
+          "month": "2022-10",
+          "score": 36.06,
+          "reward_proxy": 35.51
+        },
+        {
+          "month": "2022-11",
+          "score": 46.92,
+          "reward_proxy": 68.18
+        },
+        {
+          "month": "2022-12",
+          "score": 37.44,
+          "reward_proxy": 11.05
+        },
+        {
+          "month": "2023-01",
+          "score": 22.61,
+          "reward_proxy": 1.14
+        },
+        {
+          "month": "2023-02",
+          "score": 33.65,
+          "reward_proxy": 31.61
+        },
+        {
+          "month": "2023-03",
+          "score": 33.15,
+          "reward_proxy": 5.99
+        },
+        {
+          "month": "2023-04",
+          "score": 48.35,
+          "reward_proxy": 53.94
+        },
+        {
+          "month": "2023-05",
+          "score": 19.55,
+          "reward_proxy": 4.38
+        },
+        {
+          "month": "2023-06",
+          "score": 21.87,
+          "reward_proxy": 5.67
+        },
+        {
+          "month": "2023-07",
+          "score": 35.38,
+          "reward_proxy": 6.85
+        },
+        {
+          "month": "2023-08",
+          "score": 29.55,
+          "reward_proxy": 37.15
+        },
+        {
+          "month": "2023-09",
+          "score": 29.36,
+          "reward_proxy": 7.35
+        },
+        {
+          "month": "2023-10",
+          "score": 39.63,
+          "reward_proxy": 43.79
+        },
+        {
+          "month": "2023-11",
+          "score": 41.85,
+          "reward_proxy": 60.78
+        },
+        {
+          "month": "2023-12",
+          "score": 28.83,
+          "reward_proxy": 8.31
+        }
+      ]
+    },
+    "product_readiness": {
+      "label": "Product readiness",
+      "score": 35,
+      "training_score": 1.253,
+      "episode_count": 36,
+      "reward_proxy": 0.2979,
+      "average_episode_score": 34.94,
+      "feature_weights": {
+        "purchase_rate": 0.0919,
+        "average_order_revenue": 0.0522,
+        "average_quantity": 0.0764,
+        "discount_efficiency": 0.0459,
+        "refund_resilience": 0.0277,
+        "premium_share": 0.0987,
+        "average_base_price": 0.0193,
+        "category_diversity": 0.2872,
+        "brand_diversity": 0.0187,
+        "launch_count": 0.0271,
+        "loyalty_strength": 0.0883,
+        "gold_plus_share": 0.0072,
+        "signup_count": 0.1593
+      },
+      "feature_breakdown": [
+        {
+          "feature": "Signup Count",
+          "weight": 0.1593,
+          "normalized_value": 0.6592,
+          "contribution_share": 0.3005
+        },
+        {
+          "feature": "Premium Share",
+          "weight": 0.0987,
+          "normalized_value": 0.5495,
+          "contribution_share": 0.1552
+        },
+        {
+          "feature": "Average Quantity",
+          "weight": 0.0764,
+          "normalized_value": 0.529,
+          "contribution_share": 0.1157
+        },
+        {
+          "feature": "Loyalty Strength",
+          "weight": 0.0883,
+          "normalized_value": 0.3939,
+          "contribution_share": 0.0995
+        },
+        {
+          "feature": "Average Order Revenue",
+          "weight": 0.0522,
+          "normalized_value": 0.5198,
+          "contribution_share": 0.0777
+        },
+        {
+          "feature": "Purchase Rate",
+          "weight": 0.0919,
+          "normalized_value": 0.231,
+          "contribution_share": 0.0608
+        },
+        {
+          "feature": "Discount Efficiency",
+          "weight": 0.0459,
+          "normalized_value": 0.4603,
+          "contribution_share": 0.0605
+        },
+        {
+          "feature": "Refund Resilience",
+          "weight": 0.0277,
+          "normalized_value": 0.5371,
+          "contribution_share": 0.0425
+        },
+        {
+          "feature": "Launch Count",
+          "weight": 0.0271,
+          "normalized_value": 0.4159,
+          "contribution_share": 0.0322
+        },
+        {
+          "feature": "Average Base Price",
+          "weight": 0.0193,
+          "normalized_value": 0.4513,
+          "contribution_share": 0.0249
+        },
+        {
+          "feature": "Brand Diversity",
+          "weight": 0.0187,
+          "normalized_value": 0.3792,
+          "contribution_share": 0.0203
+        },
+        {
+          "feature": "Gold Plus Share",
+          "weight": 0.0072,
+          "normalized_value": 0.4853,
+          "contribution_share": 0.01
+        },
+        {
+          "feature": "Category Diversity",
+          "weight": 0.2872,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        }
+      ],
+      "top_features": [
+        {
+          "feature": "Signup Count",
+          "weight": 0.1593,
+          "normalized_value": 0.6592,
+          "contribution_share": 0.3005
+        },
+        {
+          "feature": "Premium Share",
+          "weight": 0.0987,
+          "normalized_value": 0.5495,
+          "contribution_share": 0.1552
+        },
+        {
+          "feature": "Average Quantity",
+          "weight": 0.0764,
+          "normalized_value": 0.529,
+          "contribution_share": 0.1157
+        },
+        {
+          "feature": "Loyalty Strength",
+          "weight": 0.0883,
+          "normalized_value": 0.3939,
+          "contribution_share": 0.0995
+        },
+        {
+          "feature": "Average Order Revenue",
+          "weight": 0.0522,
+          "normalized_value": 0.5198,
+          "contribution_share": 0.0777
+        }
+      ],
+      "episode_history": [
+        {
+          "month": "2021-01",
+          "score": 34.24,
+          "reward_proxy": 39.22
+        },
+        {
+          "month": "2021-02",
+          "score": 25.9,
+          "reward_proxy": 6.77
+        },
+        {
+          "month": "2021-03",
+          "score": 38.78,
+          "reward_proxy": 41.81
+        },
+        {
+          "month": "2021-04",
+          "score": 29.83,
+          "reward_proxy": 30.01
+        },
+        {
+          "month": "2021-05",
+          "score": 39.67,
+          "reward_proxy": 46.96
+        },
+        {
+          "month": "2021-06",
+          "score": 38.5,
+          "reward_proxy": 48.5
+        },
+        {
+          "month": "2021-07",
+          "score": 33.51,
+          "reward_proxy": 34.76
+        },
+        {
+          "month": "2021-08",
+          "score": 34.34,
+          "reward_proxy": 9.29
+        },
+        {
+          "month": "2021-09",
+          "score": 27.89,
+          "reward_proxy": 28.24
+        },
+        {
+          "month": "2021-10",
+          "score": 35.3,
+          "reward_proxy": 36.97
+        },
+        {
+          "month": "2021-11",
+          "score": 37.9,
+          "reward_proxy": 33.04
+        },
+        {
+          "month": "2021-12",
+          "score": 43.08,
+          "reward_proxy": 36.65
+        },
+        {
+          "month": "2022-01",
+          "score": 42.28,
+          "reward_proxy": 46.28
+        },
+        {
+          "month": "2022-02",
+          "score": 31.11,
+          "reward_proxy": 9.34
+        },
+        {
+          "month": "2022-03",
+          "score": 29.5,
+          "reward_proxy": 4.42
+        },
+        {
+          "month": "2022-04",
+          "score": 40.38,
+          "reward_proxy": 36.26
+        },
+        {
+          "month": "2022-05",
+          "score": 38.75,
+          "reward_proxy": 44.17
+        },
+        {
+          "month": "2022-06",
+          "score": 30.54,
+          "reward_proxy": 26.92
+        },
+        {
+          "month": "2022-07",
+          "score": 34.38,
+          "reward_proxy": 8.63
+        },
+        {
+          "month": "2022-08",
+          "score": 38.54,
+          "reward_proxy": 38.83
+        },
+        {
+          "month": "2022-09",
+          "score": 19.04,
+          "reward_proxy": 3.98
+        },
+        {
+          "month": "2022-10",
+          "score": 43.47,
+          "reward_proxy": 40.86
+        },
+        {
+          "month": "2022-11",
+          "score": 39.13,
+          "reward_proxy": 45.38
+        },
+        {
+          "month": "2022-12",
+          "score": 46.01,
+          "reward_proxy": 51.12
+        },
+        {
+          "month": "2023-01",
+          "score": 27.26,
+          "reward_proxy": 24.1
+        },
+        {
+          "month": "2023-02",
+          "score": 30.48,
+          "reward_proxy": 8.8
+        },
+        {
+          "month": "2023-03",
+          "score": 32.77,
+          "reward_proxy": 7.01
+        },
+        {
+          "month": "2023-04",
+          "score": 38.37,
+          "reward_proxy": 45.33
+        },
+        {
+          "month": "2023-05",
+          "score": 42.56,
+          "reward_proxy": 36.96
+        },
+        {
+          "month": "2023-06",
+          "score": 27.72,
+          "reward_proxy": 7.35
+        },
+        {
+          "month": "2023-07",
+          "score": 40.84,
+          "reward_proxy": 42.17
+        },
+        {
+          "month": "2023-08",
+          "score": 35.79,
+          "reward_proxy": 40.29
+        },
+        {
+          "month": "2023-09",
+          "score": 30.3,
+          "reward_proxy": 34.51
+        },
+        {
+          "month": "2023-10",
+          "score": 24.67,
+          "reward_proxy": 21.31
+        },
+        {
+          "month": "2023-11",
+          "score": 35.06,
+          "reward_proxy": 8.75
+        },
+        {
+          "month": "2023-12",
+          "score": 39.96,
+          "reward_proxy": 47.4
+        }
+      ]
+    },
+    "competition_intensity": {
+      "label": "Competition intensity",
+      "score": 29,
+      "training_score": 1.2852,
+      "episode_count": 36,
+      "reward_proxy": 0.2477,
+      "average_episode_score": 28.85,
+      "feature_weights": {
+        "brand_diversity": 0.058,
+        "category_diversity": 0.0723,
+        "channel_diversity": 0.1094,
+        "traffic_diversity": 0.0876,
+        "paid_share": 0.0865,
+        "traffic_concentration": 0.0565,
+        "campaign_count": 0.0599,
+        "target_segment_diversity": 0.0631,
+        "acquisition_diversity": 0.0905,
+        "country_diversity": 0.0921,
+        "loyalty_fragility": 0.1051,
+        "refund_rate": 0.0445,
+        "discount_rate": 0.0746
+      },
+      "feature_breakdown": [
+        {
+          "feature": "Loyalty Fragility",
+          "weight": 0.1051,
+          "normalized_value": 0.6061,
+          "contribution_share": 0.2207
+        },
+        {
+          "feature": "Paid Share",
+          "weight": 0.0865,
+          "normalized_value": 0.4946,
+          "contribution_share": 0.1484
+        },
+        {
+          "feature": "Discount Rate",
+          "weight": 0.0746,
+          "normalized_value": 0.5397,
+          "contribution_share": 0.1395
+        },
+        {
+          "feature": "Channel Diversity",
+          "weight": 0.1094,
+          "normalized_value": 0.3056,
+          "contribution_share": 0.1159
+        },
+        {
+          "feature": "Traffic Concentration",
+          "weight": 0.0565,
+          "normalized_value": 0.4628,
+          "contribution_share": 0.0906
+        },
+        {
+          "feature": "Brand Diversity",
+          "weight": 0.058,
+          "normalized_value": 0.3792,
+          "contribution_share": 0.0762
+        },
+        {
+          "feature": "Campaign Count",
+          "weight": 0.0599,
+          "normalized_value": 0.3472,
+          "contribution_share": 0.072
+        },
+        {
+          "feature": "Refund Rate",
+          "weight": 0.0445,
+          "normalized_value": 0.4629,
+          "contribution_share": 0.0714
+        },
+        {
+          "feature": "Target Segment Diversity",
+          "weight": 0.0631,
+          "normalized_value": 0.2986,
+          "contribution_share": 0.0653
+        },
+        {
+          "feature": "Category Diversity",
+          "weight": 0.0723,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        },
+        {
+          "feature": "Traffic Diversity",
+          "weight": 0.0876,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        },
+        {
+          "feature": "Acquisition Diversity",
+          "weight": 0.0905,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        },
+        {
+          "feature": "Country Diversity",
+          "weight": 0.0921,
+          "normalized_value": 0.0,
+          "contribution_share": 0.0
+        }
+      ],
+      "top_features": [
+        {
+          "feature": "Loyalty Fragility",
+          "weight": 0.1051,
+          "normalized_value": 0.6061,
+          "contribution_share": 0.2207
+        },
+        {
+          "feature": "Paid Share",
+          "weight": 0.0865,
+          "normalized_value": 0.4946,
+          "contribution_share": 0.1484
+        },
+        {
+          "feature": "Discount Rate",
+          "weight": 0.0746,
+          "normalized_value": 0.5397,
+          "contribution_share": 0.1395
+        },
+        {
+          "feature": "Channel Diversity",
+          "weight": 0.1094,
+          "normalized_value": 0.3056,
+          "contribution_share": 0.1159
+        },
+        {
+          "feature": "Traffic Concentration",
+          "weight": 0.0565,
+          "normalized_value": 0.4628,
+          "contribution_share": 0.0906
+        }
+      ],
+      "episode_history": [
+        {
+          "month": "2021-01",
+          "score": 32.89,
+          "reward_proxy": 7.8
+        },
+        {
+          "month": "2021-02",
+          "score": 28.57,
+          "reward_proxy": 33.18
+        },
+        {
+          "month": "2021-03",
+          "score": 33.33,
+          "reward_proxy": 42.59
+        },
+        {
+          "month": "2021-04",
+          "score": 31.92,
+          "reward_proxy": 47.05
+        },
+        {
+          "month": "2021-05",
+          "score": 21.88,
+          "reward_proxy": 1.22
+        },
+        {
+          "month": "2021-06",
+          "score": 18.61,
+          "reward_proxy": 1.19
+        },
+        {
+          "month": "2021-07",
+          "score": 33.71,
+          "reward_proxy": 45.67
+        },
+        {
+          "month": "2021-08",
+          "score": 36.73,
+          "reward_proxy": 48.05
+        },
+        {
+          "month": "2021-09",
+          "score": 23.27,
+          "reward_proxy": 30.45
+        },
+        {
+          "month": "2021-10",
+          "score": 37.53,
+          "reward_proxy": 45.26
+        },
+        {
+          "month": "2021-11",
+          "score": 37.16,
+          "reward_proxy": 45.83
+        },
+        {
+          "month": "2021-12",
+          "score": 36.44,
+          "reward_proxy": 54.18
+        },
+        {
+          "month": "2022-01",
+          "score": 26.48,
+          "reward_proxy": 36.64
+        },
+        {
+          "month": "2022-02",
+          "score": 20.49,
+          "reward_proxy": 1.01
+        },
+        {
+          "month": "2022-03",
+          "score": 36.75,
+          "reward_proxy": 42.75
+        },
+        {
+          "month": "2022-04",
+          "score": 34.6,
+          "reward_proxy": 8.4
+        },
+        {
+          "month": "2022-05",
+          "score": 25.62,
+          "reward_proxy": 1.18
+        },
+        {
+          "month": "2022-06",
+          "score": 25.48,
+          "reward_proxy": 1.15
+        },
+        {
+          "month": "2022-07",
+          "score": 40.8,
+          "reward_proxy": 60.94
+        },
+        {
+          "month": "2022-08",
+          "score": 19.13,
+          "reward_proxy": 1.06
+        },
+        {
+          "month": "2022-09",
+          "score": 28.38,
+          "reward_proxy": 6.6
+        },
+        {
+          "month": "2022-10",
+          "score": 30.32,
+          "reward_proxy": 23.86
+        },
+        {
+          "month": "2022-11",
+          "score": 31.31,
+          "reward_proxy": 34.38
+        },
+        {
+          "month": "2022-12",
+          "score": 22.2,
+          "reward_proxy": 1.2
+        },
+        {
+          "month": "2023-01",
+          "score": 24.19,
+          "reward_proxy": 1.06
+        },
+        {
+          "month": "2023-02",
+          "score": 27.37,
+          "reward_proxy": 30.28
+        },
+        {
+          "month": "2023-03",
+          "score": 40.96,
+          "reward_proxy": 55.73
+        },
+        {
+          "month": "2023-04",
+          "score": 36.68,
+          "reward_proxy": 50.72
+        },
+        {
+          "month": "2023-05",
+          "score": 18.6,
+          "reward_proxy": 0.75
+        },
+        {
+          "month": "2023-06",
+          "score": 17.29,
+          "reward_proxy": 0.16
+        },
+        {
+          "month": "2023-07",
+          "score": 22.69,
+          "reward_proxy": 5.35
+        },
+        {
+          "month": "2023-08",
+          "score": 27.79,
+          "reward_proxy": 35.93
+        },
+        {
+          "month": "2023-09",
+          "score": 17.27,
+          "reward_proxy": 0.91
+        },
+        {
+          "month": "2023-10",
+          "score": 42.91,
+          "reward_proxy": 52.13
+        },
+        {
+          "month": "2023-11",
+          "score": 29.44,
+          "reward_proxy": 35.98
+        },
+        {
+          "month": "2023-12",
+          "score": 19.89,
+          "reward_proxy": 1.1
+        }
+      ]
+    }
+  }
+}
