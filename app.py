@@ -13,6 +13,12 @@ HEURISTIC_KEYS = [
     "competition_intensity",
 ]
 
+STRATEGY_CHART_DEFAULTS = [
+    "strategy_score",
+    "marketing_roi",
+    "customer_conversion_probability",
+]
+
 
 def _query_value(key, default_value):
     value = st.query_params.get(key, default_value)
@@ -202,6 +208,95 @@ def _build_feature_contribution_chart(heuristic_model):
     )
 
 
+def _strategy_timeseries_frame(scenario):
+    if not scenario or not scenario.get("strategy_timeseries"):
+        return pd.DataFrame()
+
+    frame = pd.DataFrame(scenario["strategy_timeseries"])
+    frame["month"] = pd.to_datetime(frame["month"])
+    return frame
+
+
+def _build_strategy_history_chart(strategy_frame, selected_metrics, title):
+    plot_data = strategy_frame[["month", *selected_metrics]].melt(
+        id_vars=["month"],
+        value_vars=selected_metrics,
+        var_name="Metric",
+        value_name="Value",
+    )
+
+    return (
+        alt.Chart(plot_data)
+        .mark_line(point=True)
+        .encode(
+            x=alt.X("month:T", title=None),
+            y=alt.Y("Value:Q", title="Score"),
+            color=alt.Color("Metric:N", legend=alt.Legend(orient="bottom")),
+            tooltip=[alt.Tooltip("month:T", title="Month"), "Metric", alt.Tooltip("Value:Q", format=".2f")],
+        )
+        .properties(height=320, title=title)
+    )
+
+
+def _build_competitor_threat_chart(watchlist_frame):
+    return (
+        alt.Chart(watchlist_frame)
+        .mark_bar(cornerRadiusTopLeft=8, cornerRadiusTopRight=8)
+        .encode(
+            x=alt.X("competitor:N", sort="-y", title=None),
+            y=alt.Y("threat_score:Q", title="Threat score"),
+            color=alt.Color(
+                "threat_level:N",
+                scale=alt.Scale(
+                    domain=["High", "Medium", "Low"],
+                    range=["#fb7185", "#f59e0b", "#22c55e"],
+                ),
+                legend=alt.Legend(orient="bottom"),
+            ),
+            tooltip=["competitor", "threat_level", alt.Tooltip("threat_score:Q", format=".2f"), "suggested_response"],
+        )
+        .properties(height=320)
+    )
+
+
+def _build_reward_history_chart(rl_policy):
+    reward_frame = pd.DataFrame(rl_policy["reward_history"])
+    return (
+        alt.Chart(reward_frame)
+        .mark_line(point=False)
+        .encode(
+            x=alt.X("episode:Q", title="Episode"),
+            y=alt.Y("reward:Q", title="Reward"),
+            tooltip=["episode", alt.Tooltip("reward:Q", format=".2f")],
+        )
+        .properties(height=320)
+    )
+
+
+def _combined_alerts(result, scenario):
+    alerts = list(scenario.get("alerts", [])) if scenario else []
+
+    if result["game_theory"]["best_strategy"] == "Niche positioning":
+        alerts.append(
+            {
+                "severity": "Medium",
+                "title": "Niche strategy is outperforming broader launch options",
+                "message": "Game-theory payoffs currently favor a narrower segment. Concentrate your GTM motion before expanding.",
+            }
+        )
+
+    if result["spectral"]["bottleneck_score"] > 1.0:
+        alerts.append(
+            {
+                "severity": "High",
+                "title": "Funnel bottlenecks detected",
+                "message": f"The graph bottleneck score is {result['spectral']['bottleneck_score']:.2f}. Marketing and product milestones need tighter alignment.",
+            }
+        )
+
+    return alerts
+
+
 def _render_strategy_snapshot(payload, scenario):
     st.markdown("## Strategy workspace")
     st.write(
@@ -308,24 +403,38 @@ def _evaluate_payload(payload):
 def _render_result_metrics(result):
     metric_defs = [
         ("Strategy score", f"{result['score']}", f"{result['score'] - 50:+.2f} vs neutral"),
-        (
-            "Best posture",
-            result["game_theory"]["best_strategy"],
-            f"{max(result['game_theory']['payoffs'].values()):.2f} payoff",
-        ),
-        (
-            "Bottleneck",
-            f"{result['spectral']['bottleneck_score']:.2f}",
-            "Lower is healthier",
-        ),
-        (
-            "Fiedler value",
-            f"{result['spectral']['fiedler_value']:.2f}",
-            "Connectivity signal",
-        ),
+        ("Best posture", result["game_theory"]["best_strategy"], f"{max(result['game_theory']['payoffs'].values()):.2f} payoff"),
+        ("Bottleneck", f"{result['spectral']['bottleneck_score']:.2f}", "Lower is healthier"),
+        ("Fiedler value", f"{result['spectral']['fiedler_value']:.2f}", "Connectivity signal"),
     ]
 
     metric_cols = st.columns(4)
+    for column, (label, value, delta) in zip(metric_cols, metric_defs):
+        cell = column.container(border=True)
+        cell.metric(label, value, delta)
+
+
+def _render_home_dashboard(result, payload, scenario):
+    if scenario:
+        dashboard_metrics = scenario["dashboard_metrics"]
+        metric_defs = [
+            ("Strategy score", f"{result['score']}", f"{result['score'] - 50:+.2f} vs neutral"),
+            ("Marketing strength", f"{payload['marketing_strength']}", None),
+            ("Product readiness", f"{payload['product_readiness']}", None),
+            ("Competitor pressure", f"{payload['competition_intensity']}", None),
+            ("Launch timing risk", f"{dashboard_metrics['launch_timing_risk']:.1f}", None),
+            ("Best next move", dashboard_metrics["best_next_move"].title(), f"{dashboard_metrics['customer_conversion_probability']:.1f}% conversion prob"),
+        ]
+        metric_cols = st.columns(6)
+    else:
+        metric_defs = [
+            ("Strategy score", f"{result['score']}", f"{result['score'] - 50:+.2f} vs neutral"),
+            ("Marketing strength", f"{payload['marketing_strength']}", None),
+            ("Product readiness", f"{payload['product_readiness']}", None),
+            ("Competitor pressure", f"{payload['competition_intensity']}", None),
+        ]
+        metric_cols = st.columns(4)
+
     for column, (label, value, delta) in zip(metric_cols, metric_defs):
         cell = column.container(border=True)
         cell.metric(label, value, delta)
@@ -351,6 +460,141 @@ def _render_overview_tab(result, payload, scenario):
     recommendations_cell.markdown("### Recommendations")
     for recommendation in result["recommendations"]:
         recommendations_cell.markdown(f"- {recommendation}")
+
+    if scenario:
+        feed_cell = st.container(border=True)
+        feed_cell.markdown("### Strategy improvement feed")
+        for item in scenario["strategy_feed"]:
+            feed_cell.markdown(f"**{item['headline']}**")
+            feed_cell.write(item["detail"])
+
+
+def _render_strategy_charts_tab(scenario):
+    strategy_frame = _strategy_timeseries_frame(scenario)
+    if strategy_frame.empty:
+        st.info("Strategy history charts are available when the archive dataset scenario is loaded.")
+        return
+
+    selected_metrics = st.multiselect(
+        "Primary chart metrics",
+        options=[
+            "strategy_score",
+            "marketing_strength",
+            "product_readiness",
+            "customer_conversion_probability",
+            "marketing_roi",
+            "competition_risk",
+            "launch_timing_risk",
+        ],
+        default=STRATEGY_CHART_DEFAULTS,
+    )
+    if not selected_metrics:
+        st.info("Pick at least one metric to render the strategy chart.")
+        return
+
+    chart_cols = st.columns(2)
+    with chart_cols[0].container(border=True):
+        st.altair_chart(
+            _build_strategy_history_chart(strategy_frame, selected_metrics, "Strategy chart"),
+            use_container_width=True,
+        )
+
+    with chart_cols[1].container(border=True):
+        st.altair_chart(
+            _build_strategy_history_chart(
+                strategy_frame,
+                ["launch_timing_risk", "competition_risk", "product_readiness"],
+                "Risk and readiness trend",
+            ),
+            use_container_width=True,
+        )
+
+
+def _render_competitors_tab(scenario):
+    if not scenario or not scenario.get("competitor_watchlist"):
+        st.info("Competitor watchlist is available when the archive dataset scenario is loaded.")
+        return
+
+    watchlist_frame = pd.DataFrame(scenario["competitor_watchlist"])
+    competitor_cols = st.columns(2)
+    with competitor_cols[0].container(border=True):
+        st.markdown("### Competitor watchlist")
+        st.dataframe(watchlist_frame, use_container_width=True, hide_index=True)
+
+    with competitor_cols[1].container(border=True):
+        st.markdown("### Threat score view")
+        st.altair_chart(_build_competitor_threat_chart(watchlist_frame), use_container_width=True)
+
+
+def _render_alerts_tab(result, scenario):
+    alerts = _combined_alerts(result, scenario)
+    if not alerts:
+        st.info("No alert conditions are active for the current strategy.")
+        return
+
+    for alert in alerts:
+        card = st.container(border=True)
+        card.markdown(f"### {alert['title']}")
+        card.caption(f"Severity: {alert['severity']}")
+        card.write(alert["message"])
+
+
+def _render_intelligence_tab(scenario):
+    if not scenario:
+        st.info("ML and RL intelligence is available when the archive dataset scenario is loaded.")
+        return
+
+    predictive_models = scenario["predictive_models"]
+    rl_policy = scenario["rl_policy"]
+
+    ml_cols = st.columns(4)
+    ml_cols[0].metric(
+        "Conversion success",
+        f"{predictive_models['conversion_model']['current_conversion_probability']:.1f}%",
+        f"AUC {predictive_models['conversion_model']['validation_auc']}",
+    )
+    ml_cols[1].metric(
+        "Predicted next revenue",
+        f"{predictive_models['revenue_model']['predicted_next_revenue']:.2f}",
+        f"MAE {predictive_models['revenue_model']['validation_mae']}",
+    )
+    weakest_channel = predictive_models["channel_model"]["weak_channels"][0]
+    ml_cols[2].metric(
+        "Weakest channel",
+        weakest_channel["channel"],
+        f"{weakest_channel['predicted_weakness_probability']:.1f}% risk",
+    )
+    ml_cols[3].metric(
+        "Recommended action",
+        rl_policy["recommended_action"].title(),
+        f"{rl_policy['ranked_actions'][0]['q_value']:.2f} Q-value",
+    )
+
+    intelligence_cols = st.columns(2)
+    with intelligence_cols[0].container(border=True):
+        st.markdown("### RL reward history")
+        st.altair_chart(_build_reward_history_chart(rl_policy), use_container_width=True)
+
+    with intelligence_cols[1].container(border=True):
+        st.markdown("### Top policy actions")
+        st.dataframe(pd.DataFrame(rl_policy["ranked_actions"]), use_container_width=True, hide_index=True)
+
+    lower_cols = st.columns(2)
+    with lower_cols[0].container(border=True):
+        st.markdown("### Weak marketing channels")
+        st.dataframe(
+            pd.DataFrame(predictive_models["channel_model"]["weak_channels"]),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    with lower_cols[1].container(border=True):
+        st.markdown("### Customer segments")
+        st.dataframe(
+            pd.DataFrame(predictive_models["customer_segmentation"]["profiles"]),
+            use_container_width=True,
+            hide_index=True,
+        )
 
 
 def _render_optimizer_tab(scenario):
@@ -415,6 +659,7 @@ def _render_model_outputs_tab(result, payload, scenario):
                 "path": scenario["dataset_path"],
                 "table_counts": scenario["table_counts"],
                 "derived_metrics": scenario["dataset_metrics"],
+                "checkpoint_paths": scenario["checkpoint_paths"],
             }
         )
 
@@ -478,13 +723,21 @@ def main():
 
     evaluation_scenario = st.session_state.get("evaluation_scenario")
 
-    _render_result_metrics(evaluation_result)
+    _render_home_dashboard(evaluation_result, payload, evaluation_scenario)
 
-    overview_tab, optimizer_tab, outputs_tab = st.tabs(
-        ["Overview", "Optimizer", "Model outputs"]
+    overview_tab, charts_tab, competitors_tab, alerts_tab, intelligence_tab, optimizer_tab, outputs_tab = st.tabs(
+        ["Overview", "Strategy charts", "Competitors", "Alerts", "ML + RL", "Optimizer", "Model outputs"]
     )
     with overview_tab:
         _render_overview_tab(evaluation_result, payload, evaluation_scenario)
+    with charts_tab:
+        _render_strategy_charts_tab(evaluation_scenario)
+    with competitors_tab:
+        _render_competitors_tab(evaluation_scenario)
+    with alerts_tab:
+        _render_alerts_tab(evaluation_result, evaluation_scenario)
+    with intelligence_tab:
+        _render_intelligence_tab(evaluation_scenario)
     with optimizer_tab:
         _render_optimizer_tab(evaluation_scenario)
     with outputs_tab:
