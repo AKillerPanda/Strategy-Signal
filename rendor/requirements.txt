@@ -1,0 +1,9 @@
+numpy
+networkx
+scikit-learn
+pandas
+joblib
+scipy
+fastapi
+uvicorn
+pydantic

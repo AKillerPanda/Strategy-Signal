@@ -1,6 +1,4 @@
 node_modules/
-
-.git/
 .expo/
 
 dist/
@@ -20,10 +18,8 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
-.DS_Store
-*.pem
-
 .env*.local
+.env
 
 *.tsbuildinfo
 
@@ -35,3 +31,16 @@ ios/
 pnpm-lock.yaml
 package-lock.json
 
+# Python backend artifacts
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+rendor/.env
+
+# Editor / OS
+.DS_Store
+*.pem
+.idea/
+.vscode/
