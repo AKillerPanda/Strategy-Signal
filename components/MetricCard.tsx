@@ -9,9 +9,10 @@ interface MetricCardProps {
   icon: React.ReactNode;
   color?: string;
   onPress?: () => void;
+  statusLabel?: string;
 }
 
-export default function MetricCard({ label, value, icon, color = COLORS.primary, onPress }: MetricCardProps) {
+export default function MetricCard({ label, value, icon, color = COLORS.primary, onPress, statusLabel }: MetricCardProps) {
   const displayValue = Math.round(value);
   const barWidth = `${Math.min(100, Math.max(0, value))}%` as `${number}%`;
   const labelUpper = label.toUpperCase();
@@ -58,6 +59,11 @@ export default function MetricCard({ label, value, icon, color = COLORS.primary,
       <View style={{ height: 4, backgroundColor: COLORS.surfaceTertiary, borderRadius: 2, overflow: 'hidden' }}>
         <View style={{ height: 4, width: barWidth, backgroundColor: color, borderRadius: 2 }} />
       </View>
+      {statusLabel ? (
+        <Text style={{ fontSize: 11, color, fontWeight: '600', letterSpacing: 0.5 }}>
+          {statusLabel}
+        </Text>
+      ) : null}
     </AnimatedPressable>
   );
 }

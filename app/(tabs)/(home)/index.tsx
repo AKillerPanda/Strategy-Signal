@@ -22,19 +22,46 @@ import AnimatedPressable from '@/components/AnimatedPressable';
 import SkeletonLoader, { SkeletonCard } from '@/components/SkeletonLoader';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function scoreColor(score: number): string {
   if (score >= 70) return COLORS.positive;
   if (score >= 40) return COLORS.warning;
   return COLORS.negative;
 }
 
-function HeroBannerCard({ score, strategy }: { score: number; strategy: string }) {
+function metricStatusLabel(value: number): string {
+  if (value >= 80) return 'Strong';
+  if (value >= 60) return 'Good';
+  if (value >= 40) return 'Fair';
+  return 'Weak';
+}
+
+function fragRiskColor(risk: number): string {
+  if (risk >= 70) return COLORS.negative;
+  if (risk >= 40) return COLORS.warning;
+  return COLORS.positive;
+}
+
+// ─── Hero Banner ─────────────────────────────────────────────────────────────
+
+function HeroBannerCard({
+  score,
+  strategy,
+  fragmentationRisk,
+}: {
+  score: number;
+  strategy: string;
+  fragmentationRisk: number;
+}) {
   const color = scoreColor(score);
   const roundedScore = Math.round(score);
   const trendValue = Math.round((score - 50) / 5);
   const barWidth = `${Math.min(100, Math.max(0, score))}%` as `${number}%`;
   const strategyUpper = strategy.toUpperCase();
   const lastEvaluated = 'Last evaluated today';
+  const fragColor = fragRiskColor(fragmentationRisk);
+  const fragRounded = Math.round(fragmentationRisk);
 
   return (
     <Animated.View
@@ -46,7 +73,7 @@ function HeroBannerCard({ score, strategy }: { score: number; strategy: string }
         borderWidth: 1,
         borderColor: COLORS.border,
         borderLeftWidth: 3,
-        borderLeftColor: COLORS.primary,
+        borderLeftColor: color,
         gap: 14,
       }}
     >
@@ -88,7 +115,7 @@ function HeroBannerCard({ score, strategy }: { score: number; strategy: string }
         style={{
           fontSize: 72,
           fontFamily: 'SpaceMono',
-          color: COLORS.primary,
+          color,
           lineHeight: 80,
         }}
       >
@@ -96,7 +123,17 @@ function HeroBannerCard({ score, strategy }: { score: number; strategy: string }
       </Text>
 
       <View style={{ height: 6, backgroundColor: COLORS.surfaceTertiary, borderRadius: 3, overflow: 'hidden' }}>
-        <View style={{ height: 6, width: barWidth, backgroundColor: COLORS.primary, borderRadius: 3 }} />
+        <View style={{ height: 6, width: barWidth, backgroundColor: color, borderRadius: 3 }} />
+      </View>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: fragColor }} />
+        <Text style={{ fontSize: 12, color: COLORS.textSecondary }}>
+          Fragmentation Risk:
+        </Text>
+        <Text style={{ fontSize: 12, color: fragColor, fontWeight: '600', fontFamily: 'SpaceMono' }}>
+          {fragRounded}
+        </Text>
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
@@ -107,6 +144,8 @@ function HeroBannerCard({ score, strategy }: { score: number; strategy: string }
     </Animated.View>
   );
 }
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
 
 function EmptyState({ onEvaluate }: { onEvaluate: () => void }) {
   return (
@@ -148,6 +187,8 @@ function EmptyState({ onEvaluate }: { onEvaluate: () => void }) {
   );
 }
 
+// ─── Skeleton ─────────────────────────────────────────────────────────────────
+
 function SkeletonDashboard() {
   return (
     <View style={{ gap: 16, paddingHorizontal: 16 }}>
@@ -164,6 +205,8 @@ function SkeletonDashboard() {
     </View>
   );
 }
+
+// ─── Screen ───────────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -208,13 +251,22 @@ export default function HomeScreen() {
   const competitionColor = result.competition_intensity >= 70 ? COLORS.negative : result.competition_intensity >= 40 ? COLORS.warning : COLORS.positive;
   const fragmentationColor = result.fragmentation_risk >= 70 ? COLORS.negative : result.fragmentation_risk >= 40 ? COLORS.warning : COLORS.positive;
 
+  const marketingStatus = metricStatusLabel(result.marketing_strength);
+  const productStatus = metricStatusLabel(result.product_readiness);
+  const competitionStatus = metricStatusLabel(result.competition_intensity);
+  const fragmentationStatus = metricStatusLabel(result.fragmentation_risk);
+
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={{ flex: 1, backgroundColor: COLORS.background }}
       contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 16, gap: 16 }}
     >
-      <HeroBannerCard score={result.strategy_score} strategy={result.best_launch_strategy} />
+      <HeroBannerCard
+        score={result.strategy_score}
+        strategy={result.best_launch_strategy}
+        fragmentationRisk={result.fragmentation_risk}
+      />
 
       <Animated.View entering={FadeInDown.delay(200).springify()} style={{ flexDirection: 'row', gap: 12 }}>
         <MetricCard
@@ -222,12 +274,14 @@ export default function HomeScreen() {
           value={result.marketing_strength}
           icon={<TrendingUp size={14} color={marketingColor} />}
           color={marketingColor}
+          statusLabel={marketingStatus}
         />
         <MetricCard
           label="Product Readiness"
           value={result.product_readiness}
           icon={<Package size={14} color={productColor} />}
           color={productColor}
+          statusLabel={productStatus}
         />
       </Animated.View>
 
@@ -237,12 +291,14 @@ export default function HomeScreen() {
           value={result.competition_intensity}
           icon={<Zap size={14} color={competitionColor} />}
           color={competitionColor}
+          statusLabel={competitionStatus}
         />
         <MetricCard
           label="Fragmentation Risk"
           value={result.fragmentation_risk}
           icon={<AlertTriangle size={14} color={fragmentationColor} />}
           color={fragmentationColor}
+          statusLabel={fragmentationStatus}
         />
       </Animated.View>
 
