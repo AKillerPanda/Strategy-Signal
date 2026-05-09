@@ -1,7 +1,9 @@
 {
   "version": 1,
-  "saved_at_utc": "2026-05-09T10:34:36.955938+00:00",
+  "created_from": "kaggle_marketing_ecommerce_archive",
+  "saved_at_utc": "2026-05-09T11:17:10.234367+00:00",
   "metadata": {
+    "created_from": "kaggle_marketing_ecommerce_archive",
     "dataset_path": "C:\\Users\\Anusk\\Downloads\\archive",
     "month_range": {
       "start": "2021-01",

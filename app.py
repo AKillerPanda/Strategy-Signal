@@ -2,11 +2,18 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from dataset_loader import default_archive_dir, load_archive_scenario, missing_dataset_files
+from dataset_loader import (
+    default_archive_dir,
+    has_scenario_snapshot,
+    load_archive_scenario,
+    load_scenario_from_checkpoints,
+    missing_dataset_files,
+)
 from evaluator import evaluate_strategy
+from market_data import lookup_market_competitors
 
 
-SOURCE_OPTIONS = ["Manual strategy", "Archive dataset scenario"]
+SOURCE_OPTIONS = ["Manual strategy", "Archive dataset scenario", "Saved checkpoint scenario"]
 HEURISTIC_KEYS = [
     "marketing_strength",
     "product_readiness",
@@ -28,7 +35,19 @@ def _query_value(key, default_value):
 
 
 def _source_to_param(input_mode):
-    return "archive" if input_mode == "Archive dataset scenario" else "manual"
+    if input_mode == "Archive dataset scenario":
+        return "archive"
+    if input_mode == "Saved checkpoint scenario":
+        return "checkpoint"
+    return "manual"
+
+
+def _param_to_source(param_value):
+    if param_value == "archive":
+        return "Archive dataset scenario"
+    if param_value == "checkpoint":
+        return "Saved checkpoint scenario"
+    return "Manual strategy"
 
 
 def _clean_items(raw_value):
@@ -110,10 +129,13 @@ def _build_heuristic_score_chart(payload, scenario):
             }
         )
 
-        if scenario and scenario.get("heuristic_models"):
-            benchmark_score = _average_episode_score(
-                scenario["heuristic_models"][heuristic_key]
-            )
+        heuristic_model = (
+            scenario.get("heuristic_models", {}).get(heuristic_key)
+            if scenario
+            else None
+        )
+        if heuristic_model:
+            benchmark_score = _average_episode_score(heuristic_model)
             benchmark_label = "Average episode"
         else:
             benchmark_score = 60
@@ -184,7 +206,12 @@ def _build_episode_history_chart(heuristic_model):
 
 
 def _build_feature_contribution_chart(heuristic_model):
-    contribution_data = pd.DataFrame(heuristic_model["feature_breakdown"]).head(8)
+    contribution_data = pd.DataFrame(
+        heuristic_model.get("feature_breakdown", [])
+    ).head(8)
+
+    if contribution_data.empty:
+        return None
 
     return (
         alt.Chart(contribution_data)
@@ -260,7 +287,10 @@ def _build_competitor_threat_chart(watchlist_frame):
 
 
 def _build_reward_history_chart(rl_policy):
-    reward_frame = pd.DataFrame(rl_policy["reward_history"])
+    reward_frame = pd.DataFrame(rl_policy.get("reward_history", []))
+    if reward_frame.empty:
+        return None
+
     return (
         alt.Chart(reward_frame)
         .mark_line(point=False)
@@ -285,7 +315,7 @@ def _combined_alerts(result, scenario):
             }
         )
 
-    if result["spectral"]["bottleneck_score"] > 1.0:
+    if result["spectral"]["bottleneck_score"] >= 0.65:
         alerts.append(
             {
                 "severity": "High",
@@ -334,9 +364,31 @@ def _render_control_panel(input_mode):
         channels = _clean_items(
             st.text_area("Marketing channels", "TikTok, SEO, PR, founder-led sales")
         )
-        competitors = _clean_items(
-            st.text_area("Competitors", "Competitor A, Competitor B")
+
+        market_category = st.text_input(
+            "Market category (optional, e.g., AI, beauty, fintech)",
+            value=_query_value("category", ""),
         )
+        st.query_params["category"] = market_category
+
+        use_real_competitors = st.checkbox(
+            "Use real-world competitors from this category",
+            value=bool(market_category),
+            help="Pulls top players from data/competitors_by_category.json. Falls back to a generic list if the category is unknown.",
+        )
+
+        if use_real_competitors and market_category:
+            looked_up, matched_key = lookup_market_competitors(market_category, limit=5)
+            competitors = looked_up
+            if matched_key:
+                st.caption(f"Matched category: `{matched_key}` -> {', '.join(looked_up)}")
+            else:
+                st.caption(f"No category match for `{market_category}`. Using default placeholders.")
+        else:
+            competitors = _clean_items(
+                st.text_area("Competitors", "Competitor A, Competitor B")
+            )
+
         milestones = _clean_items(
             st.text_area("Product timeline milestones", "MVP, beta launch, public launch")
         )
@@ -352,6 +404,31 @@ def _render_control_panel(input_mode):
         }
         return payload, scenario
 
+    if input_mode == "Saved checkpoint scenario":
+        if not has_scenario_snapshot():
+            st.warning(
+                "No saved scenario snapshot was found at models/scenario_snapshot.json. "
+                "Run an archive scenario at least once to generate it, then come back here."
+            )
+            return None, None
+
+        with st.spinner("Loading scenario from saved checkpoints..."):
+            scenario = load_scenario_from_checkpoints()
+
+        st.caption(
+            f"Snapshot dataset path: `{scenario.get('dataset_path', 'unknown')}` - CSV reload skipped."
+        )
+        payload = {
+            "features": scenario["features"],
+            "channels": scenario["channels"],
+            "competitors": scenario["competitors"],
+            "milestones": scenario["milestones"],
+            "marketing_strength": scenario["marketing_strength"],
+            "product_readiness": scenario["product_readiness"],
+            "competition_intensity": scenario["competition_intensity"],
+        }
+        return payload, scenario
+
     archive_path = st.text_input(
         "Archive folder path",
         _query_value("archive", str(default_archive_dir())),
@@ -360,11 +437,18 @@ def _render_control_panel(input_mode):
 
     missing_files = missing_dataset_files(archive_path)
     if missing_files:
-        st.warning(
+        snapshot_available = has_scenario_snapshot()
+        warning = (
             "Missing dataset files: "
             + ", ".join(missing_files)
             + ". Point this field at the folder containing the Kaggle CSV files."
         )
+        if snapshot_available:
+            warning += (
+                "\n\nA saved scenario snapshot is available - switch the strategy source to "
+                "`Saved checkpoint scenario` to skip the CSV load."
+            )
+        st.warning(warning)
         return None, None
 
     with st.spinner("Loading archive-derived scenario..."):
@@ -464,7 +548,7 @@ def _render_overview_tab(result, payload, scenario):
     if scenario:
         feed_cell = st.container(border=True)
         feed_cell.markdown("### Strategy improvement feed")
-        for item in scenario["strategy_feed"]:
+        for item in scenario.get("strategy_feed", []):
             feed_cell.markdown(f"**{item['headline']}**")
             feed_cell.write(item["detail"])
 
@@ -518,7 +602,7 @@ def _render_competitors_tab(scenario):
     watchlist_frame = pd.DataFrame(scenario["competitor_watchlist"])
     competitor_cols = st.columns(2)
     with competitor_cols[0].container(border=True):
-        st.markdown("### Competitor watchlist")
+        st.markdown("### Brand / competitor proxy watchlist")
         st.dataframe(watchlist_frame, use_container_width=True, hide_index=True)
 
     with competitor_cols[1].container(border=True):
@@ -544,21 +628,31 @@ def _render_intelligence_tab(scenario):
         st.info("ML and RL intelligence is available when the archive dataset scenario is loaded.")
         return
 
-    predictive_models = scenario["predictive_models"]
-    rl_policy = scenario["rl_policy"]
+    predictive_models = scenario.get("predictive_models", {})
+    rl_policy = scenario.get("rl_policy", {})
+    conversion_model = predictive_models.get("conversion_model", {})
+    revenue_model = predictive_models.get("revenue_model", {})
+    channel_model = predictive_models.get("channel_model", {})
+    segmentation_model = predictive_models.get("customer_segmentation", {})
+    weak_channels = channel_model.get("weak_channels", [])
+    ranked_actions = rl_policy.get("ranked_actions", [])
+    weakest_channel = weak_channels[0] if weak_channels else {
+        "channel": "None",
+        "predicted_weakness_probability": 0.0,
+    }
+    top_action = ranked_actions[0] if ranked_actions else {"q_value": 0.0}
 
     ml_cols = st.columns(4)
     ml_cols[0].metric(
         "Conversion success",
-        f"{predictive_models['conversion_model']['current_conversion_probability']:.1f}%",
-        f"AUC {predictive_models['conversion_model']['validation_auc']}",
+        f"{conversion_model.get('current_conversion_probability', 0.0):.1f}%",
+        f"AUC {conversion_model.get('validation_auc', 'n/a')}",
     )
     ml_cols[1].metric(
         "Predicted next revenue",
-        f"{predictive_models['revenue_model']['predicted_next_revenue']:.2f}",
-        f"MAE {predictive_models['revenue_model']['validation_mae']}",
+        f"{revenue_model.get('predicted_next_revenue', 0.0):.2f}",
+        f"MAE {revenue_model.get('validation_mae', 'n/a')}",
     )
-    weakest_channel = predictive_models["channel_model"]["weak_channels"][0]
     ml_cols[2].metric(
         "Weakest channel",
         weakest_channel["channel"],
@@ -566,35 +660,43 @@ def _render_intelligence_tab(scenario):
     )
     ml_cols[3].metric(
         "Recommended action",
-        rl_policy["recommended_action"].title(),
-        f"{rl_policy['ranked_actions'][0]['q_value']:.2f} Q-value",
+        rl_policy.get("recommended_action", "None").title(),
+        f"{top_action['q_value']:.2f} Q-value",
     )
 
     intelligence_cols = st.columns(2)
     with intelligence_cols[0].container(border=True):
         st.markdown("### RL reward history")
-        st.altair_chart(_build_reward_history_chart(rl_policy), use_container_width=True)
+        reward_chart = _build_reward_history_chart(rl_policy)
+        if reward_chart is None:
+            st.info("No RL reward history available yet.")
+        else:
+            st.altair_chart(reward_chart, use_container_width=True)
 
     with intelligence_cols[1].container(border=True):
         st.markdown("### Top policy actions")
-        st.dataframe(pd.DataFrame(rl_policy["ranked_actions"]), use_container_width=True, hide_index=True)
+        ranked_actions_frame = pd.DataFrame(ranked_actions)
+        if ranked_actions_frame.empty:
+            st.info("No ranked policy actions available yet.")
+        else:
+            st.dataframe(ranked_actions_frame, use_container_width=True, hide_index=True)
 
     lower_cols = st.columns(2)
     with lower_cols[0].container(border=True):
         st.markdown("### Weak marketing channels")
-        st.dataframe(
-            pd.DataFrame(predictive_models["channel_model"]["weak_channels"]),
-            use_container_width=True,
-            hide_index=True,
-        )
+        weak_channels_frame = pd.DataFrame(weak_channels)
+        if weak_channels_frame.empty:
+            st.info("No weak-channel predictions available yet.")
+        else:
+            st.dataframe(weak_channels_frame, use_container_width=True, hide_index=True)
 
     with lower_cols[1].container(border=True):
         st.markdown("### Customer segments")
-        st.dataframe(
-            pd.DataFrame(predictive_models["customer_segmentation"]["profiles"]),
-            use_container_width=True,
-            hide_index=True,
-        )
+        segment_profiles = pd.DataFrame(segmentation_model.get("profiles", []))
+        if segment_profiles.empty:
+            st.info("No customer segmentation profiles available yet.")
+        else:
+            st.dataframe(segment_profiles, use_container_width=True, hide_index=True)
 
 
 def _render_optimizer_tab(scenario):
@@ -602,14 +704,23 @@ def _render_optimizer_tab(scenario):
         st.info("Optimizer insights are available when the archive dataset scenario is loaded.")
         return
 
-    heuristic_labels = {
-        scenario["heuristic_models"][key]["label"]: key for key in HEURISTIC_KEYS
-    }
+    heuristic_labels = {}
+    for key in HEURISTIC_KEYS:
+        heuristic_model = scenario.get("heuristic_models", {}).get(key)
+        if heuristic_model:
+            heuristic_labels[heuristic_model.get("label", key)] = key
+
+    if not heuristic_labels:
+        st.info("No optimized heuristic payloads are available yet.")
+        return
+
     selected_label = st.selectbox(
         "Optimized heuristic",
         options=list(heuristic_labels.keys()),
     )
-    heuristic_model = scenario["heuristic_models"][heuristic_labels[selected_label]]
+    heuristic_model = scenario.get("heuristic_models", {}).get(
+        heuristic_labels[selected_label], {}
+    )
 
     optimizer_cols = st.columns(2)
     with optimizer_cols[0].container(border=True):
@@ -621,18 +732,19 @@ def _render_optimizer_tab(scenario):
 
     with optimizer_cols[1].container(border=True):
         st.markdown("### Top feature contributions")
-        st.altair_chart(
-            _build_feature_contribution_chart(heuristic_model),
-            use_container_width=True,
-        )
+        contribution_chart = _build_feature_contribution_chart(heuristic_model)
+        if contribution_chart is None:
+            st.info("No feature contribution data available.")
+        else:
+            st.altair_chart(contribution_chart, use_container_width=True)
 
     weights_cell = st.container(border=True)
     weights_cell.markdown("### Learned feature weights")
-    weights_cell.dataframe(
-        pd.DataFrame(heuristic_model["feature_breakdown"]),
-        use_container_width=True,
-        hide_index=True,
-    )
+    weights_frame = pd.DataFrame(heuristic_model.get("feature_breakdown", []))
+    if weights_frame.empty:
+        weights_cell.info("No learned feature weights available.")
+    else:
+        weights_cell.dataframe(weights_frame, use_container_width=True, hide_index=True)
 
 
 def _render_model_outputs_tab(result, payload, scenario):
@@ -677,7 +789,7 @@ def main():
     )
     st.caption("Dashboard base inspired by the layout patterns in streamlit/demo-stockpeers.")
 
-    default_mode = "Archive dataset scenario" if _query_value("source", "manual") == "archive" else "Manual strategy"
+    default_mode = _param_to_source(_query_value("source", "manual"))
     control_col, summary_col = st.columns([1.05, 1.95])
 
     with control_col.container(border=True):
@@ -721,15 +833,16 @@ def main():
     if st.session_state.get("evaluation_payload") != current_signature:
         st.info("Inputs changed. Run the evaluation again to refresh the dashboard.")
 
+    evaluated_payload = st.session_state.get("evaluation_payload", payload)
     evaluation_scenario = st.session_state.get("evaluation_scenario")
 
-    _render_home_dashboard(evaluation_result, payload, evaluation_scenario)
+    _render_home_dashboard(evaluation_result, evaluated_payload, evaluation_scenario)
 
     overview_tab, charts_tab, competitors_tab, alerts_tab, intelligence_tab, optimizer_tab, outputs_tab = st.tabs(
         ["Overview", "Strategy charts", "Competitors", "Alerts", "ML + RL", "Optimizer", "Model outputs"]
     )
     with overview_tab:
-        _render_overview_tab(evaluation_result, payload, evaluation_scenario)
+        _render_overview_tab(evaluation_result, evaluated_payload, evaluation_scenario)
     with charts_tab:
         _render_strategy_charts_tab(evaluation_scenario)
     with competitors_tab:
@@ -741,7 +854,7 @@ def main():
     with optimizer_tab:
         _render_optimizer_tab(evaluation_scenario)
     with outputs_tab:
-        _render_model_outputs_tab(evaluation_result, payload, evaluation_scenario)
+        _render_model_outputs_tab(evaluation_result, evaluated_payload, evaluation_scenario)
 
 
 if __name__ == "__main__":

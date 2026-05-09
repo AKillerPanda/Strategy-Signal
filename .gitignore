@@ -1,0 +1,19 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Generated checkpoints (regenerated from CSVs or shipped separately)
+models/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
