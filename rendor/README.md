@@ -1,4 +1,4 @@
-# Rendor Mobile Bundle
+# Rendor Mobile Backend Bundle
 
 This folder is a portable backend bundle copied from the main project for mobile-app work.
 

@@ -1,0 +1,1735 @@
+{
+  "version": 1,
+  "algorithm": "q_learning",
+  "saved_at_utc": "2026-05-09T11:17:10.189491+00:00",
+  "state_definition": [
+    "conversion_probability_bucket",
+    "product_readiness_bucket",
+    "competition_risk_bucket",
+    "launch_timing_risk_bucket",
+    "marketing_roi_bucket"
+  ],
+  "actions": [
+    "increase ad spend",
+    "change channel mix",
+    "delay launch",
+    "launch beta",
+    "improve onboarding",
+    "reduce feature scope",
+    "target niche segment"
+  ],
+  "policy": {
+    "1|1|1|2|3": "improve onboarding",
+    "3|1|1|2|3": "reduce feature scope",
+    "2|1|1|2|4": "reduce feature scope",
+    "3|1|1|2|4": "increase ad spend",
+    "4|2|1|2|4": "reduce feature scope",
+    "2|2|1|2|4": "increase ad spend",
+    "1|1|1|1|3": "increase ad spend",
+    "3|2|1|2|3": "increase ad spend",
+    "0|1|1|1|3": "target niche segment",
+    "0|1|1|2|3": "increase ad spend",
+    "2|1|1|2|3": "change channel mix",
+    "3|2|1|2|4": "increase ad spend",
+    "2|2|1|1|3": "change channel mix",
+    "2|1|0|1|3": "increase ad spend",
+    "2|1|1|1|3": "delay launch",
+    "1|1|0|2|3": "increase ad spend",
+    "4|1|1|2|3": "increase ad spend",
+    "1|2|1|1|4": "launch beta",
+    "3|2|1|2|5": "increase ad spend",
+    "1|2|1|1|3": "improve onboarding",
+    "1|1|0|1|3": "target niche segment",
+    "2|1|1|1|4": "launch beta",
+    "4|1|1|2|4": "launch beta",
+    "2|2|1|1|4": "increase ad spend",
+    "3|2|1|1|4": "increase ad spend",
+    "1|2|1|2|4": "increase ad spend",
+    "1|1|1|2|4": "delay launch",
+    "3|1|1|1|3": "increase ad spend",
+    "1|1|1|1|4": "increase ad spend",
+    "1|2|0|1|3": "increase ad spend",
+    "2|2|0|1|3": "increase ad spend",
+    "1|1|0|2|4": "increase ad spend",
+    "1|1|0|1|4": "increase ad spend",
+    "2|2|1|2|3": "increase ad spend",
+    "0|2|1|1|3": "increase ad spend",
+    "3|2|1|1|5": "reduce feature scope",
+    "2|1|0|2|4": "improve onboarding",
+    "1|2|1|2|3": "increase ad spend",
+    "1|2|0|2|3": "increase ad spend"
+  },
+  "q_table": {
+    "1|1|1|2|3": [
+      365.655035,
+      361.765497,
+      350.297116,
+      354.155096,
+      383.800381,
+      358.224001,
+      364.928179
+    ],
+    "3|1|1|2|3": [
+      377.361414,
+      373.866054,
+      392.074958,
+      379.73517,
+      313.357995,
+      408.87384,
+      372.124558
+    ],
+    "2|1|1|2|4": [
+      85.119104,
+      98.752734,
+      84.78349,
+      84.910178,
+      85.492534,
+      166.401613,
+      86.982028
+    ],
+    "3|1|1|2|4": [
+      392.730015,
+      260.402066,
+      313.555868,
+      303.443838,
+      325.114815,
+      325.739154,
+      308.375767
+    ],
+    "4|2|1|2|4": [
+      164.053655,
+      256.155003,
+      58.965571,
+      268.707341,
+      245.936637,
+      404.391209,
+      301.584023
+    ],
+    "2|2|1|2|4": [
+      390.854814,
+      122.338447,
+      32.428641,
+      47.346524,
+      96.911915,
+      53.723317,
+      81.401959
+    ],
+    "1|1|1|1|3": [
+      389.699784,
+      320.42714,
+      354.509284,
+      332.574428,
+      294.384626,
+      312.571058,
+      300.947679
+    ],
+    "3|2|1|2|3": [
+      395.680336,
+      40.483132,
+      0.0,
+      62.808854,
+      74.0894,
+      0.0,
+      110.741874
+    ],
+    "0|1|1|1|3": [
+      18.20403,
+      67.753321,
+      0.0,
+      0.0,
+      169.237875,
+      57.635082,
+      385.846109
+    ],
+    "0|1|1|2|3": [
+      374.303298,
+      138.731752,
+      283.117776,
+      171.257795,
+      301.485272,
+      268.019086,
+      238.677253
+    ],
+    "2|1|1|2|3": [
+      275.973474,
+      335.411093,
+      305.191107,
+      304.136977,
+      303.144502,
+      291.908626,
+      267.955043
+    ],
+    "3|2|1|2|4": [
+      356.769076,
+      95.807207,
+      162.041257,
+      127.425996,
+      311.148806,
+      216.152353,
+      101.750993
+    ],
+    "2|2|1|1|3": [
+      217.873875,
+      403.872142,
+      150.043883,
+      70.559069,
+      211.392237,
+      119.182993,
+      189.186108
+    ],
+    "2|1|0|1|3": [
+      395.177898,
+      274.644235,
+      182.926106,
+      269.876533,
+      225.760336,
+      348.231218,
+      236.283928
+    ],
+    "2|1|1|1|3": [
+      141.184718,
+      248.606049,
+      387.502092,
+      193.525337,
+      128.542946,
+      62.304251,
+      235.5566
+    ],
+    "1|1|0|2|3": [
+      403.747212,
+      78.588747,
+      61.569357,
+      78.158666,
+      182.677688,
+      60.672889,
+      0.0
+    ],
+    "4|1|1|2|3": [
+      398.507249,
+      124.911426,
+      76.953093,
+      76.717662,
+      112.169256,
+      172.875014,
+      133.743993
+    ],
+    "1|2|1|1|4": [
+      35.178215,
+      7.584399,
+      0.0,
+      71.309755,
+      51.136789,
+      20.261387,
+      7.549945
+    ],
+    "3|2|1|2|5": [
+      147.726524,
+      46.564198,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "1|2|1|1|3": [
+      65.077138,
+      114.274493,
+      191.365997,
+      0.0,
+      412.897068,
+      77.256859,
+      105.470759
+    ],
+    "1|1|0|1|3": [
+      52.070227,
+      101.656387,
+      54.447775,
+      73.803076,
+      156.436439,
+      174.553634,
+      363.924013
+    ],
+    "2|1|1|1|4": [
+      15.934306,
+      0.0,
+      37.892578,
+      40.82707,
+      0.0,
+      7.185166,
+      40.578499
+    ],
+    "4|1|1|2|4": [
+      50.226496,
+      0.0,
+      0.0,
+      180.780532,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "2|2|1|1|4": [
+      37.423964,
+      0.0,
+      5.135239,
+      0.0,
+      7.941991,
+      0.0,
+      0.0
+    ],
+    "3|2|1|1|4": [
+      352.72456,
+      57.36522,
+      58.886783,
+      0.0,
+      0.0,
+      48.479841,
+      27.589703
+    ],
+    "1|2|1|2|4": [
+      393.307761,
+      39.704343,
+      76.057539,
+      18.410271,
+      129.126465,
+      90.041098,
+      59.194085
+    ],
+    "1|1|1|2|4": [
+      0.0,
+      0.0,
+      310.587131,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "3|1|1|1|3": [
+      415.483364,
+      107.965723,
+      73.03968,
+      0.0,
+      84.16897,
+      0.0,
+      0.0
+    ],
+    "1|1|1|1|4": [
+      109.170877,
+      0.0,
+      9.199259,
+      91.893939,
+      26.667935,
+      77.225359,
+      51.268906
+    ],
+    "1|2|0|1|3": [
+      322.05618,
+      0.0,
+      0.0,
+      0.0,
+      51.873242,
+      0.0,
+      0.0
+    ],
+    "2|2|0|1|3": [
+      158.659564,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "1|1|0|2|4": [
+      173.167804,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "1|1|0|1|4": [
+      113.828414,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "2|2|1|2|3": [
+      101.668996,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "0|2|1|1|3": [
+      65.814004,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "3|2|1|1|5": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      49.096063,
+      0.0
+    ],
+    "2|1|0|2|4": [
+      7.233856,
+      0.0,
+      0.0,
+      0.0,
+      14.488234,
+      0.0,
+      0.0
+    ],
+    "1|2|1|2|3": [
+      269.277928,
+      0.0,
+      72.211243,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "1|2|0|2|3": [
+      81.698673,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "reward_history": [
+    {
+      "episode": 1,
+      "reward": 1376.12
+    },
+    {
+      "episode": 2,
+      "reward": 1398.24
+    },
+    {
+      "episode": 3,
+      "reward": 1403.18
+    },
+    {
+      "episode": 4,
+      "reward": 1418.14
+    },
+    {
+      "episode": 5,
+      "reward": 1353.52
+    },
+    {
+      "episode": 6,
+      "reward": 1354.97
+    },
+    {
+      "episode": 7,
+      "reward": 1340.52
+    },
+    {
+      "episode": 8,
+      "reward": 1354.06
+    },
+    {
+      "episode": 9,
+      "reward": 1401.1
+    },
+    {
+      "episode": 10,
+      "reward": 1389.36
+    },
+    {
+      "episode": 11,
+      "reward": 1414.55
+    },
+    {
+      "episode": 12,
+      "reward": 1364.6
+    },
+    {
+      "episode": 13,
+      "reward": 1404.05
+    },
+    {
+      "episode": 14,
+      "reward": 1406.81
+    },
+    {
+      "episode": 15,
+      "reward": 1423.82
+    },
+    {
+      "episode": 16,
+      "reward": 1378.67
+    },
+    {
+      "episode": 17,
+      "reward": 1358.29
+    },
+    {
+      "episode": 18,
+      "reward": 1405.46
+    },
+    {
+      "episode": 19,
+      "reward": 1405.3
+    },
+    {
+      "episode": 20,
+      "reward": 1378.5
+    },
+    {
+      "episode": 21,
+      "reward": 1379.97
+    },
+    {
+      "episode": 22,
+      "reward": 1394.95
+    },
+    {
+      "episode": 23,
+      "reward": 1396.43
+    },
+    {
+      "episode": 24,
+      "reward": 1415.31
+    },
+    {
+      "episode": 25,
+      "reward": 1394.45
+    },
+    {
+      "episode": 26,
+      "reward": 1372.49
+    },
+    {
+      "episode": 27,
+      "reward": 1401.71
+    },
+    {
+      "episode": 28,
+      "reward": 1372.81
+    },
+    {
+      "episode": 29,
+      "reward": 1402.63
+    },
+    {
+      "episode": 30,
+      "reward": 1370.02
+    },
+    {
+      "episode": 31,
+      "reward": 1389.91
+    },
+    {
+      "episode": 32,
+      "reward": 1373.75
+    },
+    {
+      "episode": 33,
+      "reward": 1381.33
+    },
+    {
+      "episode": 34,
+      "reward": 1376.17
+    },
+    {
+      "episode": 35,
+      "reward": 1369.44
+    },
+    {
+      "episode": 36,
+      "reward": 1389.37
+    },
+    {
+      "episode": 37,
+      "reward": 1392.8
+    },
+    {
+      "episode": 38,
+      "reward": 1372.61
+    },
+    {
+      "episode": 39,
+      "reward": 1400.29
+    },
+    {
+      "episode": 40,
+      "reward": 1356.65
+    },
+    {
+      "episode": 41,
+      "reward": 1403.8
+    },
+    {
+      "episode": 42,
+      "reward": 1381.24
+    },
+    {
+      "episode": 43,
+      "reward": 1392.56
+    },
+    {
+      "episode": 44,
+      "reward": 1373.64
+    },
+    {
+      "episode": 45,
+      "reward": 1377.82
+    },
+    {
+      "episode": 46,
+      "reward": 1376.22
+    },
+    {
+      "episode": 47,
+      "reward": 1395.55
+    },
+    {
+      "episode": 48,
+      "reward": 1350.27
+    },
+    {
+      "episode": 49,
+      "reward": 1392.11
+    },
+    {
+      "episode": 50,
+      "reward": 1400.24
+    },
+    {
+      "episode": 51,
+      "reward": 1400.43
+    },
+    {
+      "episode": 52,
+      "reward": 1376.94
+    },
+    {
+      "episode": 53,
+      "reward": 1406.14
+    },
+    {
+      "episode": 54,
+      "reward": 1383.57
+    },
+    {
+      "episode": 55,
+      "reward": 1396.29
+    },
+    {
+      "episode": 56,
+      "reward": 1392.94
+    },
+    {
+      "episode": 57,
+      "reward": 1343.83
+    },
+    {
+      "episode": 58,
+      "reward": 1390.22
+    },
+    {
+      "episode": 59,
+      "reward": 1374.72
+    },
+    {
+      "episode": 60,
+      "reward": 1386.9
+    },
+    {
+      "episode": 61,
+      "reward": 1407.17
+    },
+    {
+      "episode": 62,
+      "reward": 1380.44
+    },
+    {
+      "episode": 63,
+      "reward": 1418.19
+    },
+    {
+      "episode": 64,
+      "reward": 1390.44
+    },
+    {
+      "episode": 65,
+      "reward": 1357.73
+    },
+    {
+      "episode": 66,
+      "reward": 1392.46
+    },
+    {
+      "episode": 67,
+      "reward": 1384.47
+    },
+    {
+      "episode": 68,
+      "reward": 1411.74
+    },
+    {
+      "episode": 69,
+      "reward": 1381.98
+    },
+    {
+      "episode": 70,
+      "reward": 1398.29
+    },
+    {
+      "episode": 71,
+      "reward": 1379.73
+    },
+    {
+      "episode": 72,
+      "reward": 1375.87
+    },
+    {
+      "episode": 73,
+      "reward": 1385.27
+    },
+    {
+      "episode": 74,
+      "reward": 1364.29
+    },
+    {
+      "episode": 75,
+      "reward": 1389.83
+    },
+    {
+      "episode": 76,
+      "reward": 1396.0
+    },
+    {
+      "episode": 77,
+      "reward": 1359.55
+    },
+    {
+      "episode": 78,
+      "reward": 1390.78
+    },
+    {
+      "episode": 79,
+      "reward": 1386.32
+    },
+    {
+      "episode": 80,
+      "reward": 1403.17
+    },
+    {
+      "episode": 81,
+      "reward": 1389.91
+    },
+    {
+      "episode": 82,
+      "reward": 1372.97
+    },
+    {
+      "episode": 83,
+      "reward": 1386.97
+    },
+    {
+      "episode": 84,
+      "reward": 1401.48
+    },
+    {
+      "episode": 85,
+      "reward": 1396.6
+    },
+    {
+      "episode": 86,
+      "reward": 1397.49
+    },
+    {
+      "episode": 87,
+      "reward": 1397.44
+    },
+    {
+      "episode": 88,
+      "reward": 1393.1
+    },
+    {
+      "episode": 89,
+      "reward": 1396.86
+    },
+    {
+      "episode": 90,
+      "reward": 1401.37
+    },
+    {
+      "episode": 91,
+      "reward": 1411.04
+    },
+    {
+      "episode": 92,
+      "reward": 1390.66
+    },
+    {
+      "episode": 93,
+      "reward": 1403.57
+    },
+    {
+      "episode": 94,
+      "reward": 1416.89
+    },
+    {
+      "episode": 95,
+      "reward": 1399.66
+    },
+    {
+      "episode": 96,
+      "reward": 1403.5
+    },
+    {
+      "episode": 97,
+      "reward": 1388.8
+    },
+    {
+      "episode": 98,
+      "reward": 1372.16
+    },
+    {
+      "episode": 99,
+      "reward": 1398.7
+    },
+    {
+      "episode": 100,
+      "reward": 1411.92
+    },
+    {
+      "episode": 101,
+      "reward": 1372.15
+    },
+    {
+      "episode": 102,
+      "reward": 1408.22
+    },
+    {
+      "episode": 103,
+      "reward": 1392.72
+    },
+    {
+      "episode": 104,
+      "reward": 1387.71
+    },
+    {
+      "episode": 105,
+      "reward": 1364.19
+    },
+    {
+      "episode": 106,
+      "reward": 1381.48
+    },
+    {
+      "episode": 107,
+      "reward": 1391.41
+    },
+    {
+      "episode": 108,
+      "reward": 1407.37
+    },
+    {
+      "episode": 109,
+      "reward": 1409.84
+    },
+    {
+      "episode": 110,
+      "reward": 1408.42
+    },
+    {
+      "episode": 111,
+      "reward": 1400.16
+    },
+    {
+      "episode": 112,
+      "reward": 1411.85
+    },
+    {
+      "episode": 113,
+      "reward": 1418.0
+    },
+    {
+      "episode": 114,
+      "reward": 1416.09
+    },
+    {
+      "episode": 115,
+      "reward": 1395.46
+    },
+    {
+      "episode": 116,
+      "reward": 1390.43
+    },
+    {
+      "episode": 117,
+      "reward": 1397.32
+    },
+    {
+      "episode": 118,
+      "reward": 1372.54
+    },
+    {
+      "episode": 119,
+      "reward": 1398.13
+    },
+    {
+      "episode": 120,
+      "reward": 1419.26
+    },
+    {
+      "episode": 121,
+      "reward": 1401.45
+    },
+    {
+      "episode": 122,
+      "reward": 1407.23
+    },
+    {
+      "episode": 123,
+      "reward": 1404.33
+    },
+    {
+      "episode": 124,
+      "reward": 1406.02
+    },
+    {
+      "episode": 125,
+      "reward": 1418.18
+    },
+    {
+      "episode": 126,
+      "reward": 1420.1
+    },
+    {
+      "episode": 127,
+      "reward": 1373.43
+    },
+    {
+      "episode": 128,
+      "reward": 1359.29
+    },
+    {
+      "episode": 129,
+      "reward": 1347.98
+    },
+    {
+      "episode": 130,
+      "reward": 1356.96
+    },
+    {
+      "episode": 131,
+      "reward": 1357.94
+    },
+    {
+      "episode": 132,
+      "reward": 1372.19
+    },
+    {
+      "episode": 133,
+      "reward": 1368.6
+    },
+    {
+      "episode": 134,
+      "reward": 1355.1
+    },
+    {
+      "episode": 135,
+      "reward": 1374.62
+    },
+    {
+      "episode": 136,
+      "reward": 1351.94
+    },
+    {
+      "episode": 137,
+      "reward": 1363.35
+    },
+    {
+      "episode": 138,
+      "reward": 1329.28
+    },
+    {
+      "episode": 139,
+      "reward": 1357.33
+    },
+    {
+      "episode": 140,
+      "reward": 1343.01
+    },
+    {
+      "episode": 141,
+      "reward": 1349.14
+    },
+    {
+      "episode": 142,
+      "reward": 1346.17
+    },
+    {
+      "episode": 143,
+      "reward": 1363.85
+    },
+    {
+      "episode": 144,
+      "reward": 1351.76
+    },
+    {
+      "episode": 145,
+      "reward": 1340.95
+    },
+    {
+      "episode": 146,
+      "reward": 1373.36
+    },
+    {
+      "episode": 147,
+      "reward": 1389.86
+    },
+    {
+      "episode": 148,
+      "reward": 1417.37
+    },
+    {
+      "episode": 149,
+      "reward": 1394.62
+    },
+    {
+      "episode": 150,
+      "reward": 1404.76
+    },
+    {
+      "episode": 151,
+      "reward": 1409.5
+    },
+    {
+      "episode": 152,
+      "reward": 1411.51
+    },
+    {
+      "episode": 153,
+      "reward": 1378.93
+    },
+    {
+      "episode": 154,
+      "reward": 1384.18
+    },
+    {
+      "episode": 155,
+      "reward": 1413.26
+    },
+    {
+      "episode": 156,
+      "reward": 1369.58
+    },
+    {
+      "episode": 157,
+      "reward": 1388.89
+    },
+    {
+      "episode": 158,
+      "reward": 1385.66
+    },
+    {
+      "episode": 159,
+      "reward": 1381.48
+    },
+    {
+      "episode": 160,
+      "reward": 1386.09
+    },
+    {
+      "episode": 161,
+      "reward": 1387.84
+    },
+    {
+      "episode": 162,
+      "reward": 1385.24
+    },
+    {
+      "episode": 163,
+      "reward": 1376.82
+    },
+    {
+      "episode": 164,
+      "reward": 1368.88
+    },
+    {
+      "episode": 165,
+      "reward": 1362.66
+    },
+    {
+      "episode": 166,
+      "reward": 1347.77
+    },
+    {
+      "episode": 167,
+      "reward": 1367.96
+    },
+    {
+      "episode": 168,
+      "reward": 1367.06
+    },
+    {
+      "episode": 169,
+      "reward": 1366.96
+    },
+    {
+      "episode": 170,
+      "reward": 1352.14
+    },
+    {
+      "episode": 171,
+      "reward": 1369.18
+    },
+    {
+      "episode": 172,
+      "reward": 1370.93
+    },
+    {
+      "episode": 173,
+      "reward": 1375.04
+    },
+    {
+      "episode": 174,
+      "reward": 1363.6
+    },
+    {
+      "episode": 175,
+      "reward": 1366.89
+    },
+    {
+      "episode": 176,
+      "reward": 1367.32
+    },
+    {
+      "episode": 177,
+      "reward": 1374.64
+    },
+    {
+      "episode": 178,
+      "reward": 1370.83
+    },
+    {
+      "episode": 179,
+      "reward": 1344.6
+    },
+    {
+      "episode": 180,
+      "reward": 1377.01
+    },
+    {
+      "episode": 181,
+      "reward": 1366.89
+    },
+    {
+      "episode": 182,
+      "reward": 1388.44
+    },
+    {
+      "episode": 183,
+      "reward": 1356.51
+    },
+    {
+      "episode": 184,
+      "reward": 1362.2
+    },
+    {
+      "episode": 185,
+      "reward": 1367.08
+    },
+    {
+      "episode": 186,
+      "reward": 1388.55
+    },
+    {
+      "episode": 187,
+      "reward": 1376.26
+    },
+    {
+      "episode": 188,
+      "reward": 1351.83
+    },
+    {
+      "episode": 189,
+      "reward": 1358.91
+    },
+    {
+      "episode": 190,
+      "reward": 1366.89
+    },
+    {
+      "episode": 191,
+      "reward": 1374.15
+    },
+    {
+      "episode": 192,
+      "reward": 1381.23
+    },
+    {
+      "episode": 193,
+      "reward": 1355.39
+    },
+    {
+      "episode": 194,
+      "reward": 1353.98
+    },
+    {
+      "episode": 195,
+      "reward": 1356.22
+    },
+    {
+      "episode": 196,
+      "reward": 1377.39
+    },
+    {
+      "episode": 197,
+      "reward": 1363.8
+    },
+    {
+      "episode": 198,
+      "reward": 1359.73
+    },
+    {
+      "episode": 199,
+      "reward": 1371.13
+    },
+    {
+      "episode": 200,
+      "reward": 1365.13
+    },
+    {
+      "episode": 201,
+      "reward": 1376.4
+    },
+    {
+      "episode": 202,
+      "reward": 1358.91
+    },
+    {
+      "episode": 203,
+      "reward": 1387.92
+    },
+    {
+      "episode": 204,
+      "reward": 1373.23
+    },
+    {
+      "episode": 205,
+      "reward": 1400.97
+    },
+    {
+      "episode": 206,
+      "reward": 1404.91
+    },
+    {
+      "episode": 207,
+      "reward": 1365.65
+    },
+    {
+      "episode": 208,
+      "reward": 1356.8
+    },
+    {
+      "episode": 209,
+      "reward": 1372.91
+    },
+    {
+      "episode": 210,
+      "reward": 1295.66
+    },
+    {
+      "episode": 211,
+      "reward": 1344.02
+    },
+    {
+      "episode": 212,
+      "reward": 1336.87
+    },
+    {
+      "episode": 213,
+      "reward": 1344.13
+    },
+    {
+      "episode": 214,
+      "reward": 1333.22
+    },
+    {
+      "episode": 215,
+      "reward": 1350.27
+    },
+    {
+      "episode": 216,
+      "reward": 1344.17
+    },
+    {
+      "episode": 217,
+      "reward": 1342.1
+    },
+    {
+      "episode": 218,
+      "reward": 1352.5
+    },
+    {
+      "episode": 219,
+      "reward": 1349.04
+    },
+    {
+      "episode": 220,
+      "reward": 1349.12
+    },
+    {
+      "episode": 221,
+      "reward": 1337.14
+    },
+    {
+      "episode": 222,
+      "reward": 1389.31
+    },
+    {
+      "episode": 223,
+      "reward": 1357.31
+    },
+    {
+      "episode": 224,
+      "reward": 1384.29
+    },
+    {
+      "episode": 225,
+      "reward": 1384.3
+    },
+    {
+      "episode": 226,
+      "reward": 1408.2
+    },
+    {
+      "episode": 227,
+      "reward": 1381.24
+    },
+    {
+      "episode": 228,
+      "reward": 1374.29
+    },
+    {
+      "episode": 229,
+      "reward": 1381.24
+    },
+    {
+      "episode": 230,
+      "reward": 1380.81
+    },
+    {
+      "episode": 231,
+      "reward": 1389.22
+    },
+    {
+      "episode": 232,
+      "reward": 1381.24
+    },
+    {
+      "episode": 233,
+      "reward": 1383.29
+    },
+    {
+      "episode": 234,
+      "reward": 1390.31
+    },
+    {
+      "episode": 235,
+      "reward": 1374.59
+    },
+    {
+      "episode": 236,
+      "reward": 1385.83
+    },
+    {
+      "episode": 237,
+      "reward": 1384.17
+    },
+    {
+      "episode": 238,
+      "reward": 1375.08
+    },
+    {
+      "episode": 239,
+      "reward": 1387.23
+    },
+    {
+      "episode": 240,
+      "reward": 1359.41
+    },
+    {
+      "episode": 241,
+      "reward": 1406.04
+    },
+    {
+      "episode": 242,
+      "reward": 1396.35
+    },
+    {
+      "episode": 243,
+      "reward": 1394.49
+    },
+    {
+      "episode": 244,
+      "reward": 1397.69
+    },
+    {
+      "episode": 245,
+      "reward": 1382.93
+    },
+    {
+      "episode": 246,
+      "reward": 1390.89
+    },
+    {
+      "episode": 247,
+      "reward": 1370.25
+    },
+    {
+      "episode": 248,
+      "reward": 1367.52
+    },
+    {
+      "episode": 249,
+      "reward": 1322.58
+    },
+    {
+      "episode": 250,
+      "reward": 1351.09
+    },
+    {
+      "episode": 251,
+      "reward": 1345.64
+    },
+    {
+      "episode": 252,
+      "reward": 1346.56
+    },
+    {
+      "episode": 253,
+      "reward": 1352.94
+    },
+    {
+      "episode": 254,
+      "reward": 1351.03
+    },
+    {
+      "episode": 255,
+      "reward": 1364.72
+    },
+    {
+      "episode": 256,
+      "reward": 1353.37
+    },
+    {
+      "episode": 257,
+      "reward": 1343.13
+    },
+    {
+      "episode": 258,
+      "reward": 1331.46
+    },
+    {
+      "episode": 259,
+      "reward": 1288.02
+    },
+    {
+      "episode": 260,
+      "reward": 1367.46
+    },
+    {
+      "episode": 261,
+      "reward": 1386.75
+    },
+    {
+      "episode": 262,
+      "reward": 1341.77
+    },
+    {
+      "episode": 263,
+      "reward": 1363.48
+    },
+    {
+      "episode": 264,
+      "reward": 1385.5
+    },
+    {
+      "episode": 265,
+      "reward": 1366.02
+    },
+    {
+      "episode": 266,
+      "reward": 1372.01
+    },
+    {
+      "episode": 267,
+      "reward": 1362.83
+    },
+    {
+      "episode": 268,
+      "reward": 1362.41
+    },
+    {
+      "episode": 269,
+      "reward": 1365.76
+    },
+    {
+      "episode": 270,
+      "reward": 1360.55
+    },
+    {
+      "episode": 271,
+      "reward": 1362.41
+    },
+    {
+      "episode": 272,
+      "reward": 1361.98
+    },
+    {
+      "episode": 273,
+      "reward": 1364.57
+    },
+    {
+      "episode": 274,
+      "reward": 1366.88
+    },
+    {
+      "episode": 275,
+      "reward": 1362.83
+    },
+    {
+      "episode": 276,
+      "reward": 1365.84
+    },
+    {
+      "episode": 277,
+      "reward": 1348.76
+    },
+    {
+      "episode": 278,
+      "reward": 1357.91
+    },
+    {
+      "episode": 279,
+      "reward": 1364.26
+    },
+    {
+      "episode": 280,
+      "reward": 1365.84
+    },
+    {
+      "episode": 281,
+      "reward": 1375.63
+    },
+    {
+      "episode": 282,
+      "reward": 1384.82
+    },
+    {
+      "episode": 283,
+      "reward": 1377.16
+    },
+    {
+      "episode": 284,
+      "reward": 1377.2
+    },
+    {
+      "episode": 285,
+      "reward": 1374.75
+    },
+    {
+      "episode": 286,
+      "reward": 1367.0
+    },
+    {
+      "episode": 287,
+      "reward": 1383.98
+    },
+    {
+      "episode": 288,
+      "reward": 1393.36
+    },
+    {
+      "episode": 289,
+      "reward": 1352.65
+    },
+    {
+      "episode": 290,
+      "reward": 1392.93
+    },
+    {
+      "episode": 291,
+      "reward": 1338.1
+    },
+    {
+      "episode": 292,
+      "reward": 1352.94
+    },
+    {
+      "episode": 293,
+      "reward": 1334.1
+    },
+    {
+      "episode": 294,
+      "reward": 1347.82
+    },
+    {
+      "episode": 295,
+      "reward": 1367.5
+    },
+    {
+      "episode": 296,
+      "reward": 1356.21
+    },
+    {
+      "episode": 297,
+      "reward": 1307.45
+    },
+    {
+      "episode": 298,
+      "reward": 1368.35
+    },
+    {
+      "episode": 299,
+      "reward": 1393.39
+    },
+    {
+      "episode": 300,
+      "reward": 1382.84
+    },
+    {
+      "episode": 301,
+      "reward": 1401.99
+    },
+    {
+      "episode": 302,
+      "reward": 1394.8
+    },
+    {
+      "episode": 303,
+      "reward": 1386.4
+    },
+    {
+      "episode": 304,
+      "reward": 1380.21
+    },
+    {
+      "episode": 305,
+      "reward": 1381.27
+    },
+    {
+      "episode": 306,
+      "reward": 1355.2
+    },
+    {
+      "episode": 307,
+      "reward": 1377.2
+    },
+    {
+      "episode": 308,
+      "reward": 1370.07
+    },
+    {
+      "episode": 309,
+      "reward": 1373.96
+    },
+    {
+      "episode": 310,
+      "reward": 1365.9
+    },
+    {
+      "episode": 311,
+      "reward": 1351.01
+    },
+    {
+      "episode": 312,
+      "reward": 1366.08
+    },
+    {
+      "episode": 313,
+      "reward": 1368.06
+    },
+    {
+      "episode": 314,
+      "reward": 1354.98
+    },
+    {
+      "episode": 315,
+      "reward": 1328.75
+    },
+    {
+      "episode": 316,
+      "reward": 1381.2
+    },
+    {
+      "episode": 317,
+      "reward": 1385.15
+    },
+    {
+      "episode": 318,
+      "reward": 1385.15
+    },
+    {
+      "episode": 319,
+      "reward": 1388.07
+    },
+    {
+      "episode": 320,
+      "reward": 1383.34
+    }
+  ],
+  "current_state": "1|1|1|2|3",
+  "ranked_actions": [
+    {
+      "action": "improve onboarding",
+      "q_value": 383.8004,
+      "reason": "Lifts conversion before scaling more traffic into the funnel."
+    },
+    {
+      "action": "increase ad spend",
+      "q_value": 365.655,
+      "reason": "Scales awareness quickly but can increase CAC and competitive pressure."
+    },
+    {
+      "action": "target niche segment",
+      "q_value": 364.9282,
+      "reason": "Improves positioning by narrowing focus and lowering competitive pressure."
+    },
+    {
+      "action": "change channel mix",
+      "q_value": 361.7655,
+      "reason": "Rebalances acquisition toward healthier channels and improves marketing efficiency."
+    },
+    {
+      "action": "reduce feature scope",
+      "q_value": 358.224,
+      "reason": "Cuts complexity to improve readiness and reduce launch risk."
+    },
+    {
+      "action": "launch beta",
+      "q_value": 354.1551,
+      "reason": "Tests the market with lower timing risk before a broader release."
+    },
+    {
+      "action": "delay launch",
+      "q_value": 350.2971,
+      "reason": "Buys time to improve readiness when product or timing risk is too high."
+    }
+  ]
+}

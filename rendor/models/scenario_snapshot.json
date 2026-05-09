@@ -1,0 +1,3466 @@
+{
+  "version": 1,
+  "saved_at_utc": "2026-05-09T12:17:10.23988+01:00",
+  "scenario": {
+    "dataset_path": "C:\\Users\\Anusk\\Downloads\\archive",
+    "checkpoint_path": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\rendor\\models\\heuristic_checkpoint.json",
+    "features": [
+      "Electronics",
+      "Fashion",
+      "Home",
+      "Grocery",
+      "Premium catalog focus"
+    ],
+    "channels": [
+      "Organic",
+      "Paid Search",
+      "Social",
+      "Email",
+      "Direct"
+    ],
+    "competitors": [
+      "Apple",
+      "Samsung",
+      "Sony",
+      "Anker",
+      "Bose"
+    ],
+    "brand_proxy_competitors": [
+      "Brand proxy: Brand_7",
+      "Brand proxy: Brand_23",
+      "Brand proxy: Brand_72"
+    ],
+    "inferred_market_category": "electronics",
+    "primary_category_seed": "Electronics",
+    "milestones": [
+      "First launch wave 2021Q1",
+      "Peak launch wave 2022Q2",
+      "Latest launch wave 2023Q4"
+    ],
+    "marketing_strength": 33,
+    "product_readiness": 35,
+    "competition_intensity": 29,
+    "heuristic_models": {
+      "marketing_strength": {
+        "label": "Marketing strength",
+        "score": 33,
+        "training_score": 1.2772,
+        "episode_count": 36,
+        "reward_proxy": 0.2863,
+        "average_episode_score": 33.42,
+        "feature_weights": {
+          "purchase_rate": 0.0948,
+          "click_through_rate": 0.0953,
+          "add_to_cart_rate": 0.0908,
+          "bounce_resilience": 0.083,
+          "average_session_duration": 0.0763,
+          "traffic_diversity": 0.1081,
+          "organic_share": 0.0029,
+          "direct_share": 0.0037,
+          "paid_share": 0.057,
+          "average_campaign_uplift": 0.1487,
+          "campaign_count": 0.0204,
+          "channel_diversity": 0.0396,
+          "target_segment_diversity": 0.0296,
+          "acquisition_diversity": 0.1411,
+          "signup_count": 0.0088
+        },
+        "feature_breakdown": [
+          {
+            "feature": "Average Campaign Uplift",
+            "weight": 0.1487,
+            "normalized_value": 0.4418,
+            "contribution_share": 0.1965
+          },
+          {
+            "feature": "Add To Cart Rate",
+            "weight": 0.0908,
+            "normalized_value": 0.6284,
+            "contribution_share": 0.1707
+          },
+          {
+            "feature": "Click Through Rate",
+            "weight": 0.0953,
+            "normalized_value": 0.5043,
+            "contribution_share": 0.1438
+          },
+          {
+            "feature": "Average Session Duration",
+            "weight": 0.0763,
+            "normalized_value": 0.5436,
+            "contribution_share": 0.124
+          },
+          {
+            "feature": "Bounce Resilience",
+            "weight": 0.083,
+            "normalized_value": 0.4208,
+            "contribution_share": 0.1045
+          },
+          {
+            "feature": "Paid Share",
+            "weight": 0.057,
+            "normalized_value": 0.4946,
+            "contribution_share": 0.0843
+          },
+          {
+            "feature": "Purchase Rate",
+            "weight": 0.0948,
+            "normalized_value": 0.231,
+            "contribution_share": 0.0655
+          },
+          {
+            "feature": "Channel Diversity",
+            "weight": 0.0396,
+            "normalized_value": 0.3056,
+            "contribution_share": 0.0362
+          },
+          {
+            "feature": "Target Segment Diversity",
+            "weight": 0.0296,
+            "normalized_value": 0.2986,
+            "contribution_share": 0.0265
+          },
+          {
+            "feature": "Campaign Count",
+            "weight": 0.0204,
+            "normalized_value": 0.3472,
+            "contribution_share": 0.0212
+          },
+          {
+            "feature": "Signup Count",
+            "weight": 0.0088,
+            "normalized_value": 0.6592,
+            "contribution_share": 0.0174
+          },
+          {
+            "feature": "Direct Share",
+            "weight": 0.0037,
+            "normalized_value": 0.4899,
+            "contribution_share": 0.0054
+          },
+          {
+            "feature": "Organic Share",
+            "weight": 0.0029,
+            "normalized_value": 0.4628,
+            "contribution_share": 0.004
+          },
+          {
+            "feature": "Traffic Diversity",
+            "weight": 0.1081,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          },
+          {
+            "feature": "Acquisition Diversity",
+            "weight": 0.1411,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          }
+        ],
+        "top_features": [
+          {
+            "feature": "Average Campaign Uplift",
+            "weight": 0.1487,
+            "normalized_value": 0.4418,
+            "contribution_share": 0.1965
+          },
+          {
+            "feature": "Add To Cart Rate",
+            "weight": 0.0908,
+            "normalized_value": 0.6284,
+            "contribution_share": 0.1707
+          },
+          {
+            "feature": "Click Through Rate",
+            "weight": 0.0953,
+            "normalized_value": 0.5043,
+            "contribution_share": 0.1438
+          },
+          {
+            "feature": "Average Session Duration",
+            "weight": 0.0763,
+            "normalized_value": 0.5436,
+            "contribution_share": 0.124
+          },
+          {
+            "feature": "Bounce Resilience",
+            "weight": 0.083,
+            "normalized_value": 0.4208,
+            "contribution_share": 0.1045
+          }
+        ],
+        "episode_history": [
+          {
+            "month": "2021-01",
+            "score": 33.53,
+            "reward_proxy": 36.33
+          },
+          {
+            "month": "2021-02",
+            "score": 28.62,
+            "reward_proxy": 30.08
+          },
+          {
+            "month": "2021-03",
+            "score": 37.62,
+            "reward_proxy": 41.7
+          },
+          {
+            "month": "2021-04",
+            "score": 41.92,
+            "reward_proxy": 48.47
+          },
+          {
+            "month": "2021-05",
+            "score": 22.42,
+            "reward_proxy": 6.84
+          },
+          {
+            "month": "2021-06",
+            "score": 24.28,
+            "reward_proxy": 6.07
+          },
+          {
+            "month": "2021-07",
+            "score": 35.75,
+            "reward_proxy": 40.1
+          },
+          {
+            "month": "2021-08",
+            "score": 43.51,
+            "reward_proxy": 53.42
+          },
+          {
+            "month": "2021-09",
+            "score": 33.07,
+            "reward_proxy": 43.6
+          },
+          {
+            "month": "2021-10",
+            "score": 41.3,
+            "reward_proxy": 46.82
+          },
+          {
+            "month": "2021-11",
+            "score": 48.47,
+            "reward_proxy": 68.09
+          },
+          {
+            "month": "2021-12",
+            "score": 47.23,
+            "reward_proxy": 63.87
+          },
+          {
+            "month": "2022-01",
+            "score": 33.12,
+            "reward_proxy": 34.99
+          },
+          {
+            "month": "2022-02",
+            "score": 28.25,
+            "reward_proxy": 4.5
+          },
+          {
+            "month": "2022-03",
+            "score": 33.8,
+            "reward_proxy": 40.73
+          },
+          {
+            "month": "2022-04",
+            "score": 36.28,
+            "reward_proxy": 28.67
+          },
+          {
+            "month": "2022-05",
+            "score": 20.28,
+            "reward_proxy": 1.03
+          },
+          {
+            "month": "2022-06",
+            "score": 20.32,
+            "reward_proxy": 6.1
+          },
+          {
+            "month": "2022-07",
+            "score": 35.64,
+            "reward_proxy": 7.63
+          },
+          {
+            "month": "2022-08",
+            "score": 20.31,
+            "reward_proxy": 5.44
+          },
+          {
+            "month": "2022-09",
+            "score": 33.39,
+            "reward_proxy": 34.63
+          },
+          {
+            "month": "2022-10",
+            "score": 36.06,
+            "reward_proxy": 35.51
+          },
+          {
+            "month": "2022-11",
+            "score": 46.92,
+            "reward_proxy": 68.18
+          },
+          {
+            "month": "2022-12",
+            "score": 37.44,
+            "reward_proxy": 11.05
+          },
+          {
+            "month": "2023-01",
+            "score": 22.61,
+            "reward_proxy": 1.14
+          },
+          {
+            "month": "2023-02",
+            "score": 33.65,
+            "reward_proxy": 31.61
+          },
+          {
+            "month": "2023-03",
+            "score": 33.15,
+            "reward_proxy": 5.99
+          },
+          {
+            "month": "2023-04",
+            "score": 48.35,
+            "reward_proxy": 53.94
+          },
+          {
+            "month": "2023-05",
+            "score": 19.55,
+            "reward_proxy": 4.38
+          },
+          {
+            "month": "2023-06",
+            "score": 21.87,
+            "reward_proxy": 5.67
+          },
+          {
+            "month": "2023-07",
+            "score": 35.38,
+            "reward_proxy": 6.85
+          },
+          {
+            "month": "2023-08",
+            "score": 29.55,
+            "reward_proxy": 37.15
+          },
+          {
+            "month": "2023-09",
+            "score": 29.36,
+            "reward_proxy": 7.35
+          },
+          {
+            "month": "2023-10",
+            "score": 39.63,
+            "reward_proxy": 43.79
+          },
+          {
+            "month": "2023-11",
+            "score": 41.85,
+            "reward_proxy": 60.78
+          },
+          {
+            "month": "2023-12",
+            "score": 28.83,
+            "reward_proxy": 8.31
+          }
+        ]
+      },
+      "product_readiness": {
+        "label": "Product readiness",
+        "score": 35,
+        "training_score": 1.253,
+        "episode_count": 36,
+        "reward_proxy": 0.2979,
+        "average_episode_score": 34.94,
+        "feature_weights": {
+          "purchase_rate": 0.0919,
+          "average_order_revenue": 0.0522,
+          "average_quantity": 0.0764,
+          "discount_efficiency": 0.0459,
+          "refund_resilience": 0.0277,
+          "premium_share": 0.0987,
+          "average_base_price": 0.0193,
+          "category_diversity": 0.2872,
+          "brand_diversity": 0.0187,
+          "launch_count": 0.0271,
+          "loyalty_strength": 0.0883,
+          "gold_plus_share": 0.0072,
+          "signup_count": 0.1593
+        },
+        "feature_breakdown": [
+          {
+            "feature": "Signup Count",
+            "weight": 0.1593,
+            "normalized_value": 0.6592,
+            "contribution_share": 0.3005
+          },
+          {
+            "feature": "Premium Share",
+            "weight": 0.0987,
+            "normalized_value": 0.5495,
+            "contribution_share": 0.1552
+          },
+          {
+            "feature": "Average Quantity",
+            "weight": 0.0764,
+            "normalized_value": 0.529,
+            "contribution_share": 0.1157
+          },
+          {
+            "feature": "Loyalty Strength",
+            "weight": 0.0883,
+            "normalized_value": 0.3939,
+            "contribution_share": 0.0995
+          },
+          {
+            "feature": "Average Order Revenue",
+            "weight": 0.0522,
+            "normalized_value": 0.5198,
+            "contribution_share": 0.0777
+          },
+          {
+            "feature": "Purchase Rate",
+            "weight": 0.0919,
+            "normalized_value": 0.231,
+            "contribution_share": 0.0608
+          },
+          {
+            "feature": "Discount Efficiency",
+            "weight": 0.0459,
+            "normalized_value": 0.4603,
+            "contribution_share": 0.0605
+          },
+          {
+            "feature": "Refund Resilience",
+            "weight": 0.0277,
+            "normalized_value": 0.5371,
+            "contribution_share": 0.0425
+          },
+          {
+            "feature": "Launch Count",
+            "weight": 0.0271,
+            "normalized_value": 0.4159,
+            "contribution_share": 0.0322
+          },
+          {
+            "feature": "Average Base Price",
+            "weight": 0.0193,
+            "normalized_value": 0.4513,
+            "contribution_share": 0.0249
+          },
+          {
+            "feature": "Brand Diversity",
+            "weight": 0.0187,
+            "normalized_value": 0.3792,
+            "contribution_share": 0.0203
+          },
+          {
+            "feature": "Gold Plus Share",
+            "weight": 0.0072,
+            "normalized_value": 0.4853,
+            "contribution_share": 0.01
+          },
+          {
+            "feature": "Category Diversity",
+            "weight": 0.2872,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          }
+        ],
+        "top_features": [
+          {
+            "feature": "Signup Count",
+            "weight": 0.1593,
+            "normalized_value": 0.6592,
+            "contribution_share": 0.3005
+          },
+          {
+            "feature": "Premium Share",
+            "weight": 0.0987,
+            "normalized_value": 0.5495,
+            "contribution_share": 0.1552
+          },
+          {
+            "feature": "Average Quantity",
+            "weight": 0.0764,
+            "normalized_value": 0.529,
+            "contribution_share": 0.1157
+          },
+          {
+            "feature": "Loyalty Strength",
+            "weight": 0.0883,
+            "normalized_value": 0.3939,
+            "contribution_share": 0.0995
+          },
+          {
+            "feature": "Average Order Revenue",
+            "weight": 0.0522,
+            "normalized_value": 0.5198,
+            "contribution_share": 0.0777
+          }
+        ],
+        "episode_history": [
+          {
+            "month": "2021-01",
+            "score": 34.24,
+            "reward_proxy": 39.22
+          },
+          {
+            "month": "2021-02",
+            "score": 25.9,
+            "reward_proxy": 6.77
+          },
+          {
+            "month": "2021-03",
+            "score": 38.78,
+            "reward_proxy": 41.81
+          },
+          {
+            "month": "2021-04",
+            "score": 29.83,
+            "reward_proxy": 30.01
+          },
+          {
+            "month": "2021-05",
+            "score": 39.67,
+            "reward_proxy": 46.96
+          },
+          {
+            "month": "2021-06",
+            "score": 38.5,
+            "reward_proxy": 48.5
+          },
+          {
+            "month": "2021-07",
+            "score": 33.51,
+            "reward_proxy": 34.76
+          },
+          {
+            "month": "2021-08",
+            "score": 34.34,
+            "reward_proxy": 9.29
+          },
+          {
+            "month": "2021-09",
+            "score": 27.89,
+            "reward_proxy": 28.24
+          },
+          {
+            "month": "2021-10",
+            "score": 35.3,
+            "reward_proxy": 36.97
+          },
+          {
+            "month": "2021-11",
+            "score": 37.9,
+            "reward_proxy": 33.04
+          },
+          {
+            "month": "2021-12",
+            "score": 43.08,
+            "reward_proxy": 36.65
+          },
+          {
+            "month": "2022-01",
+            "score": 42.28,
+            "reward_proxy": 46.28
+          },
+          {
+            "month": "2022-02",
+            "score": 31.11,
+            "reward_proxy": 9.34
+          },
+          {
+            "month": "2022-03",
+            "score": 29.5,
+            "reward_proxy": 4.42
+          },
+          {
+            "month": "2022-04",
+            "score": 40.38,
+            "reward_proxy": 36.26
+          },
+          {
+            "month": "2022-05",
+            "score": 38.75,
+            "reward_proxy": 44.17
+          },
+          {
+            "month": "2022-06",
+            "score": 30.54,
+            "reward_proxy": 26.92
+          },
+          {
+            "month": "2022-07",
+            "score": 34.38,
+            "reward_proxy": 8.63
+          },
+          {
+            "month": "2022-08",
+            "score": 38.54,
+            "reward_proxy": 38.83
+          },
+          {
+            "month": "2022-09",
+            "score": 19.04,
+            "reward_proxy": 3.98
+          },
+          {
+            "month": "2022-10",
+            "score": 43.47,
+            "reward_proxy": 40.86
+          },
+          {
+            "month": "2022-11",
+            "score": 39.13,
+            "reward_proxy": 45.38
+          },
+          {
+            "month": "2022-12",
+            "score": 46.01,
+            "reward_proxy": 51.12
+          },
+          {
+            "month": "2023-01",
+            "score": 27.26,
+            "reward_proxy": 24.1
+          },
+          {
+            "month": "2023-02",
+            "score": 30.48,
+            "reward_proxy": 8.8
+          },
+          {
+            "month": "2023-03",
+            "score": 32.77,
+            "reward_proxy": 7.01
+          },
+          {
+            "month": "2023-04",
+            "score": 38.37,
+            "reward_proxy": 45.33
+          },
+          {
+            "month": "2023-05",
+            "score": 42.56,
+            "reward_proxy": 36.96
+          },
+          {
+            "month": "2023-06",
+            "score": 27.72,
+            "reward_proxy": 7.35
+          },
+          {
+            "month": "2023-07",
+            "score": 40.84,
+            "reward_proxy": 42.17
+          },
+          {
+            "month": "2023-08",
+            "score": 35.79,
+            "reward_proxy": 40.29
+          },
+          {
+            "month": "2023-09",
+            "score": 30.3,
+            "reward_proxy": 34.51
+          },
+          {
+            "month": "2023-10",
+            "score": 24.67,
+            "reward_proxy": 21.31
+          },
+          {
+            "month": "2023-11",
+            "score": 35.06,
+            "reward_proxy": 8.75
+          },
+          {
+            "month": "2023-12",
+            "score": 39.96,
+            "reward_proxy": 47.4
+          }
+        ]
+      },
+      "competition_intensity": {
+        "label": "Competition intensity",
+        "score": 29,
+        "training_score": 1.2852,
+        "episode_count": 36,
+        "reward_proxy": 0.2477,
+        "average_episode_score": 28.85,
+        "feature_weights": {
+          "brand_diversity": 0.058,
+          "category_diversity": 0.0723,
+          "channel_diversity": 0.1094,
+          "traffic_diversity": 0.0876,
+          "paid_share": 0.0865,
+          "traffic_concentration": 0.0565,
+          "campaign_count": 0.0599,
+          "target_segment_diversity": 0.0631,
+          "acquisition_diversity": 0.0905,
+          "country_diversity": 0.0921,
+          "loyalty_fragility": 0.1051,
+          "refund_rate": 0.0445,
+          "discount_rate": 0.0746
+        },
+        "feature_breakdown": [
+          {
+            "feature": "Loyalty Fragility",
+            "weight": 0.1051,
+            "normalized_value": 0.6061,
+            "contribution_share": 0.2207
+          },
+          {
+            "feature": "Paid Share",
+            "weight": 0.0865,
+            "normalized_value": 0.4946,
+            "contribution_share": 0.1484
+          },
+          {
+            "feature": "Discount Rate",
+            "weight": 0.0746,
+            "normalized_value": 0.5397,
+            "contribution_share": 0.1395
+          },
+          {
+            "feature": "Channel Diversity",
+            "weight": 0.1094,
+            "normalized_value": 0.3056,
+            "contribution_share": 0.1159
+          },
+          {
+            "feature": "Traffic Concentration",
+            "weight": 0.0565,
+            "normalized_value": 0.4628,
+            "contribution_share": 0.0906
+          },
+          {
+            "feature": "Brand Diversity",
+            "weight": 0.058,
+            "normalized_value": 0.3792,
+            "contribution_share": 0.0762
+          },
+          {
+            "feature": "Campaign Count",
+            "weight": 0.0599,
+            "normalized_value": 0.3472,
+            "contribution_share": 0.072
+          },
+          {
+            "feature": "Refund Rate",
+            "weight": 0.0445,
+            "normalized_value": 0.4629,
+            "contribution_share": 0.0714
+          },
+          {
+            "feature": "Target Segment Diversity",
+            "weight": 0.0631,
+            "normalized_value": 0.2986,
+            "contribution_share": 0.0653
+          },
+          {
+            "feature": "Category Diversity",
+            "weight": 0.0723,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          },
+          {
+            "feature": "Traffic Diversity",
+            "weight": 0.0876,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          },
+          {
+            "feature": "Acquisition Diversity",
+            "weight": 0.0905,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          },
+          {
+            "feature": "Country Diversity",
+            "weight": 0.0921,
+            "normalized_value": 0.0,
+            "contribution_share": 0.0
+          }
+        ],
+        "top_features": [
+          {
+            "feature": "Loyalty Fragility",
+            "weight": 0.1051,
+            "normalized_value": 0.6061,
+            "contribution_share": 0.2207
+          },
+          {
+            "feature": "Paid Share",
+            "weight": 0.0865,
+            "normalized_value": 0.4946,
+            "contribution_share": 0.1484
+          },
+          {
+            "feature": "Discount Rate",
+            "weight": 0.0746,
+            "normalized_value": 0.5397,
+            "contribution_share": 0.1395
+          },
+          {
+            "feature": "Channel Diversity",
+            "weight": 0.1094,
+            "normalized_value": 0.3056,
+            "contribution_share": 0.1159
+          },
+          {
+            "feature": "Traffic Concentration",
+            "weight": 0.0565,
+            "normalized_value": 0.4628,
+            "contribution_share": 0.0906
+          }
+        ],
+        "episode_history": [
+          {
+            "month": "2021-01",
+            "score": 32.89,
+            "reward_proxy": 7.8
+          },
+          {
+            "month": "2021-02",
+            "score": 28.57,
+            "reward_proxy": 33.18
+          },
+          {
+            "month": "2021-03",
+            "score": 33.33,
+            "reward_proxy": 42.59
+          },
+          {
+            "month": "2021-04",
+            "score": 31.92,
+            "reward_proxy": 47.05
+          },
+          {
+            "month": "2021-05",
+            "score": 21.88,
+            "reward_proxy": 1.22
+          },
+          {
+            "month": "2021-06",
+            "score": 18.61,
+            "reward_proxy": 1.19
+          },
+          {
+            "month": "2021-07",
+            "score": 33.71,
+            "reward_proxy": 45.67
+          },
+          {
+            "month": "2021-08",
+            "score": 36.73,
+            "reward_proxy": 48.05
+          },
+          {
+            "month": "2021-09",
+            "score": 23.27,
+            "reward_proxy": 30.45
+          },
+          {
+            "month": "2021-10",
+            "score": 37.53,
+            "reward_proxy": 45.26
+          },
+          {
+            "month": "2021-11",
+            "score": 37.16,
+            "reward_proxy": 45.83
+          },
+          {
+            "month": "2021-12",
+            "score": 36.44,
+            "reward_proxy": 54.18
+          },
+          {
+            "month": "2022-01",
+            "score": 26.48,
+            "reward_proxy": 36.64
+          },
+          {
+            "month": "2022-02",
+            "score": 20.49,
+            "reward_proxy": 1.01
+          },
+          {
+            "month": "2022-03",
+            "score": 36.75,
+            "reward_proxy": 42.75
+          },
+          {
+            "month": "2022-04",
+            "score": 34.6,
+            "reward_proxy": 8.4
+          },
+          {
+            "month": "2022-05",
+            "score": 25.62,
+            "reward_proxy": 1.18
+          },
+          {
+            "month": "2022-06",
+            "score": 25.48,
+            "reward_proxy": 1.15
+          },
+          {
+            "month": "2022-07",
+            "score": 40.8,
+            "reward_proxy": 60.94
+          },
+          {
+            "month": "2022-08",
+            "score": 19.13,
+            "reward_proxy": 1.06
+          },
+          {
+            "month": "2022-09",
+            "score": 28.38,
+            "reward_proxy": 6.6
+          },
+          {
+            "month": "2022-10",
+            "score": 30.32,
+            "reward_proxy": 23.86
+          },
+          {
+            "month": "2022-11",
+            "score": 31.31,
+            "reward_proxy": 34.38
+          },
+          {
+            "month": "2022-12",
+            "score": 22.2,
+            "reward_proxy": 1.2
+          },
+          {
+            "month": "2023-01",
+            "score": 24.19,
+            "reward_proxy": 1.06
+          },
+          {
+            "month": "2023-02",
+            "score": 27.37,
+            "reward_proxy": 30.28
+          },
+          {
+            "month": "2023-03",
+            "score": 40.96,
+            "reward_proxy": 55.73
+          },
+          {
+            "month": "2023-04",
+            "score": 36.68,
+            "reward_proxy": 50.72
+          },
+          {
+            "month": "2023-05",
+            "score": 18.6,
+            "reward_proxy": 0.75
+          },
+          {
+            "month": "2023-06",
+            "score": 17.29,
+            "reward_proxy": 0.16
+          },
+          {
+            "month": "2023-07",
+            "score": 22.69,
+            "reward_proxy": 5.35
+          },
+          {
+            "month": "2023-08",
+            "score": 27.79,
+            "reward_proxy": 35.93
+          },
+          {
+            "month": "2023-09",
+            "score": 17.27,
+            "reward_proxy": 0.91
+          },
+          {
+            "month": "2023-10",
+            "score": 42.91,
+            "reward_proxy": 52.13
+          },
+          {
+            "month": "2023-11",
+            "score": 29.44,
+            "reward_proxy": 35.98
+          },
+          {
+            "month": "2023-12",
+            "score": 19.89,
+            "reward_proxy": 1.1
+          }
+        ]
+      }
+    },
+    "predictive_models": {
+      "checkpoint_path": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\models\\strategysignal_predictive.joblib",
+      "conversion_model": {
+        "label": "Conversion success model",
+        "validation_accuracy": 0.4167,
+        "validation_auc": 0.4571,
+        "current_conversion_probability": 35.34,
+        "target_threshold_pct": 5.47,
+        "history": [
+          {
+            "month": "2021-01",
+            "conversion_probability": 27.07,
+            "actual_conversion_rate": 5.35
+          },
+          {
+            "month": "2021-02",
+            "conversion_probability": 79.32,
+            "actual_conversion_rate": 5.54
+          },
+          {
+            "month": "2021-03",
+            "conversion_probability": 63.31,
+            "actual_conversion_rate": 5.47
+          },
+          {
+            "month": "2021-04",
+            "conversion_probability": 76.93,
+            "actual_conversion_rate": 5.58
+          },
+          {
+            "month": "2021-05",
+            "conversion_probability": 28.64,
+            "actual_conversion_rate": 5.4
+          },
+          {
+            "month": "2021-06",
+            "conversion_probability": 17.39,
+            "actual_conversion_rate": 5.36
+          },
+          {
+            "month": "2021-07",
+            "conversion_probability": 73.66,
+            "actual_conversion_rate": 5.49
+          },
+          {
+            "month": "2021-08",
+            "conversion_probability": 86.08,
+            "actual_conversion_rate": 5.5
+          },
+          {
+            "month": "2021-09",
+            "conversion_probability": 13.38,
+            "actual_conversion_rate": 5.39
+          },
+          {
+            "month": "2021-10",
+            "conversion_probability": 72.32,
+            "actual_conversion_rate": 6.95
+          },
+          {
+            "month": "2021-11",
+            "conversion_probability": 84.21,
+            "actual_conversion_rate": 7.04
+          },
+          {
+            "month": "2021-12",
+            "conversion_probability": 82.83,
+            "actual_conversion_rate": 5.47
+          },
+          {
+            "month": "2022-01",
+            "conversion_probability": 21.61,
+            "actual_conversion_rate": 5.33
+          },
+          {
+            "month": "2022-02",
+            "conversion_probability": 21.16,
+            "actual_conversion_rate": 5.4
+          },
+          {
+            "month": "2022-03",
+            "conversion_probability": 34.46,
+            "actual_conversion_rate": 5.29
+          },
+          {
+            "month": "2022-04",
+            "conversion_probability": 17.31,
+            "actual_conversion_rate": 5.42
+          },
+          {
+            "month": "2022-05",
+            "conversion_probability": 79.03,
+            "actual_conversion_rate": 5.56
+          },
+          {
+            "month": "2022-06",
+            "conversion_probability": 23.08,
+            "actual_conversion_rate": 5.25
+          },
+          {
+            "month": "2022-07",
+            "conversion_probability": 12.91,
+            "actual_conversion_rate": 5.41
+          },
+          {
+            "month": "2022-08",
+            "conversion_probability": 10.51,
+            "actual_conversion_rate": 5.32
+          },
+          {
+            "month": "2022-09",
+            "conversion_probability": 20.42,
+            "actual_conversion_rate": 5.3
+          },
+          {
+            "month": "2022-10",
+            "conversion_probability": 66.12,
+            "actual_conversion_rate": 7.07
+          },
+          {
+            "month": "2022-11",
+            "conversion_probability": 85.79,
+            "actual_conversion_rate": 7.04
+          },
+          {
+            "month": "2022-12",
+            "conversion_probability": 74.81,
+            "actual_conversion_rate": 5.5
+          },
+          {
+            "month": "2023-01",
+            "conversion_probability": 49.63,
+            "actual_conversion_rate": 5.39
+          },
+          {
+            "month": "2023-02",
+            "conversion_probability": 33.27,
+            "actual_conversion_rate": 5.34
+          },
+          {
+            "month": "2023-03",
+            "conversion_probability": 15.94,
+            "actual_conversion_rate": 5.48
+          },
+          {
+            "month": "2023-04",
+            "conversion_probability": 53.63,
+            "actual_conversion_rate": 5.36
+          },
+          {
+            "month": "2023-05",
+            "conversion_probability": 55.32,
+            "actual_conversion_rate": 5.38
+          },
+          {
+            "month": "2023-06",
+            "conversion_probability": 44.83,
+            "actual_conversion_rate": 5.47
+          },
+          {
+            "month": "2023-07",
+            "conversion_probability": 31.91,
+            "actual_conversion_rate": 5.45
+          },
+          {
+            "month": "2023-08",
+            "conversion_probability": 30.78,
+            "actual_conversion_rate": 5.58
+          },
+          {
+            "month": "2023-09",
+            "conversion_probability": 39.29,
+            "actual_conversion_rate": 5.49
+          },
+          {
+            "month": "2023-10",
+            "conversion_probability": 62.87,
+            "actual_conversion_rate": 6.96
+          },
+          {
+            "month": "2023-11",
+            "conversion_probability": 46.2,
+            "actual_conversion_rate": 7.18
+          }
+        ]
+      },
+      "revenue_model": {
+        "label": "Revenue outlook model",
+        "validation_mae": 1.814,
+        "predicted_next_revenue": 91.35,
+        "history": [
+          {
+            "month": "2021-01",
+            "predicted_revenue": 91.94,
+            "actual_revenue": 92.94
+          },
+          {
+            "month": "2021-02",
+            "predicted_revenue": 90.57,
+            "actual_revenue": 90.55
+          },
+          {
+            "month": "2021-03",
+            "predicted_revenue": 91.33,
+            "actual_revenue": 92.27
+          },
+          {
+            "month": "2021-04",
+            "predicted_revenue": 91.49,
+            "actual_revenue": 91.48
+          },
+          {
+            "month": "2021-05",
+            "predicted_revenue": 91.13,
+            "actual_revenue": 91.29
+          },
+          {
+            "month": "2021-06",
+            "predicted_revenue": 92.36,
+            "actual_revenue": 93.13
+          },
+          {
+            "month": "2021-07",
+            "predicted_revenue": 89.63,
+            "actual_revenue": 89.07
+          },
+          {
+            "month": "2021-08",
+            "predicted_revenue": 88.63,
+            "actual_revenue": 87.2
+          },
+          {
+            "month": "2021-09",
+            "predicted_revenue": 90.58,
+            "actual_revenue": 89.91
+          },
+          {
+            "month": "2021-10",
+            "predicted_revenue": 90.42,
+            "actual_revenue": 89.65
+          },
+          {
+            "month": "2021-11",
+            "predicted_revenue": 89.89,
+            "actual_revenue": 89.99
+          },
+          {
+            "month": "2021-12",
+            "predicted_revenue": 92.07,
+            "actual_revenue": 93.26
+          },
+          {
+            "month": "2022-01",
+            "predicted_revenue": 92.58,
+            "actual_revenue": 95.04
+          },
+          {
+            "month": "2022-02",
+            "predicted_revenue": 88.75,
+            "actual_revenue": 86.51
+          },
+          {
+            "month": "2022-03",
+            "predicted_revenue": 90.55,
+            "actual_revenue": 90.12
+          },
+          {
+            "month": "2022-04",
+            "predicted_revenue": 92.77,
+            "actual_revenue": 94.33
+          },
+          {
+            "month": "2022-05",
+            "predicted_revenue": 90.03,
+            "actual_revenue": 89.98
+          },
+          {
+            "month": "2022-06",
+            "predicted_revenue": 89.4,
+            "actual_revenue": 90.03
+          },
+          {
+            "month": "2022-07",
+            "predicted_revenue": 91.25,
+            "actual_revenue": 92.67
+          },
+          {
+            "month": "2022-08",
+            "predicted_revenue": 88.7,
+            "actual_revenue": 85.38
+          },
+          {
+            "month": "2022-09",
+            "predicted_revenue": 92.39,
+            "actual_revenue": 93.81
+          },
+          {
+            "month": "2022-10",
+            "predicted_revenue": 90.35,
+            "actual_revenue": 88.95
+          },
+          {
+            "month": "2022-11",
+            "predicted_revenue": 90.76,
+            "actual_revenue": 90.93
+          },
+          {
+            "month": "2022-12",
+            "predicted_revenue": 89.91,
+            "actual_revenue": 88.37
+          },
+          {
+            "month": "2023-01",
+            "predicted_revenue": 90.04,
+            "actual_revenue": 91.88
+          },
+          {
+            "month": "2023-02",
+            "predicted_revenue": 90.51,
+            "actual_revenue": 87.6
+          },
+          {
+            "month": "2023-03",
+            "predicted_revenue": 91.24,
+            "actual_revenue": 89.5
+          },
+          {
+            "month": "2023-04",
+            "predicted_revenue": 91.25,
+            "actual_revenue": 92.49
+          },
+          {
+            "month": "2023-05",
+            "predicted_revenue": 90.71,
+            "actual_revenue": 89.07
+          },
+          {
+            "month": "2023-06",
+            "predicted_revenue": 91.15,
+            "actual_revenue": 88.32
+          },
+          {
+            "month": "2023-07",
+            "predicted_revenue": 90.53,
+            "actual_revenue": 89.95
+          },
+          {
+            "month": "2023-08",
+            "predicted_revenue": 91.76,
+            "actual_revenue": 89.48
+          },
+          {
+            "month": "2023-09",
+            "predicted_revenue": 91.18,
+            "actual_revenue": 89.53
+          },
+          {
+            "month": "2023-10",
+            "predicted_revenue": 90.77,
+            "actual_revenue": 91.58
+          },
+          {
+            "month": "2023-11",
+            "predicted_revenue": 90.85,
+            "actual_revenue": 88.14
+          }
+        ]
+      },
+      "channel_model": {
+        "label": "Channel weakness model",
+        "validation_accuracy": 0.9496,
+        "validation_auc": 0.9929,
+        "weak_channels": [
+          {
+            "channel": "Direct",
+            "predicted_weakness_probability": 99.56,
+            "purchase_rate_pct": 2.96,
+            "click_through_rate_pct": 35.62,
+            "average_session_duration": 128.29
+          },
+          {
+            "channel": "DIRECT",
+            "predicted_weakness_probability": 99.22,
+            "purchase_rate_pct": 3.16,
+            "click_through_rate_pct": 43.21,
+            "average_session_duration": 140.27
+          },
+          {
+            "channel": "Organic",
+            "predicted_weakness_probability": 92.23,
+            "purchase_rate_pct": 2.79,
+            "click_through_rate_pct": 35.59,
+            "average_session_duration": 132.98
+          },
+          {
+            "channel": "ORGANIC",
+            "predicted_weakness_probability": 83.4,
+            "purchase_rate_pct": 3.13,
+            "click_through_rate_pct": 46.18,
+            "average_session_duration": 119.61
+          },
+          {
+            "channel": "PAID SEARCH",
+            "predicted_weakness_probability": 16.97,
+            "purchase_rate_pct": 12.18,
+            "click_through_rate_pct": 27.68,
+            "average_session_duration": 117.18
+          },
+          {
+            "channel": "SOCIAL",
+            "predicted_weakness_probability": 13.47,
+            "purchase_rate_pct": 11.66,
+            "click_through_rate_pct": 32.56,
+            "average_session_duration": 133.54
+          },
+          {
+            "channel": "EMAIL",
+            "predicted_weakness_probability": 7.09,
+            "purchase_rate_pct": 10.43,
+            "click_through_rate_pct": 37.84,
+            "average_session_duration": 123.04
+          },
+          {
+            "channel": "Social",
+            "predicted_weakness_probability": 5.11,
+            "purchase_rate_pct": 10.15,
+            "click_through_rate_pct": 36.41,
+            "average_session_duration": 129.85
+          },
+          {
+            "channel": "Email",
+            "predicted_weakness_probability": 3.67,
+            "purchase_rate_pct": 12.75,
+            "click_through_rate_pct": 36.58,
+            "average_session_duration": 127.54
+          },
+          {
+            "channel": "Paid Search",
+            "predicted_weakness_probability": 1.43,
+            "purchase_rate_pct": 11.76,
+            "click_through_rate_pct": 35.57,
+            "average_session_duration": 129.65
+          }
+        ],
+        "target_threshold_pct": 7.43
+      },
+      "customer_segmentation": {
+        "label": "Customer segmentation",
+        "sample_size": 20000,
+        "silhouette_score": 0.4488,
+        "profiles": [
+          {
+            "segment": "Segment 1",
+            "customers": 6675,
+            "average_age": 32.19,
+            "top_country": "US",
+            "top_acquisition": "Paid Search",
+            "top_loyalty": "Bronze"
+          },
+          {
+            "segment": "Segment 4",
+            "customers": 6342,
+            "average_age": 41.0,
+            "top_country": "US",
+            "top_acquisition": "Organic",
+            "top_loyalty": "Bronze"
+          },
+          {
+            "segment": "Segment 3",
+            "customers": 4451,
+            "average_age": 22.52,
+            "top_country": "US",
+            "top_acquisition": "Organic",
+            "top_loyalty": "Bronze"
+          },
+          {
+            "segment": "Segment 2",
+            "customers": 2532,
+            "average_age": 51.56,
+            "top_country": "US",
+            "top_acquisition": "Paid Search",
+            "top_loyalty": "Bronze"
+          }
+        ]
+      }
+    },
+    "rl_policy": {
+      "checkpoint_path": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\models\\strategysignal_rl_policy.json",
+      "recommended_action": "improve onboarding",
+      "ranked_actions": [
+        {
+          "action": "improve onboarding",
+          "q_value": 383.8004,
+          "reason": "Lifts conversion before scaling more traffic into the funnel."
+        },
+        {
+          "action": "increase ad spend",
+          "q_value": 365.655,
+          "reason": "Scales awareness quickly but can increase CAC and competitive pressure."
+        },
+        {
+          "action": "target niche segment",
+          "q_value": 364.9282,
+          "reason": "Improves positioning by narrowing focus and lowering competitive pressure."
+        },
+        {
+          "action": "change channel mix",
+          "q_value": 361.7655,
+          "reason": "Rebalances acquisition toward healthier channels and improves marketing efficiency."
+        },
+        {
+          "action": "reduce feature scope",
+          "q_value": 358.224,
+          "reason": "Cuts complexity to improve readiness and reduce launch risk."
+        },
+        {
+          "action": "launch beta",
+          "q_value": 354.1551,
+          "reason": "Tests the market with lower timing risk before a broader release."
+        },
+        {
+          "action": "delay launch",
+          "q_value": 350.2971,
+          "reason": "Buys time to improve readiness when product or timing risk is too high."
+        }
+      ],
+      "reward_history": [
+        {
+          "episode": 1,
+          "reward": 1376.12
+        },
+        {
+          "episode": 2,
+          "reward": 1398.24
+        },
+        {
+          "episode": 3,
+          "reward": 1403.18
+        },
+        {
+          "episode": 4,
+          "reward": 1418.14
+        },
+        {
+          "episode": 5,
+          "reward": 1353.52
+        },
+        {
+          "episode": 6,
+          "reward": 1354.97
+        },
+        {
+          "episode": 7,
+          "reward": 1340.52
+        },
+        {
+          "episode": 8,
+          "reward": 1354.06
+        },
+        {
+          "episode": 9,
+          "reward": 1401.1
+        },
+        {
+          "episode": 10,
+          "reward": 1389.36
+        },
+        {
+          "episode": 11,
+          "reward": 1414.55
+        },
+        {
+          "episode": 12,
+          "reward": 1364.6
+        },
+        {
+          "episode": 13,
+          "reward": 1404.05
+        },
+        {
+          "episode": 14,
+          "reward": 1406.81
+        },
+        {
+          "episode": 15,
+          "reward": 1423.82
+        },
+        {
+          "episode": 16,
+          "reward": 1378.67
+        },
+        {
+          "episode": 17,
+          "reward": 1358.29
+        },
+        {
+          "episode": 18,
+          "reward": 1405.46
+        },
+        {
+          "episode": 19,
+          "reward": 1405.3
+        },
+        {
+          "episode": 20,
+          "reward": 1378.5
+        },
+        {
+          "episode": 21,
+          "reward": 1379.97
+        },
+        {
+          "episode": 22,
+          "reward": 1394.95
+        },
+        {
+          "episode": 23,
+          "reward": 1396.43
+        },
+        {
+          "episode": 24,
+          "reward": 1415.31
+        },
+        {
+          "episode": 25,
+          "reward": 1394.45
+        },
+        {
+          "episode": 26,
+          "reward": 1372.49
+        },
+        {
+          "episode": 27,
+          "reward": 1401.71
+        },
+        {
+          "episode": 28,
+          "reward": 1372.81
+        },
+        {
+          "episode": 29,
+          "reward": 1402.63
+        },
+        {
+          "episode": 30,
+          "reward": 1370.02
+        },
+        {
+          "episode": 31,
+          "reward": 1389.91
+        },
+        {
+          "episode": 32,
+          "reward": 1373.75
+        },
+        {
+          "episode": 33,
+          "reward": 1381.33
+        },
+        {
+          "episode": 34,
+          "reward": 1376.17
+        },
+        {
+          "episode": 35,
+          "reward": 1369.44
+        },
+        {
+          "episode": 36,
+          "reward": 1389.37
+        },
+        {
+          "episode": 37,
+          "reward": 1392.8
+        },
+        {
+          "episode": 38,
+          "reward": 1372.61
+        },
+        {
+          "episode": 39,
+          "reward": 1400.29
+        },
+        {
+          "episode": 40,
+          "reward": 1356.65
+        },
+        {
+          "episode": 41,
+          "reward": 1403.8
+        },
+        {
+          "episode": 42,
+          "reward": 1381.24
+        },
+        {
+          "episode": 43,
+          "reward": 1392.56
+        },
+        {
+          "episode": 44,
+          "reward": 1373.64
+        },
+        {
+          "episode": 45,
+          "reward": 1377.82
+        },
+        {
+          "episode": 46,
+          "reward": 1376.22
+        },
+        {
+          "episode": 47,
+          "reward": 1395.55
+        },
+        {
+          "episode": 48,
+          "reward": 1350.27
+        },
+        {
+          "episode": 49,
+          "reward": 1392.11
+        },
+        {
+          "episode": 50,
+          "reward": 1400.24
+        },
+        {
+          "episode": 51,
+          "reward": 1400.43
+        },
+        {
+          "episode": 52,
+          "reward": 1376.94
+        },
+        {
+          "episode": 53,
+          "reward": 1406.14
+        },
+        {
+          "episode": 54,
+          "reward": 1383.57
+        },
+        {
+          "episode": 55,
+          "reward": 1396.29
+        },
+        {
+          "episode": 56,
+          "reward": 1392.94
+        },
+        {
+          "episode": 57,
+          "reward": 1343.83
+        },
+        {
+          "episode": 58,
+          "reward": 1390.22
+        },
+        {
+          "episode": 59,
+          "reward": 1374.72
+        },
+        {
+          "episode": 60,
+          "reward": 1386.9
+        },
+        {
+          "episode": 61,
+          "reward": 1407.17
+        },
+        {
+          "episode": 62,
+          "reward": 1380.44
+        },
+        {
+          "episode": 63,
+          "reward": 1418.19
+        },
+        {
+          "episode": 64,
+          "reward": 1390.44
+        },
+        {
+          "episode": 65,
+          "reward": 1357.73
+        },
+        {
+          "episode": 66,
+          "reward": 1392.46
+        },
+        {
+          "episode": 67,
+          "reward": 1384.47
+        },
+        {
+          "episode": 68,
+          "reward": 1411.74
+        },
+        {
+          "episode": 69,
+          "reward": 1381.98
+        },
+        {
+          "episode": 70,
+          "reward": 1398.29
+        },
+        {
+          "episode": 71,
+          "reward": 1379.73
+        },
+        {
+          "episode": 72,
+          "reward": 1375.87
+        },
+        {
+          "episode": 73,
+          "reward": 1385.27
+        },
+        {
+          "episode": 74,
+          "reward": 1364.29
+        },
+        {
+          "episode": 75,
+          "reward": 1389.83
+        },
+        {
+          "episode": 76,
+          "reward": 1396.0
+        },
+        {
+          "episode": 77,
+          "reward": 1359.55
+        },
+        {
+          "episode": 78,
+          "reward": 1390.78
+        },
+        {
+          "episode": 79,
+          "reward": 1386.32
+        },
+        {
+          "episode": 80,
+          "reward": 1403.17
+        },
+        {
+          "episode": 81,
+          "reward": 1389.91
+        },
+        {
+          "episode": 82,
+          "reward": 1372.97
+        },
+        {
+          "episode": 83,
+          "reward": 1386.97
+        },
+        {
+          "episode": 84,
+          "reward": 1401.48
+        },
+        {
+          "episode": 85,
+          "reward": 1396.6
+        },
+        {
+          "episode": 86,
+          "reward": 1397.49
+        },
+        {
+          "episode": 87,
+          "reward": 1397.44
+        },
+        {
+          "episode": 88,
+          "reward": 1393.1
+        },
+        {
+          "episode": 89,
+          "reward": 1396.86
+        },
+        {
+          "episode": 90,
+          "reward": 1401.37
+        },
+        {
+          "episode": 91,
+          "reward": 1411.04
+        },
+        {
+          "episode": 92,
+          "reward": 1390.66
+        },
+        {
+          "episode": 93,
+          "reward": 1403.57
+        },
+        {
+          "episode": 94,
+          "reward": 1416.89
+        },
+        {
+          "episode": 95,
+          "reward": 1399.66
+        },
+        {
+          "episode": 96,
+          "reward": 1403.5
+        },
+        {
+          "episode": 97,
+          "reward": 1388.8
+        },
+        {
+          "episode": 98,
+          "reward": 1372.16
+        },
+        {
+          "episode": 99,
+          "reward": 1398.7
+        },
+        {
+          "episode": 100,
+          "reward": 1411.92
+        },
+        {
+          "episode": 101,
+          "reward": 1372.15
+        },
+        {
+          "episode": 102,
+          "reward": 1408.22
+        },
+        {
+          "episode": 103,
+          "reward": 1392.72
+        },
+        {
+          "episode": 104,
+          "reward": 1387.71
+        },
+        {
+          "episode": 105,
+          "reward": 1364.19
+        },
+        {
+          "episode": 106,
+          "reward": 1381.48
+        },
+        {
+          "episode": 107,
+          "reward": 1391.41
+        },
+        {
+          "episode": 108,
+          "reward": 1407.37
+        },
+        {
+          "episode": 109,
+          "reward": 1409.84
+        },
+        {
+          "episode": 110,
+          "reward": 1408.42
+        },
+        {
+          "episode": 111,
+          "reward": 1400.16
+        },
+        {
+          "episode": 112,
+          "reward": 1411.85
+        },
+        {
+          "episode": 113,
+          "reward": 1418.0
+        },
+        {
+          "episode": 114,
+          "reward": 1416.09
+        },
+        {
+          "episode": 115,
+          "reward": 1395.46
+        },
+        {
+          "episode": 116,
+          "reward": 1390.43
+        },
+        {
+          "episode": 117,
+          "reward": 1397.32
+        },
+        {
+          "episode": 118,
+          "reward": 1372.54
+        },
+        {
+          "episode": 119,
+          "reward": 1398.13
+        },
+        {
+          "episode": 120,
+          "reward": 1419.26
+        },
+        {
+          "episode": 121,
+          "reward": 1401.45
+        },
+        {
+          "episode": 122,
+          "reward": 1407.23
+        },
+        {
+          "episode": 123,
+          "reward": 1404.33
+        },
+        {
+          "episode": 124,
+          "reward": 1406.02
+        },
+        {
+          "episode": 125,
+          "reward": 1418.18
+        },
+        {
+          "episode": 126,
+          "reward": 1420.1
+        },
+        {
+          "episode": 127,
+          "reward": 1373.43
+        },
+        {
+          "episode": 128,
+          "reward": 1359.29
+        },
+        {
+          "episode": 129,
+          "reward": 1347.98
+        },
+        {
+          "episode": 130,
+          "reward": 1356.96
+        },
+        {
+          "episode": 131,
+          "reward": 1357.94
+        },
+        {
+          "episode": 132,
+          "reward": 1372.19
+        },
+        {
+          "episode": 133,
+          "reward": 1368.6
+        },
+        {
+          "episode": 134,
+          "reward": 1355.1
+        },
+        {
+          "episode": 135,
+          "reward": 1374.62
+        },
+        {
+          "episode": 136,
+          "reward": 1351.94
+        },
+        {
+          "episode": 137,
+          "reward": 1363.35
+        },
+        {
+          "episode": 138,
+          "reward": 1329.28
+        },
+        {
+          "episode": 139,
+          "reward": 1357.33
+        },
+        {
+          "episode": 140,
+          "reward": 1343.01
+        },
+        {
+          "episode": 141,
+          "reward": 1349.14
+        },
+        {
+          "episode": 142,
+          "reward": 1346.17
+        },
+        {
+          "episode": 143,
+          "reward": 1363.85
+        },
+        {
+          "episode": 144,
+          "reward": 1351.76
+        },
+        {
+          "episode": 145,
+          "reward": 1340.95
+        },
+        {
+          "episode": 146,
+          "reward": 1373.36
+        },
+        {
+          "episode": 147,
+          "reward": 1389.86
+        },
+        {
+          "episode": 148,
+          "reward": 1417.37
+        },
+        {
+          "episode": 149,
+          "reward": 1394.62
+        },
+        {
+          "episode": 150,
+          "reward": 1404.76
+        },
+        {
+          "episode": 151,
+          "reward": 1409.5
+        },
+        {
+          "episode": 152,
+          "reward": 1411.51
+        },
+        {
+          "episode": 153,
+          "reward": 1378.93
+        },
+        {
+          "episode": 154,
+          "reward": 1384.18
+        },
+        {
+          "episode": 155,
+          "reward": 1413.26
+        },
+        {
+          "episode": 156,
+          "reward": 1369.58
+        },
+        {
+          "episode": 157,
+          "reward": 1388.89
+        },
+        {
+          "episode": 158,
+          "reward": 1385.66
+        },
+        {
+          "episode": 159,
+          "reward": 1381.48
+        },
+        {
+          "episode": 160,
+          "reward": 1386.09
+        },
+        {
+          "episode": 161,
+          "reward": 1387.84
+        },
+        {
+          "episode": 162,
+          "reward": 1385.24
+        },
+        {
+          "episode": 163,
+          "reward": 1376.82
+        },
+        {
+          "episode": 164,
+          "reward": 1368.88
+        },
+        {
+          "episode": 165,
+          "reward": 1362.66
+        },
+        {
+          "episode": 166,
+          "reward": 1347.77
+        },
+        {
+          "episode": 167,
+          "reward": 1367.96
+        },
+        {
+          "episode": 168,
+          "reward": 1367.06
+        },
+        {
+          "episode": 169,
+          "reward": 1366.96
+        },
+        {
+          "episode": 170,
+          "reward": 1352.14
+        },
+        {
+          "episode": 171,
+          "reward": 1369.18
+        },
+        {
+          "episode": 172,
+          "reward": 1370.93
+        },
+        {
+          "episode": 173,
+          "reward": 1375.04
+        },
+        {
+          "episode": 174,
+          "reward": 1363.6
+        },
+        {
+          "episode": 175,
+          "reward": 1366.89
+        },
+        {
+          "episode": 176,
+          "reward": 1367.32
+        },
+        {
+          "episode": 177,
+          "reward": 1374.64
+        },
+        {
+          "episode": 178,
+          "reward": 1370.83
+        },
+        {
+          "episode": 179,
+          "reward": 1344.6
+        },
+        {
+          "episode": 180,
+          "reward": 1377.01
+        },
+        {
+          "episode": 181,
+          "reward": 1366.89
+        },
+        {
+          "episode": 182,
+          "reward": 1388.44
+        },
+        {
+          "episode": 183,
+          "reward": 1356.51
+        },
+        {
+          "episode": 184,
+          "reward": 1362.2
+        },
+        {
+          "episode": 185,
+          "reward": 1367.08
+        },
+        {
+          "episode": 186,
+          "reward": 1388.55
+        },
+        {
+          "episode": 187,
+          "reward": 1376.26
+        },
+        {
+          "episode": 188,
+          "reward": 1351.83
+        },
+        {
+          "episode": 189,
+          "reward": 1358.91
+        },
+        {
+          "episode": 190,
+          "reward": 1366.89
+        },
+        {
+          "episode": 191,
+          "reward": 1374.15
+        },
+        {
+          "episode": 192,
+          "reward": 1381.23
+        },
+        {
+          "episode": 193,
+          "reward": 1355.39
+        },
+        {
+          "episode": 194,
+          "reward": 1353.98
+        },
+        {
+          "episode": 195,
+          "reward": 1356.22
+        },
+        {
+          "episode": 196,
+          "reward": 1377.39
+        },
+        {
+          "episode": 197,
+          "reward": 1363.8
+        },
+        {
+          "episode": 198,
+          "reward": 1359.73
+        },
+        {
+          "episode": 199,
+          "reward": 1371.13
+        },
+        {
+          "episode": 200,
+          "reward": 1365.13
+        },
+        {
+          "episode": 201,
+          "reward": 1376.4
+        },
+        {
+          "episode": 202,
+          "reward": 1358.91
+        },
+        {
+          "episode": 203,
+          "reward": 1387.92
+        },
+        {
+          "episode": 204,
+          "reward": 1373.23
+        },
+        {
+          "episode": 205,
+          "reward": 1400.97
+        },
+        {
+          "episode": 206,
+          "reward": 1404.91
+        },
+        {
+          "episode": 207,
+          "reward": 1365.65
+        },
+        {
+          "episode": 208,
+          "reward": 1356.8
+        },
+        {
+          "episode": 209,
+          "reward": 1372.91
+        },
+        {
+          "episode": 210,
+          "reward": 1295.66
+        },
+        {
+          "episode": 211,
+          "reward": 1344.02
+        },
+        {
+          "episode": 212,
+          "reward": 1336.87
+        },
+        {
+          "episode": 213,
+          "reward": 1344.13
+        },
+        {
+          "episode": 214,
+          "reward": 1333.22
+        },
+        {
+          "episode": 215,
+          "reward": 1350.27
+        },
+        {
+          "episode": 216,
+          "reward": 1344.17
+        },
+        {
+          "episode": 217,
+          "reward": 1342.1
+        },
+        {
+          "episode": 218,
+          "reward": 1352.5
+        },
+        {
+          "episode": 219,
+          "reward": 1349.04
+        },
+        {
+          "episode": 220,
+          "reward": 1349.12
+        },
+        {
+          "episode": 221,
+          "reward": 1337.14
+        },
+        {
+          "episode": 222,
+          "reward": 1389.31
+        },
+        {
+          "episode": 223,
+          "reward": 1357.31
+        },
+        {
+          "episode": 224,
+          "reward": 1384.29
+        },
+        {
+          "episode": 225,
+          "reward": 1384.3
+        },
+        {
+          "episode": 226,
+          "reward": 1408.2
+        },
+        {
+          "episode": 227,
+          "reward": 1381.24
+        },
+        {
+          "episode": 228,
+          "reward": 1374.29
+        },
+        {
+          "episode": 229,
+          "reward": 1381.24
+        },
+        {
+          "episode": 230,
+          "reward": 1380.81
+        },
+        {
+          "episode": 231,
+          "reward": 1389.22
+        },
+        {
+          "episode": 232,
+          "reward": 1381.24
+        },
+        {
+          "episode": 233,
+          "reward": 1383.29
+        },
+        {
+          "episode": 234,
+          "reward": 1390.31
+        },
+        {
+          "episode": 235,
+          "reward": 1374.59
+        },
+        {
+          "episode": 236,
+          "reward": 1385.83
+        },
+        {
+          "episode": 237,
+          "reward": 1384.17
+        },
+        {
+          "episode": 238,
+          "reward": 1375.08
+        },
+        {
+          "episode": 239,
+          "reward": 1387.23
+        },
+        {
+          "episode": 240,
+          "reward": 1359.41
+        },
+        {
+          "episode": 241,
+          "reward": 1406.04
+        },
+        {
+          "episode": 242,
+          "reward": 1396.35
+        },
+        {
+          "episode": 243,
+          "reward": 1394.49
+        },
+        {
+          "episode": 244,
+          "reward": 1397.69
+        },
+        {
+          "episode": 245,
+          "reward": 1382.93
+        },
+        {
+          "episode": 246,
+          "reward": 1390.89
+        },
+        {
+          "episode": 247,
+          "reward": 1370.25
+        },
+        {
+          "episode": 248,
+          "reward": 1367.52
+        },
+        {
+          "episode": 249,
+          "reward": 1322.58
+        },
+        {
+          "episode": 250,
+          "reward": 1351.09
+        },
+        {
+          "episode": 251,
+          "reward": 1345.64
+        },
+        {
+          "episode": 252,
+          "reward": 1346.56
+        },
+        {
+          "episode": 253,
+          "reward": 1352.94
+        },
+        {
+          "episode": 254,
+          "reward": 1351.03
+        },
+        {
+          "episode": 255,
+          "reward": 1364.72
+        },
+        {
+          "episode": 256,
+          "reward": 1353.37
+        },
+        {
+          "episode": 257,
+          "reward": 1343.13
+        },
+        {
+          "episode": 258,
+          "reward": 1331.46
+        },
+        {
+          "episode": 259,
+          "reward": 1288.02
+        },
+        {
+          "episode": 260,
+          "reward": 1367.46
+        },
+        {
+          "episode": 261,
+          "reward": 1386.75
+        },
+        {
+          "episode": 262,
+          "reward": 1341.77
+        },
+        {
+          "episode": 263,
+          "reward": 1363.48
+        },
+        {
+          "episode": 264,
+          "reward": 1385.5
+        },
+        {
+          "episode": 265,
+          "reward": 1366.02
+        },
+        {
+          "episode": 266,
+          "reward": 1372.01
+        },
+        {
+          "episode": 267,
+          "reward": 1362.83
+        },
+        {
+          "episode": 268,
+          "reward": 1362.41
+        },
+        {
+          "episode": 269,
+          "reward": 1365.76
+        },
+        {
+          "episode": 270,
+          "reward": 1360.55
+        },
+        {
+          "episode": 271,
+          "reward": 1362.41
+        },
+        {
+          "episode": 272,
+          "reward": 1361.98
+        },
+        {
+          "episode": 273,
+          "reward": 1364.57
+        },
+        {
+          "episode": 274,
+          "reward": 1366.88
+        },
+        {
+          "episode": 275,
+          "reward": 1362.83
+        },
+        {
+          "episode": 276,
+          "reward": 1365.84
+        },
+        {
+          "episode": 277,
+          "reward": 1348.76
+        },
+        {
+          "episode": 278,
+          "reward": 1357.91
+        },
+        {
+          "episode": 279,
+          "reward": 1364.26
+        },
+        {
+          "episode": 280,
+          "reward": 1365.84
+        },
+        {
+          "episode": 281,
+          "reward": 1375.63
+        },
+        {
+          "episode": 282,
+          "reward": 1384.82
+        },
+        {
+          "episode": 283,
+          "reward": 1377.16
+        },
+        {
+          "episode": 284,
+          "reward": 1377.2
+        },
+        {
+          "episode": 285,
+          "reward": 1374.75
+        },
+        {
+          "episode": 286,
+          "reward": 1367.0
+        },
+        {
+          "episode": 287,
+          "reward": 1383.98
+        },
+        {
+          "episode": 288,
+          "reward": 1393.36
+        },
+        {
+          "episode": 289,
+          "reward": 1352.65
+        },
+        {
+          "episode": 290,
+          "reward": 1392.93
+        },
+        {
+          "episode": 291,
+          "reward": 1338.1
+        },
+        {
+          "episode": 292,
+          "reward": 1352.94
+        },
+        {
+          "episode": 293,
+          "reward": 1334.1
+        },
+        {
+          "episode": 294,
+          "reward": 1347.82
+        },
+        {
+          "episode": 295,
+          "reward": 1367.5
+        },
+        {
+          "episode": 296,
+          "reward": 1356.21
+        },
+        {
+          "episode": 297,
+          "reward": 1307.45
+        },
+        {
+          "episode": 298,
+          "reward": 1368.35
+        },
+        {
+          "episode": 299,
+          "reward": 1393.39
+        },
+        {
+          "episode": 300,
+          "reward": 1382.84
+        },
+        {
+          "episode": 301,
+          "reward": 1401.99
+        },
+        {
+          "episode": 302,
+          "reward": 1394.8
+        },
+        {
+          "episode": 303,
+          "reward": 1386.4
+        },
+        {
+          "episode": 304,
+          "reward": 1380.21
+        },
+        {
+          "episode": 305,
+          "reward": 1381.27
+        },
+        {
+          "episode": 306,
+          "reward": 1355.2
+        },
+        {
+          "episode": 307,
+          "reward": 1377.2
+        },
+        {
+          "episode": 308,
+          "reward": 1370.07
+        },
+        {
+          "episode": 309,
+          "reward": 1373.96
+        },
+        {
+          "episode": 310,
+          "reward": 1365.9
+        },
+        {
+          "episode": 311,
+          "reward": 1351.01
+        },
+        {
+          "episode": 312,
+          "reward": 1366.08
+        },
+        {
+          "episode": 313,
+          "reward": 1368.06
+        },
+        {
+          "episode": 314,
+          "reward": 1354.98
+        },
+        {
+          "episode": 315,
+          "reward": 1328.75
+        },
+        {
+          "episode": 316,
+          "reward": 1381.2
+        },
+        {
+          "episode": 317,
+          "reward": 1385.15
+        },
+        {
+          "episode": 318,
+          "reward": 1385.15
+        },
+        {
+          "episode": 319,
+          "reward": 1388.07
+        },
+        {
+          "episode": 320,
+          "reward": 1383.34
+        }
+      ],
+      "current_state": "1|1|1|2|3",
+      "action_count": 7
+    },
+    "strategy_timeseries": [
+      {
+        "month": "2021-01-01",
+        "marketing_strength": 33.53101784421937,
+        "product_readiness": 34.23525330600155,
+        "competition_risk": 32.89848139516181,
+        "customer_conversion_probability": 27.07,
+        "predicted_revenue": 91.94,
+        "predicted_revenue_index": 99.1053142179584,
+        "marketing_roi": 78.16039087255011,
+        "retention_index": 39.31978798586572,
+        "cac_index": 33.8082191780822,
+        "churn_index": 5.144258232915514,
+        "launch_timing_risk": 46.39340654215084,
+        "strategy_score": 39.470301781859284
+      },
+      {
+        "month": "2021-02-01",
+        "marketing_strength": 28.621007437147682,
+        "product_readiness": 25.896283290211038,
+        "competition_risk": 28.576437868391285,
+        "customer_conversion_probability": 79.32,
+        "predicted_revenue": 90.57,
+        "predicted_revenue_index": 97.62854371025117,
+        "marketing_roi": 77.39089156490866,
+        "retention_index": 39.25627943485087,
+        "cac_index": 33.88353696741855,
+        "churn_index": 5.670668660125851,
+        "launch_timing_risk": 38.79569788920221,
+        "strategy_score": 48.0721571547439
+      },
+      {
+        "month": "2021-03-01",
+        "marketing_strength": 37.62276028013795,
+        "product_readiness": 38.77947555277764,
+        "competition_risk": 33.33290119427304,
+        "customer_conversion_probability": 63.31,
+        "predicted_revenue": 91.33,
+        "predicted_revenue_index": 98.44777406489168,
+        "marketing_roi": 77.17704943858301,
+        "retention_index": 39.438596491228076,
+        "cac_index": 34.34973105831226,
+        "churn_index": 5.4964477645382885,
+        "launch_timing_risk": 47.855560522522126,
+        "strategy_score": 48.495789378991205
+      },
+      {
+        "month": "2021-04-01",
+        "marketing_strength": 41.92421566599189,
+        "product_readiness": 29.823245097185747,
+        "competition_risk": 31.920840623601794,
+        "customer_conversion_probability": 76.93,
+        "predicted_revenue": 91.49,
+        "predicted_revenue_index": 98.62024361323704,
+        "marketing_roi": 78.46010863458878,
+        "retention_index": 38.83192969608202,
+        "cac_index": 34.016894419003485,
+        "churn_index": 5.480985649960909,
+        "launch_timing_risk": 48.06909963946294,
+        "strategy_score": 51.101893956936465
+      },
+      {
+        "month": "2021-05-01",
+        "marketing_strength": 22.41773464556153,
+        "product_readiness": 39.66516256069681,
+        "competition_risk": 21.88531951623553,
+        "customer_conversion_probability": 28.64,
+        "predicted_revenue": 91.13,
+        "predicted_revenue_index": 98.23218712945996,
+        "marketing_roi": 79.65244296612529,
+        "retention_index": 39.134984304150684,
+        "cac_index": 33.98020570541432,
+        "churn_index": 5.386760289209152,
+        "launch_timing_risk": 40.67987260034782,
+        "strategy_score": 39.983434163256504
+      },
+      {
+        "month": "2021-06-01",
+        "marketing_strength": 24.280617875682772,
+        "product_readiness": 38.50040200928569,
+        "competition_risk": 18.614943188066217,
+        "customer_conversion_probability": 17.39,
+        "predicted_revenue": 92.36,
+        "predicted_revenue_index": 99.558046782365,
+        "marketing_roi": 76.78888694750286,
+        "retention_index": 39.81991914737229,
+        "cac_index": 34.05404415803156,
+        "churn_index": 5.433770610575493,
+        "launch_timing_risk": 43.04444087423694,
+        "strategy_score": 37.883913241053776
+      },
+      {
+        "month": "2021-07-01",
+        "marketing_strength": 35.752050886329776,
+        "product_readiness": 33.50904997869553,
+        "competition_risk": 33.7161606577616,
+        "customer_conversion_probability": 73.66,
+        "predicted_revenue": 89.63,
+        "predicted_revenue_index": 96.61528511372211,
+        "marketing_roi": 76.84294249030165,
+        "retention_index": 39.1261963842609,
+        "cac_index": 34.32606584870686,
+        "churn_index": 5.501472301324893,
+        "launch_timing_risk": 44.15839051773499,
+        "strategy_score": 49.21260348474554
+      },
+      {
+        "month": "2021-08-01",
+        "marketing_strength": 43.522220426084715,
+        "product_readiness": 34.33786888036712,
+        "competition_risk": 36.73042950453598,
+        "customer_conversion_probability": 86.08,
+        "predicted_revenue": 88.63,
+        "predicted_revenue_index": 95.53735043656354,
+        "marketing_roi": 75.88325181516875,
+        "retention_index": 38.795568263045034,
+        "cac_index": 34.13361537105588,
+        "churn_index": 5.3859998360768016,
+        "launch_timing_risk": 56.653296311769836,
+        "strategy_score": 52.34783361931677
+      },
+      {
+        "month": "2021-09-01",
+        "marketing_strength": 33.07892853965822,
+        "product_readiness": 27.89210750672199,
+        "competition_risk": 23.272857891589922,
+        "customer_conversion_probability": 13.38,
+        "predicted_revenue": 90.58,
+        "predicted_revenue_index": 97.63932305702274,
+        "marketing_roi": 74.99131197691304,
+        "retention_index": 39.66546112115733,
+        "cac_index": 33.617713147847056,
+        "churn_index": 5.873822036065585,
+        "launch_timing_risk": 39.71054842386276,
+        "strategy_score": 36.96481333365406
+      },
+      {
+        "month": "2021-10-01",
+        "marketing_strength": 41.30408355054904,
+        "product_readiness": 35.297846913637756,
+        "competition_risk": 37.53669902191322,
+        "customer_conversion_probability": 72.32,
+        "predicted_revenue": 90.42,
+        "predicted_revenue_index": 97.46685350867737,
+        "marketing_roi": 75.79714406141686,
+        "retention_index": 39.16150137741047,
+        "cac_index": 33.958734136999844,
+        "churn_index": 5.252512748149468,
+        "launch_timing_risk": 48.68012528294488,
+        "strategy_score": 49.78584867552332
+      },
+      {
+        "month": "2021-11-01",
+        "marketing_strength": 48.47171976904691,
+        "product_readiness": 37.89637440080076,
+        "competition_risk": 37.16492820163149,
+        "customer_conversion_probability": 84.21,
+        "predicted_revenue": 89.89,
+        "predicted_revenue_index": 96.89554812978334,
+        "marketing_roi": 96.9463699091002,
+        "retention_index": 38.83174136664218,
+        "cac_index": 33.90758595597599,
+        "churn_index": 5.465645415634151,
+        "launch_timing_risk": 45.31762950759676,
+        "strategy_score": 58.39824411623485
+      },
+      {
+        "month": "2021-12-01",
+        "marketing_strength": 47.230997894209324,
+        "product_readiness": 43.071792528578335,
+        "competition_risk": 36.44141426069602,
+        "customer_conversion_probability": 82.83,
+        "predicted_revenue": 92.07,
+        "predicted_revenue_index": 99.245445725989,
+        "marketing_roi": 98.77297430676113,
+        "retention_index": 38.80649717514124,
+        "cac_index": 33.94152833327434,
+        "churn_index": 5.454174510771606,
+        "launch_timing_risk": 49.466366175167934,
+        "strategy_score": 58.752755263371434
+      },
+      {
+        "month": "2022-01-01",
+        "marketing_strength": 33.1258483687182,
+        "product_readiness": 42.279423438753874,
+        "competition_risk": 26.486326278717925,
+        "customer_conversion_probability": 21.61,
+        "predicted_revenue": 92.58,
+        "predicted_revenue_index": 99.79519241133987,
+        "marketing_roi": 79.29160578443017,
+        "retention_index": 39.489126682775286,
+        "cac_index": 33.96591514290787,
+        "churn_index": 5.531574924462604,
+        "launch_timing_risk": 40.69247719328778,
+        "strategy_score": 41.5671834048943
+      },
+      {
+        "month": "2022-02-01",
+        "marketing_strength": 28.254815393804062,
+        "product_readiness": 31.106460795729546,
+        "competition_risk": 20.49084084496292,
+        "customer_conversion_probability": 21.16,
+        "predicted_revenue": 88.75,
+        "predicted_revenue_index": 95.66670259782258,
+        "marketing_roi": 80.09419014734327,
+        "retention_index": 39.432668329177055,
+        "cac_index": 33.54239347732351,
+        "churn_index": 5.410729784743308,
+        "launch_timing_risk": 33.333617101727974,
+        "strategy_score": 39.53687746247139
+      },
+      {
+        "month": "2022-03-01",
+        "marketing_strength": 33.80122610433517,
+        "product_readiness": 29.501118855120033,
+        "competition_risk": 36.74923203386232,
+        "customer_conversion_probability": 34.46,
+        "predicted_revenue": 90.55,
+        "predicted_revenue_index": 97.606985016708,
+        "marketing_roi": 71.32435192567968,
+        "retention_index": 39.08414127423823,
+        "cac_index": 34.18482875742995,
+        "churn_index": 6.125350464812457,
+        "launch_timing_risk": 50.926048530231746,
+        "strategy_score": 38.02625473307398
+      },
+      {
+        "month": "2022-04-01",
+        "marketing_strength": 36.28978397971625,
+        "product_readiness": 40.374651551490324,
+        "competition_risk": 34.60131528097194,
+        "customer_conversion_probability": 17.31,
+        "predicted_revenue": 92.77,
+        "predicted_revenue_index": 100.0,
+        "marketing_roi": 73.5092214892493,
+        "retention_index": 39.97471098265896,
+        "cac_index": 34.068930415182145,
+        "churn_index": 6.044369945136214,
+        "launch_timing_risk": 46.72517811913004,
+        "strategy_score": 38.58753362354154
+      },
+      {
+        "month": "2022-05-01",
+        "marketing_strength": 20.281294750686484,
+        "product_readiness": 38.74517791262285,
+        "competition_risk": 25.62808928323298,
+        "customer_conversion_probability": 79.03,
+        "predicted_revenue": 90.03,
+        "predicted_revenue_index": 97.04645898458554,
+        "marketing_roi": 80.03386088080559,
+        "retention_index": 39.22838380153229,
+        "cac_index": 33.706199936483294,
+        "churn_index": 5.6185403268181116,
+        "launch_timing_risk": 52.97182790803684,
+        "strategy_score": 47.50310695656272
+      },
+      {
+        "month": "2022-06-01",
+        "marketing_strength": 20.327467840540738,
+        "product_readiness": 30.53965479628264,
+        "competition_risk": 25.48142913382405,
+        "customer_conversion_probability": 23.08,
+        "predicted_revenue": 89.4,
+        "predicted_revenue_index": 96.36736013797564,
+        "marketing_roi": 77.92367612182794,
+        "retention_index": 39.346696362286565,
+        "cac_index": 33.856202055290204,
+        "churn_index": 5.554976687187347,
+        "launch_timing_risk": 42.634906788664765,
+        "strategy_score": 35.42501768075286
+      },
+      {
+        "month": "2022-07-01",
+        "marketing_strength": 35.65128953533717,
+        "product_readiness": 34.3776541656231,
+        "competition_risk": 40.80630869155493,
+        "customer_conversion_probability": 12.91,
+        "predicted_revenue": 91.25,
+        "predicted_revenue_index": 98.361539290719,
+        "marketing_roi": 73.72983508398873,
+        "retention_index": 39.51085084395453,
+        "cac_index": 33.9253776274548,
+        "churn_index": 5.495351200680549,
+        "launch_timing_risk": 51.04494566751735,
+        "strategy_score": 34.98695208583911
+      },
+      {
+        "month": "2022-08-01",
+        "marketing_strength": 20.31055219083196,
+        "product_readiness": 38.539146380971914,
+        "competition_risk": 19.125083532604346,
+        "customer_conversion_probability": 10.51,
+        "predicted_revenue": 88.7,
+        "predicted_revenue_index": 95.61280586396465,
+        "marketing_roi": 76.9131532203511,
+        "retention_index": 39.921052631578945,
+        "cac_index": 34.26205878216847,
+        "churn_index": 5.924336416358155,
+        "launch_timing_risk": 36.974729213474646,
+        "strategy_score": 35.87373246525852
+      },
+      {
+        "month": "2022-09-01",
+        "marketing_strength": 33.39660438310176,
+        "product_readiness": 19.04626304460027,
+        "competition_risk": 28.382792990305393,
+        "customer_conversion_probability": 20.42,
+        "predicted_revenue": 92.39,
+        "predicted_revenue_index": 99.59038482267974,
+        "marketing_roi": 70.65960703477607,
+        "retention_index": 39.71030850263356,
+        "cac_index": 33.9423548428107,
+        "churn_index": 5.48309223738007,
+        "launch_timing_risk": 44.53463620859876,
+        "strategy_score": 34.80029240966131
+      },
+      {
+        "month": "2022-10-01",
+        "marketing_strength": 36.06289615338707,
+        "product_readiness": 43.470605114130194,
+        "competition_risk": 30.325614016138786,
+        "customer_conversion_probability": 66.12,
+        "predicted_revenue": 90.35,
+        "predicted_revenue_index": 97.39139808127626,
+        "marketing_roi": 78.38430542562092,
+        "retention_index": 39.65486725663717,
+        "cac_index": 33.760262147211165,
+        "churn_index": 5.059876665129048,
+        "launch_timing_risk": 43.71752880303117,
+        "strategy_score": 50.574040699961365
+      },
+      {
+        "month": "2022-11-01",
+        "marketing_strength": 46.92982170224776,
+        "product_readiness": 39.129145100302495,
+        "competition_risk": 31.311801583879063,
+        "customer_conversion_probability": 85.79,
+        "predicted_revenue": 90.76,
+        "predicted_revenue_index": 97.8333512989113,
+        "marketing_roi": 98.8406251628065,
+        "retention_index": 39.245248538011694,
+        "cac_index": 33.60830763053675,
+        "churn_index": 5.4273393511904935,
+        "launch_timing_risk": 41.680824213353986,
+        "strategy_score": 60.024016646238536
+      },
+      {
+        "month": "2022-12-01",
+        "marketing_strength": 37.43814626718623,
+        "product_readiness": 46.005612351805546,
+        "competition_risk": 22.202088123205264,
+        "customer_conversion_probability": 74.81,
+        "predicted_revenue": 89.91,
+        "predicted_revenue_index": 96.9171068233265,
+        "marketing_roi": 100.0,
+        "retention_index": 38.94940267041462,
+        "cac_index": 33.77899285651292,
+        "churn_index": 5.623870872493555,
+        "launch_timing_risk": 39.174689618024715,
+        "strategy_score": 58.14678417023372
+      },
+      {
+        "month": "2023-01-01",
+        "marketing_strength": 22.613393412842374,
+        "product_readiness": 27.259836065190946,
+        "competition_risk": 24.190921142226895,
+        "customer_conversion_probability": 49.63,
+        "predicted_revenue": 90.04,
+        "predicted_revenue_index": 97.05723833135713,
+        "marketing_roi": 74.91996592994624,
+        "retention_index": 39.1202903560318,
+        "cac_index": 34.06336306225482,
+        "churn_index": 5.931776081616634,
+        "launch_timing_risk": 41.48782903404242,
+        "strategy_score": 40.62255905164457
+      },
+      {
+        "month": "2023-02-01",
+        "marketing_strength": 33.65283667554374,
+        "product_readiness": 30.479052245228626,
+        "competition_risk": 27.36888957339544,
+        "customer_conversion_probability": 33.27,
+        "predicted_revenue": 90.51,
+        "predicted_revenue_index": 97.56386762962165,
+        "marketing_roi": 76.48462850862818,
+        "retention_index": 39.959016393442624,
+        "cac_index": 34.208512391829046,
+        "churn_index": 5.5204804969469485,
+        "launch_timing_risk": 45.79118916505507,
+        "strategy_score": 40.633903375488245
+      },
+      {
+        "month": "2023-03-01",
+        "marketing_strength": 33.16014015211912,
+        "product_readiness": 32.76649368742461,
+        "competition_risk": 40.96576445015334,
+        "customer_conversion_probability": 15.94,
+        "predicted_revenue": 91.24,
+        "predicted_revenue_index": 98.3507599439474,
+        "marketing_roi": 73.36565182011809,
+        "retention_index": 39.54576976421637,
+        "cac_index": 33.72146604281866,
+        "churn_index": 5.627209433428512,
+        "launch_timing_risk": 52.25203549768468,
+        "strategy_score": 34.3241203388469
+      },
+      {
+        "month": "2023-04-01",
+        "marketing_strength": 48.359189614200126,
+        "product_readiness": 38.36856463280506,
+        "competition_risk": 36.682739204413124,
+        "customer_conversion_probability": 53.63,
+        "predicted_revenue": 91.25,
+        "predicted_revenue_index": 98.361539290719,
+        "marketing_roi": 76.05646706229406,
+        "retention_index": 39.861623616236166,
+        "cac_index": 33.97684102863822,
+        "churn_index": 5.700094144059098,
+        "launch_timing_risk": 47.79252073478985,
+        "strategy_score": 49.034276916024204
+      },
+      {
+        "month": "2023-05-01",
+        "marketing_strength": 19.553921918619636,
+        "product_readiness": 42.56106282347134,
+        "competition_risk": 18.598732370610247,
+        "customer_conversion_probability": 55.32,
+        "predicted_revenue": 90.71,
+        "predicted_revenue_index": 97.77945456505336,
+        "marketing_roi": 77.27001706179401,
+        "retention_index": 39.26767676767677,
+        "cac_index": 34.07034287734182,
+        "churn_index": 5.406162972530245,
+        "launch_timing_risk": 30.758771864273925,
+        "strategy_score": 46.167204657530334
+      },
+      {
+        "month": "2023-06-01",
+        "marketing_strength": 21.87388941584252,
+        "product_readiness": 27.721305728874633,
+        "competition_risk": 17.28579854832624,
+        "customer_conversion_probability": 44.83,
+        "predicted_revenue": 91.15,
+        "predicted_revenue_index": 98.25374582300313,
+        "marketing_roi": 74.72298698462902,
+        "retention_index": 39.25744440256314,
+        "cac_index": 33.945878602444076,
+        "churn_index": 5.4454735301368915,
+        "launch_timing_risk": 33.07615234164069,
+        "strategy_score": 41.38039100180904
+      },
+      {
+        "month": "2023-07-01",
+        "marketing_strength": 35.38512457276238,
+        "product_readiness": 40.83960690672089,
+        "competition_risk": 22.692964449215903,
+        "customer_conversion_probability": 31.91,
+        "predicted_revenue": 90.53,
+        "predicted_revenue_index": 97.58542632316482,
+        "marketing_roi": 74.51262061131389,
+        "retention_index": 40.307557117750434,
+        "cac_index": 34.17420694997008,
+        "churn_index": 5.668852617785114,
+        "launch_timing_risk": 40.06082872765199,
+        "strategy_score": 43.93232430472239
+      },
+      {
+        "month": "2023-08-01",
+        "marketing_strength": 29.55374681952767,
+        "product_readiness": 35.78500498437457,
+        "competition_risk": 27.79280093121254,
+        "customer_conversion_probability": 30.78,
+        "predicted_revenue": 91.76,
+        "predicted_revenue_index": 98.91128597606986,
+        "marketing_roi": 76.75640532433817,
+        "retention_index": 39.40256045519203,
+        "cac_index": 33.73602025743828,
+        "churn_index": 5.627691278531721,
+        "launch_timing_risk": 44.12486581737169,
+        "strategy_score": 40.11117911996489
+      },
+      {
+        "month": "2023-09-01",
+        "marketing_strength": 29.36386836015357,
+        "product_readiness": 30.293443964187876,
+        "competition_risk": 17.27078561176641,
+        "customer_conversion_probability": 39.29,
+        "predicted_revenue": 91.18,
+        "predicted_revenue_index": 98.2860838633179,
+        "marketing_roi": 77.53907350003215,
+        "retention_index": 39.71590909090909,
+        "cac_index": 33.97563514821647,
+        "churn_index": 5.623192233456025,
+        "launch_timing_risk": 33.88343385211484,
+        "strategy_score": 43.37774909891202
+      },
+      {
+        "month": "2023-10-01",
+        "marketing_strength": 39.6401412481529,
+        "product_readiness": 24.674146512922594,
+        "competition_risk": 42.92144616223737,
+        "customer_conversion_probability": 62.87,
+        "predicted_revenue": 90.77,
+        "predicted_revenue_index": 97.84413064568287,
+        "marketing_roi": 76.71502140244884,
+        "retention_index": 38.924050632911396,
+        "cac_index": 33.728411784625806,
+        "churn_index": 5.736154600296245,
+        "launch_timing_risk": 56.535842350626766,
+        "strategy_score": 43.81632372799943
+      },
+      {
+        "month": "2023-11-01",
+        "marketing_strength": 41.85535238447748,
+        "product_readiness": 35.05240015840665,
+        "competition_risk": 29.442122306655282,
+        "customer_conversion_probability": 46.2,
+        "predicted_revenue": 90.85,
+        "predicted_revenue_index": 97.93036541985556,
+        "marketing_roi": 99.05396918964362,
+        "retention_index": 39.61872063606794,
+        "cac_index": 33.9688546063164,
+        "churn_index": 5.435722300431856,
+        "launch_timing_risk": 49.12347212540969,
+        "strategy_score": 49.33651556693185
+      },
+      {
+        "month": "2023-12-01",
+        "marketing_strength": 28.827322827793083,
+        "product_readiness": 39.95150792876903,
+        "competition_risk": 19.89250787772276,
+        "customer_conversion_probability": 35.34,
+        "predicted_revenue": 91.35,
+        "predicted_revenue_index": 98.46933275843483,
+        "marketing_roi": 99.03432186555085,
+        "retention_index": 39.36679673643136,
+        "cac_index": 33.752006632914075,
+        "churn_index": 5.593022711302995,
+        "launch_timing_risk": 38.54002934133465,
+        "strategy_score": 46.72376759813248
+      }
+    ],
+    "competitor_watchlist": [
+      {
+        "competitor": "Brand_72",
+        "threat_level": "High",
+        "threat_score": 96.25,
+        "suggested_response": "Niche down and tighten differentiation"
+      },
+      {
+        "competitor": "Brand_75",
+        "threat_level": "High",
+        "threat_score": 89.51,
+        "suggested_response": "Niche down and tighten differentiation"
+      },
+      {
+        "competitor": "Brand_23",
+        "threat_level": "High",
+        "threat_score": 89.19,
+        "suggested_response": "Niche down and tighten differentiation"
+      },
+      {
+        "competitor": "Brand_7",
+        "threat_level": "High",
+        "threat_score": 87.61,
+        "suggested_response": "Niche down and tighten differentiation"
+      },
+      {
+        "competitor": "Brand_27",
+        "threat_level": "High",
+        "threat_score": 86.78,
+        "suggested_response": "Niche down and tighten differentiation"
+      },
+      {
+        "competitor": "Brand_81",
+        "threat_level": "High",
+        "threat_score": 85.38,
+        "suggested_response": "Niche down and tighten differentiation"
+      }
+    ],
+    "alerts": [
+      {
+        "severity": "Medium",
+        "title": "A paid or owned channel is underperforming",
+        "message": "Direct shows 99.6% weakness probability. Rebalance channel mix before scaling spend."
+      }
+    ],
+    "strategy_feed": [
+      {
+        "headline": "Best next move",
+        "detail": "Improve Onboarding"
+      },
+      {
+        "headline": "Weakest channel",
+        "detail": "Direct at 99.6% weakness probability"
+      },
+      {
+        "headline": "Top customer segment",
+        "detail": "Segment 1 led by Paid Search acquisition and Bronze loyalty"
+      },
+      {
+        "headline": "Current launch risk",
+        "detail": "38.5/100 launch timing risk"
+      }
+    ],
+    "dashboard_metrics": {
+      "customer_conversion_probability": 35.34,
+      "launch_timing_risk": 38.54,
+      "marketing_roi": 99.03,
+      "best_next_move": "improve onboarding"
+    },
+    "dataset_metrics": {
+      "purchase_rate_pct": 5.7,
+      "average_campaign_uplift_pct": 8.67,
+      "premium_share_pct": 50.0,
+      "refund_rate_pct": 2.94,
+      "average_order_revenue": 90.36,
+      "average_quantity": 1.38,
+      "traffic_sources": 10,
+      "campaign_channels": 5,
+      "brands": 100,
+      "monthly_learning_episodes": 36,
+      "paid_pressure_pct": 33.94
+    },
+    "table_counts": {
+      "customers": 100000,
+      "products": 2000,
+      "campaigns": 50,
+      "events": 2000000,
+      "transactions": 103127
+    },
+    "notes": [
+      "Competitor nodes resolved to real-world players for category 'electronics'.",
+      "Dataset brand proxies are still available in 'brand_proxy_competitors' and drive the brand / competitor proxy watchlist.",
+      "Archive scores are learned by an offline reinforcement-style policy search over monthly dataset episodes.",
+      "Each archive heuristic uses a wider feature set spanning events, campaigns, transactions, products, and customers.",
+      "Predictive ML checkpoints and RL policy checkpoints are stored under the models directory during archive scenario generation."
+    ],
+    "checkpoint_paths": {
+      "heuristics": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\rendor\\models\\heuristic_checkpoint.json",
+      "predictive_models": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\rendor\\models\\strategysignal_predictive.joblib",
+      "rl_policy": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\rendor\\models\\strategysignal_rl_policy.json",
+      "scenario_snapshot": "C:\\Users\\Anusk\\OneDrive\\Desktop\\ml hackathon\\rendor\\models\\scenario_snapshot.json"
+    }
+  }
+}

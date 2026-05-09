@@ -57,6 +57,22 @@ def _clean_items(items: List[str]) -> List[str]:
     return [item.strip() for item in items if str(item).strip()]
 
 
+def _serialize_recommendations(recommendations: List[str]) -> List[dict]:
+    serialized = []
+    for index, description in enumerate(recommendations):
+        if not description:
+            continue
+        serialized.append(
+            {
+                "title": "Top Recommendation" if index == 0 else f"Recommendation {index + 1}",
+                "description": description,
+                "priority": "high" if index == 0 else "medium",
+                "category": "Strategy",
+            }
+        )
+    return serialized
+
+
 def _evaluate_payload(payload: dict) -> dict:
     evaluation = evaluate_strategy(
         features=payload["features"],
@@ -67,6 +83,8 @@ def _evaluate_payload(payload: dict) -> dict:
         product_readiness=payload["product_readiness"],
         competition_intensity=payload["competition_intensity"],
     )
+
+    recommendation_cards = _serialize_recommendations(evaluation["recommendations"])
 
     summary = {
         "strategy_score": evaluation["score"],
@@ -79,6 +97,9 @@ def _evaluate_payload(payload: dict) -> dict:
     }
 
     return {
+        **summary,
+        "fragmentation_risk": summary["fragmentation_score"],
+        "recommendations": recommendation_cards,
         "payload": payload,
         "evaluation": evaluation,
         "summary": summary,
